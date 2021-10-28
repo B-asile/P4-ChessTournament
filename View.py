@@ -11,21 +11,27 @@ class View:
         print("START PROGRAM")
 
     @staticmethod
+    def display_load_db():
+        print("CHARGEMENT DE LA BASE DE DONNEE")
+
+    @staticmethod
+    def display_save_DB():
+        print("SAUVEGARDE DES DONNEES TERMINE")
+
+    @staticmethod
     def input_main_menu():
-        section = input('MENU PRINCIPAL \n '
+        return input('MENU PRINCIPAL \n '
                         '1 - Pour accéder à la Section Joueurs \n '
                         '2 - Pour accéder à la Section Tournois \n '
                         '0 - Pour quitter le Programme \n')
-        return section
 
     @staticmethod
     def input_player_menu():
-        section_players = input('SECTION JOUEURS \n '
+        return input('SECTION JOUEURS \n '
                                 '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n '
                                 '2 - Pour afficher le Classement des Joueurs \n '
                                 '3 - Pour Créer de nouveaux Joueurs \n '
                                 '0 - Pour Retourner au Menu Principale\n')
-        return section_players
 
     # printer player az
     def display_range_a_z(self, list_of_player):
@@ -41,19 +47,22 @@ class View:
 
     # print('Création des Joueurs\n')
 
-    def input_player_last_name(self):
-        return input("saisir le prénom du joueur \n")
-
-    def input_player_first_name(self):
+    def input_Player_first_name(self):
         return input("saisir le nom du joueur \n")
 
-    def input_player_date_of_birth(self):
+    def input_Player_last_name(self):
+        return input("saisir le prénom du joueur \n")
+
+    def input_Player_age(self):
+        return input("saisir l'age du joueur\n")
+
+    def input_Player_date_of_birth(self):
         return input("saisir la date de naissance du joueur \n")
 
-    def input_player_gender(self):
+    def input_Player_gender(self):
         return input("saisir le genre du joueur \n")
 
-    def input_player_rating(self):
+    def input_Player_rating(self):
         return input("saisir le rang du joueur \n")
 
     def display_new_player(self):
@@ -72,25 +81,77 @@ class View:
             '0 - Pour Retourner au Menu Principale\n')
         return section_tournaments
 
-    def display_tournaments(self, tournaments):
-        for tournament in tournaments:
-            print(tournament)
+    def display_tournaments_history(self):
+        print('Liste des Tournois par date:\n')
+        for x in self.controller.lst_tournamentsObj_by_date:
+            print('ID :' + str(x.Tournament_index) + ' ' + x.Tournament_name + ' ' + x.Tournament_date)
+        print('\n')
+
+    def input_find_id(self):
+        return input('ID du Tournois à selectionner\n')
+
+    def display_selected_tournament(self):
+        print("Vous avez selectionné le Tournois: " + self.controller.id.Tournament_name)
+
+    def input_information_tournament(self):
+        return input(' Informations à afficher :\n'
+                     ' 1 - Informations du Tournois : date, description, etc...\n'
+                     ' 2 - Liste des joueurs ayants participés par ordre alphabétique\n'
+                     ' 3 - Liste des joueurs ayants participés (Classement Général)\n'
+                     ' 4 - Liste des Rounds, Matchs et Classement du Tournois\n'
+                     ' 5 - Démarrer/Reprendre : Mode Tournois\n')
+
+    def display_information_tournament_selected(self):
+        return print('INFORMATION DU TOURNOIS: '
+                     '\n- Nom du Tournois: ' + self.controller.id.Tournament_name +
+                     '\n- Date du Tournois: ' + self.controller.id.Tournament_date +
+                     '\n- Description du Tournois: ' + self.controller.id.Tournament_description +
+                     '\n- Localisation du Tournois: ' + self.controller.id.Tournament_location +
+                     '\n- Time Control: ' + self.controller.id.Tournament_ctl_time + '\n')
+
+    def display_players_in_tournament_name(self):
+        print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.Tournament_name)
+
+    def display_tournament_player_by_name(self):
+        for Player in self.controller.tournament_players_by_name:
+            print('Nom: ' + Player.Player_first_name + ' Prenom: ' + Player.Player_last_name)
+        print('\n')
+
+    def display_tournament_player_by_rate1(self):
+        print('PARTICIPANTS (Classement par Score Global) pour le Tournois: ' + self.controller.id.Tournament_name)
+
+    def display_tournament_player_by_rate2(self):
+        for Player in self.controller.tournament_players_by_rate:
+            print('Score Global: ' + str(Player.Player_rating)
+                  + ' Nom: ' + Player.Player_first_name
+                  + ' Prenom: ' + Player.Player_last_name)
+        print('\n')
+
+    def DisplayStartNewTournament(self):
+        print('START A NEW TOURNAMENT')
 
     def input_tournament_name(self):
-        print('INTERFACE DE CREATION DE TOURNOIS\n')
         return input("saisir le nom du tournoi")
 
     def input_tournament_location(self):
         return input("saisir la localité du tournoi")
 
+    def input_tournament_date(self):
+        return input("saisir la date du tournois")
+
+    def input_tournament_nbr_round(self):
+        return input("saisir le nombre de round")
+
+    def input_tournament_description(self):
+        return input("ajoutez une description du tournoi")
+
+
+
+
+
+
     def input_tournament_players(self):
         return int(input("saisir les joueurs participants au tournois"))
-
-    def display_player_for_tournament_choice(self, players):
-        count = 1
-        for player in players:
-            print(f"{count}. {player}")
-            count+=1
 
     def input_tournament_nbr_round(self):
         return input("saisir le nombre de round")
@@ -102,19 +163,11 @@ class View:
                      '2- blitz_timer \n'
                      '3- speed_chess_timer \n')
 
-    def input_tournament_description(self):
-        return input("ajoutez une description du tournoi")
 
-    def display_new_tournament(self):
-        print(self.controller.newtournament)
 
-    def input_return_tournament(self):
-        return input(' 1 - Effectuer une autre action dans cette section \n '
-                     ' 2 - Retourner au Menu Princial\n')
 
-    def display_info_tournament(self):
-        for tournament in self.controller.info_tournament:
-            print(tournament)
+
+
 
     def input_selected_tournament(self):
         return input("saisir id tournoi \n")
@@ -128,23 +181,6 @@ class View:
                      ' 5 - Liste des Rounds du Tournois\n'
                      ' 6 - Liste des Matchs du Tournois\n')
 
-    def display_infos_tournament1(self):
-        print(f"infos du tournoi{self.controller.selected_tournament()}\n")
-
-    def display_infos_tournament2(self):
-        print('Liste des joueurs ayant participés par ordre alphabétique\n')
-
-    def display_infos_tournament3(self):
-        print('Liste des joueurs du Tournois selon le Classement Général\n')
-
-    def display_infos_tournament4(self):
-        print('Liste des joueurs du Tournois selon le classement général\n')
-
-    def display_infos_tournament5(self):
-        print('Liste des Rounds du Tournois\n')
-
-    def display_infos_tournament6(self):
-        print('Liste des Matchs du Tournois\n')
 
     def display_end(self):
         print('Fin du Programme, à bientôt\n')

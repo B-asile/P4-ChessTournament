@@ -1,17 +1,15 @@
-from model import Model
-from Playercls import Playercls
-from Tournamentcls import Tournamentcls
-from DB import DB
-from view import View
-from controller import Controller
+from Controller import Controller
+from Model import Model
+from View import View
+
 
 
 def main():
     my_view = View()
     my_model = Model()
-    chess = Controller(my_view, my_model)
-    my_view.setController(chess)
-    chess.run()
+    game = Controller(my_view, my_model)
+    my_view.setController(game)
+    game.run()
 
 
 if __name__ == '__main__':
