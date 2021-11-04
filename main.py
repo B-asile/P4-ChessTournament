@@ -3,7 +3,6 @@ from Model import Model
 from View import View
 
 
-
 def main():
     my_view = View()
     my_model = Model()

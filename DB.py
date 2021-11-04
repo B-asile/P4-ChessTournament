@@ -10,8 +10,8 @@ from datetime import datetime
 #     def decode(self, s):
 #         return datetime.fromisoformat(s)
 
-class DB:
-    db = TinyDB('db.json')
+class DBcls:
+    db = TinyDB('DB.json')
     table_tournaments = db.table('Tournamentcls')
     table_players = db.table('Playercls')
 
@@ -21,7 +21,7 @@ class DB:
 
     @staticmethod
     def TinyDBDropTables():
-        DB.dbProgramme.drop_tables()
+        DBcls.db.drop_tables()
 
 
 

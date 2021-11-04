@@ -1,21 +1,19 @@
 from Tournamentcls import Tournamentcls
 from Playercls import Playercls
-from Matchs import Matchcls
-from DB import DB
-
+from DB import DBcls
 
 
 class Model:
     def __init__(self):
         # variables de model
         self.lst_playersObj = []
-        self.lst_tournamentsObj =  []
+        self.lst_tournamentsObj = []
         self.lst_matchsObj = []
 
     # 1. Fonction Import données Saved BDD vers Mémoire Programme
     # Fonction Import Tournois
     def load_tournaments(self):
-        for tournament in DB.table_tournaments:
+        for tournament in DBcls.table_tournaments:
             t = Tournamentcls(tournament['Tournament_index'],
                               tournament['Tournament_name'],
                               tournament['Tournament_location'],
@@ -25,10 +23,12 @@ class Model:
                               tournament['Tournament_ctl_time'],
                               tournament['Tournament_description'])
             self.lst_tournamentsObj.append(t)
+            # print(t)
+        print(self.lst_tournamentsObj)
 
     # Fonction Import Joueurs
     def load_players(self):
-        for player in DB.table_players:
+        for player in DBcls.table_players:
             p = Playercls(player['Player_index'],
                           player['Player_first_name'],
                           player['Player_last_name'],
@@ -38,23 +38,24 @@ class Model:
                           player['Player_rating'],
                           player['Player_score'])
             self.lst_playersObj.append(p)
+            # print(p)
+        print(self.lst_playersObj)
 
     # 2. Fonction Sauvegarde des données vers BDD (écraser tout)
     # Fonction Suppression anciennes Tables pour nouvelle sauvegarde
     @staticmethod
     def erase_tables():
-        DB.TinyDBDropTables()
+        DBcls.TinyDBDropTables()
 
     # Fonction Sauvegarde Joueurs
     def save_players(self):
         for player in self.lst_playersObj:
-            DB.table_players.insert(player.__dict__)
+            DBcls.table_players.insert(player.__dict__)
 
     # Fonction Sauvegarde Tournois
     def save_tournaments(self):
         for tournament in self.lst_tournamentsObj:
-            DB.table_tournaments.insert(tournament.__dict__)
-
+            DBcls.table_tournaments.insert(tournament.__dict__)
 
     # """"""""""""""""""""""""""""""""""""""""""""""
 
@@ -64,13 +65,13 @@ class Model:
     # Pour afficher la liste des Joueurs par ordre alphabétique
     # Classer par Nom et Afficher la liste Joueurs de la BDD
     def sort_by_name(self):
-        list_az = sorted(self.lst_playersObj, key=lambda x: x.Player_first_name, reverse=False)
+        list_az = sorted(self.lst_playersObj, key=lambda x: x.Player_first_name.lower(), reverse=False)
         return list_az
 
     # Pour afficher le Classement des Joueurs
     # Classer par Rating et Afficher la liste des Joueurs de la BDD
     def sort_by_rating(self):
-        list_rating = sorted(self.lst_playersObj, key=lambda x: str(x.Player_rating), reverse=True)
+        list_rating = sorted(self.lst_playersObj, key=lambda x: int(x.Player_rating), reverse=True)
         return list_rating
 
     # Pour Créer de nouveaux Joueurs
@@ -79,19 +80,19 @@ class Model:
 
     def add_player_in_class(self, player):
         x = Playercls(player['Player_index'],
-                       player['Player_first_name'],
-                       player['Player_last_name'],
-                       player['Player_age'],
-                       player['Player_date_of_birth'],
-                       player['Player_gender'],
-                       player['Player_rating'],
-                       player['Player_score'])
+                      player['Player_first_name'],
+                      player['Player_last_name'],
+                      player['Player_age'],
+                      player['Player_date_of_birth'],
+                      player['Player_gender'],
+                      player['Player_rating'],
+                      player['Player_score'])
         self.lst_playersObj.append(x)
 
     # 2. Section Tournois :
     # Pour afficher les anciens Tournois et accéder aux options
     def tournaments_history(self):
-        return sorted(self.lst_tournamentsObj, key=lambda x: x.Tournament_date, reverse=False)
+        return sorted(self.lst_tournamentsObj, key=lambda x: str(x.Tournament_date), reverse=False)
 
     # Pour créer un nouveau Tournois
     @staticmethod

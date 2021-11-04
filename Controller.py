@@ -44,9 +44,7 @@ class Controller:
         elif section == '2':
             self.tournament_menu()
         elif section == '0':
-            self.model.save_players()
-            self.model.save_tournaments()
-            self.view.display_end()
+            self.end_run()
             exit()
         else:
             self.error()
@@ -117,15 +115,17 @@ class Controller:
         if section_tournaments == '1':
             # Classer liste des Tournois par date
             self.lst_tournamentsObj_by_date = self.model.tournaments_history()
-            self.view.display_tournaments_history
-            #choix du tournois
-            self.find_id = self.view.input_find_id
+            self.view.display_tournaments_history()
+            # choix du tournois
+            self.find_id = self.view.input_find_id()
             self.id = self.select_tounament()
             self.view.display_selected_tournament()
+            print(self.id.Tournament_players_id)
 
             # Préparation des joueurs de chaque tournois pour les 2 choix suivants:
             # Classement de la liste des Joueurs par ID
-            Lst_players_obj_sorted_by_id = sorted(self.model.lst_playersObj, key=lambda x: x.Player_index, reverse=False)
+            Lst_players_obj_sorted_by_id = sorted(self.model.lst_playersObj, key=lambda x: x.Player_index,
+                                                  reverse=False)
             # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
             selected_tournament_players_id = self.id.Tournament_players_id
             # Itération dans la liste des ID du Tournois
@@ -134,7 +134,7 @@ class Controller:
                 for Player in Lst_players_obj_sorted_by_id:
                     # Si l'ID de la liste correspond à l'ID d'un joueur de la Liste des objets joueurs
                     if x == Player.Player_index:
-                        # Je l'ajoute à la liste des Joueurs du Tournois
+                        # ajout à la liste des Joueurs du Tournois
                         self.tournament_players.append(Player)
 
             # Choix de l'affichage en fonction de l'ID :
@@ -144,34 +144,35 @@ class Controller:
                 # Afficher Informations du Tournois selectionné : date, description, etc...
                 self.view.display_information_tournament_selected()
                 self.main_menu()
-            if info_tournament == '2':
+            elif info_tournament == '2':
                 # Classement de la liste des joueurs du Tournois par nom :
-                self.tournament_players_by_name = sorted(self.tournament_players, key=lambda x: x.Player_first_name, reverse=False)
+                self.tournament_players_by_name = sorted(self.tournament_players, key=lambda x: x.Player_first_name,
+                                                         reverse=False)
                 self.view.display_tournament_player_by_name()
                 self.main_menu()
-            if info_tournament == '3':
+            elif info_tournament == '3':
                 # Pour afficher la Liste des joueurs ayants participés (Classement Général)'
                 self.view.display_tournament_player_by_rate1()
                 # Classement de la liste des joueurs du Tournois par nom :
                 self.tournament_players_by_rate = sorted(self.tournament_players, key=lambda x: x.Player_rating,
-                                                      reverse=True)
+                                                         reverse=True)
                 self.view.display_tournament_player_by_rate2()
                 self.main_menu()
-            if info_tournament == '4':
+            elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
                 print('blablablabla')
                 self.main_menu()
-            if info_tournament == '5':
+            elif info_tournament == '5':
                 self.view.display_start_new_tournament()
                 # vérifier si le tournois possède deja 4ID match X Round et redemarrer a l'endroit ou ca c'est arreté
                 # liste des rounds = bla
                 print(self.id)
                 print('Nombre de Rounds du Tournois : ' + str(self.id.Tournament_nbr_round))
-                # print('ID des participants: ' + str(self.id.Tournament_players_id))
+                print('ID des participants: ' + str(self.id.Tournament_players_id))
                 # print(str(self.tournament_players))
                 # Nombre de joueur /2
                 nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
-                # print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
+                print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
                 # Tri de la liste
                 # def get_Player_score(self.tournament_players):
                 #     return self.tournament_players.get('Player_score', 'Player_rating')
@@ -191,11 +192,11 @@ class Controller:
                 for i in range(nbr_joueurs_by_list):
                     print(str(List1[i]) + ' VS ' + str(List2[i]))
                     m = Matchcls(MatchID=input('ID '),
-                                  MatchP1=str(List1[i]),
-                                  MatchS1=input('Score ' + str(List1[i]) + ': '),
-                                  MatchP2=str(List2[i]),
-                                  MatchS2=input('Score: ' + str(List2[i]) + ': '))
-                    # self.model.LstObjMatchs.append(m)
+                                 MatchP1=str(List1[i]),
+                                 MatchS1=input('Score ' + str(List1[i]) + ': '),
+                                 MatchP2=str(List2[i]),
+                                 MatchS2=input('Score: ' + str(List2[i]) + ': '))
+                    self.model.LstObjMatchs.append(m)
                     print(m.__dict__)
                     self.model.lst_matchsObj.append(m)
                 print(self.model.lst_matchsObj)
@@ -203,7 +204,7 @@ class Controller:
                 #         append des id dans la liste de match du Tournois
                 self.main_menu()
 
-        if section_tournaments == '2':
+        elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
             tournament = {
                 'Tournament_index': self.model.TournamentIndex(),
@@ -218,16 +219,14 @@ class Controller:
             self.model.AddTournamentInClass(tournament)
 
             self.main_menu()
-        if section_tournaments == '0':
+        elif section_tournaments == '0':
             self.view.DisplayReturn_MENU_PRINCIPAL()
             self.main_menu()
         else:
             self.error()
-
 
     # Message et Action suite mauvaise Saisie
 
     def error(self):
         print('Erreur de Saisie, Retour au Menu principal\n')
         return self.main_menu()
-

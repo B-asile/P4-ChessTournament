@@ -24,5 +24,5 @@ class Playercls:
     def __str__(self):
         return f"Playercls: {self.Player_first_name} {self.Player_last_name} [{self.Player_rating}]"
 
-    def __repr__(self):
-        return f"Playercls: {self.Player_first_name} {self.Player_last_name} [{self.Player_rating}]"
+    # def __repr__(self):
+        # return f"Playercls: {self.Player_first_name} {self.Player_last_name} [{self.Player_rating}]"
