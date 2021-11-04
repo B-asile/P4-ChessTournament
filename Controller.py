@@ -146,16 +146,18 @@ class Controller:
                 self.main_menu()
             elif info_tournament == '2':
                 # Classement de la liste des joueurs du Tournois par nom :
-                self.tournament_players_by_name = sorted(self.tournament_players, key=lambda x: x.Player_first_name,
+                self.tournament_players_by_name = sorted(self.tournament_players, key=lambda x: x.Player_first_name.lower(),
                                                          reverse=False)
+                print(self.tournament_players_by_name)
                 self.view.display_tournament_player_by_name()
                 self.main_menu()
             elif info_tournament == '3':
                 # Pour afficher la Liste des joueurs ayants participés (Classement Général)'
                 self.view.display_tournament_player_by_rate1()
-                # Classement de la liste des joueurs du Tournois par nom :
+                # Classement de la liste des joueurs du Tournois par rating :
                 self.tournament_players_by_rate = sorted(self.tournament_players, key=lambda x: x.Player_rating,
                                                          reverse=True)
+                # print(self.tournament_players_by_rate)
                 self.view.display_tournament_player_by_rate2()
                 self.main_menu()
             elif info_tournament == '4':
