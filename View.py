@@ -56,7 +56,7 @@ class View:
 
     @staticmethod
     def input_Player_age():
-        return input("saisir l'age du joueur\n")
+        return int(input("saisir l'age du joueur\n"))
 
     @staticmethod
     def input_Player_date_of_birth():
@@ -68,7 +68,7 @@ class View:
 
     @staticmethod
     def input_Player_rating():
-        return input("saisir le rang du joueur \n")
+        return int(input("saisir le rang du joueur \n"))
 
     def display_new_player(self):
         print(self.controller.newplayer)
@@ -149,7 +149,7 @@ class View:
         return input("saisir la date du tournois")
 
     def input_tournament_nbr_round(self):
-        return input("saisir le nombre de round")
+        return int(input("saisir le nombre de round"))
 
     def input_tournament_description(self):
         return input("ajoutez une description du tournoi")

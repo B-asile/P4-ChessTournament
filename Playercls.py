@@ -22,7 +22,7 @@ class Playercls:
         self.Player_score = player['Player_score']
 
     def __str__(self):
-        return f"Playercls: {self.Player_first_name} {self.Player_last_name} [{self.Player_rating}]"
+        return f"Playercls: {self.Player_first_name} {self.Player_last_name}"
 
     # def __repr__(self):
         # return f"Playercls: {self.Player_first_name} {self.Player_last_name} [{self.Player_rating}]"

@@ -14,6 +14,7 @@ class DBcls:
     db = TinyDB('DB.json')
     table_tournaments = db.table('Tournamentcls')
     table_players = db.table('Playercls')
+    table_matchs = db.table('Matchs')
 
     def __init__(self, table):
         self.table = table

@@ -1,5 +1,6 @@
 from Tournamentcls import Tournamentcls
 from Playercls import Playercls
+from Matchcls import Matchcls
 from DB import DBcls
 
 
@@ -18,10 +19,11 @@ class Model:
                               tournament['Tournament_name'],
                               tournament['Tournament_location'],
                               tournament['Tournament_date'],
-                              tournament['Tournament_players_id'],
                               tournament['Tournament_nbr_round'],
+                              tournament['Tournament_players_id'],
                               tournament['Tournament_ctl_time'],
-                              tournament['Tournament_description'])
+                              tournament['Tournament_description'],
+                              tournament['TournamentMatchID'])
             self.lst_tournamentsObj.append(t)
             # print(t)
         print(self.lst_tournamentsObj)
@@ -41,6 +43,18 @@ class Model:
             # print(p)
         print(self.lst_playersObj)
 
+    # fonction import des matchs
+    def load_matchs(self):
+        for match in DBcls.table_matchs:
+            m = Matchcls(match['MatchID'],
+                         match['MatchP1'],
+                         match['MatchS1'],
+                         match['MatchP2'],
+                         match['MatchS2'])
+            self.lst_matchsObj.append(m)
+            # print(m)
+        print(self.lst_matchsObj)
+
     # 2. Fonction Sauvegarde des données vers BDD (écraser tout)
     # Fonction Suppression anciennes Tables pour nouvelle sauvegarde
     @staticmethod
@@ -56,6 +70,10 @@ class Model:
     def save_tournaments(self):
         for tournament in self.lst_tournamentsObj:
             DBcls.table_tournaments.insert(tournament.__dict__)
+
+    def save_matchs(self):
+        for match in self.lst_matchsObj:
+            DBcls.table_matchs.insert(match.__dict__)
 
     # """"""""""""""""""""""""""""""""""""""""""""""
 
@@ -99,11 +117,11 @@ class Model:
     def tournament_player_ids():
         # todo:print a passer dans le view
         print('Selection des Joueurs du Tournois')
-        Lst = []
+        lst = []
         for x in range(1, 9):
             y = input("Entrer l'id du Player " + str(x) + " :  ")
-            Lst.append(int(y))
-        return Lst
+            lst.append(int(y))
+        return lst
 
     @staticmethod
     def tournament_ctl_time():
@@ -129,3 +147,6 @@ class Model:
                           tournament['Tournament_ctl_time'],
                           tournament['Tournament_description'])
         self.lst_tournamentsObj.append(x)
+
+    def MatchID(self):
+        return int(len(self.lst_matchsObj)) + 1

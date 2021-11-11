@@ -1,5 +1,5 @@
 from operator import attrgetter
-from Matchs import Matchcls
+from Matchcls import Matchcls
 
 
 class Controller:
@@ -14,6 +14,8 @@ class Controller:
         self.tournament_players_by_name = []
         self.tournament_players_by_rate = []
         self.tournament_players = []
+        self.tournament_matchid_in_instance = []
+        self.player_in_instance = []
 
     # Pour selectionner un Tournois (dans la section tournament menu)
     def select_tounament(self):
@@ -29,6 +31,8 @@ class Controller:
         self.model.load_tournaments()
         # Fonction Import Joueurs
         self.model.load_players()
+        # Fonction import matchs
+        self.model.load_matchs()
         # 2- Début du Programme : Accès au Menu Principal
         self.main_menu()
 
@@ -57,6 +61,8 @@ class Controller:
         self.model.save_tournaments()
         # Fonction Sauvegarde Joueurs
         self.model.save_players()
+        # fonction sauvegarde des matchs
+        self.model.save_matchs()
         self.view.display_end()
         exit()
 
@@ -124,14 +130,14 @@ class Controller:
 
             # Préparation des joueurs de chaque tournois pour les 2 choix suivants:
             # Classement de la liste des Joueurs par ID
-            Lst_players_obj_sorted_by_id = sorted(self.model.lst_playersObj, key=lambda x: x.Player_index,
+            lst_players_obj_sorted_by_id = sorted(self.model.lst_playersObj, key=lambda x: x.Player_index,
                                                   reverse=False)
             # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
             selected_tournament_players_id = self.id.Tournament_players_id
             # Itération dans la liste des ID du Tournois
             for x in selected_tournament_players_id:
                 # Itération dans la liste des Joueurs
-                for Player in Lst_players_obj_sorted_by_id:
+                for Player in lst_players_obj_sorted_by_id:
                     # Si l'ID de la liste correspond à l'ID d'un joueur de la Liste des objets joueurs
                     if x == Player.Player_index:
                         # ajout à la liste des Joueurs du Tournois
@@ -146,7 +152,8 @@ class Controller:
                 self.main_menu()
             elif info_tournament == '2':
                 # Classement de la liste des joueurs du Tournois par nom :
-                self.tournament_players_by_name = sorted(self.tournament_players, key=lambda x: x.Player_first_name.lower(),
+                self.tournament_players_by_name = sorted(self.tournament_players,
+                                                         key=lambda x: x.Player_first_name.lower(),
                                                          reverse=False)
                 print(self.tournament_players_by_name)
                 self.view.display_tournament_player_by_name()
@@ -155,7 +162,8 @@ class Controller:
                 # Pour afficher la Liste des joueurs ayants participés (Classement Général)'
                 self.view.display_tournament_player_by_rate1()
                 # Classement de la liste des joueurs du Tournois par rating :
-                self.tournament_players_by_rate = sorted(self.tournament_players, key=lambda x: x.Player_rating,
+                self.tournament_players_by_rate = sorted(self.tournament_players,
+                                                         key=lambda x: x.Player_rating,
                                                          reverse=True)
                 # print(self.tournament_players_by_rate)
                 self.view.display_tournament_player_by_rate2()
@@ -167,44 +175,89 @@ class Controller:
             elif info_tournament == '5':
                 self.view.display_start_new_tournament()
                 # vérifier si le tournois possède deja 4ID match X Round et redemarrer a l'endroit ou ca c'est arreté
-                # liste des rounds = bla
-                print(self.id)
-                print('Nombre de Rounds du Tournois : ' + str(self.id.Tournament_nbr_round))
-                print('ID des participants: ' + str(self.id.Tournament_players_id))
-                # print(str(self.tournament_players))
-                # Nombre de joueur /2
-                nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
-                print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
-                # Tri de la liste
-                # def get_Player_score(self.tournament_players):
-                #     return self.tournament_players.get('Player_score', 'Player_rating')
-                # self.tournament_players.sort(key=itemgetter('Player_score', 'Player_rating'), reverse=True)
-                sorted(self.tournament_players, key=attrgetter('Player_score', 'Player_rating'), reverse=True)
-                # print("Liste triée par Rang: ")
-                # print(self.tournament_players)
-                # Liste de la première moitié
-                # print("Liste 1:")
-                List1 = self.tournament_players[:nbr_joueurs_by_list]
-                # print(List1)
-                # Liste de la deuxieme moitié
-                # print("Liste 2:")
-                List2 = self.tournament_players[-nbr_joueurs_by_list:]
-                # print(List2)
-                # Création des Tuples = parties :
-                for i in range(nbr_joueurs_by_list):
-                    print(str(List1[i]) + ' VS ' + str(List2[i]))
-                    m = Matchcls(MatchID=input('ID '),
-                                 MatchP1=str(List1[i]),
-                                 MatchS1=input('Score ' + str(List1[i]) + ': '),
-                                 MatchP2=str(List2[i]),
-                                 MatchS2=input('Score: ' + str(List2[i]) + ': '))
-                    self.model.LstObjMatchs.append(m)
-                    print(m.__dict__)
-                    self.model.lst_matchsObj.append(m)
-                print(self.model.lst_matchsObj)
-                #         création du tuple Matchs avec le construct
-                #         append des id dans la liste de match du Tournois
-                self.main_menu()
+                self.tournament_matchid_in_instance = self.id.TournamentMatchID
+                print('Nombre de Rounds executés précédement : '
+                      + str(int((len(self.tournament_matchid_in_instance)) / 4)))
+                if str(int((len(self.tournament_matchid_in_instance)) / 4)) == str(self.id.Tournament_nbr_round):
+                    print("Nombre de Round Max atteint, retour au menu principal")
+                    self.main_menu()
+                else:
+                    print(self.id)
+                    print('Nombre de Rounds du Tournois : ' + str(self.id.Tournament_nbr_round))
+                    print('ID des participants: ' + str(self.id.Tournament_players_id))
+                    # print(str(self.tournament_players))
+                    # Nombre de joueur /2
+                    nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
+                    print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
+                    # Tri de la liste
+                    # def get_Player_score(self.tournament_players):
+                    #     return self.tournament_players.get('Player_score', 'Player_rating')
+                    # self.tournament_players.sort(key=itemgetter('Player_score', 'Player_rating'), reverse=True)
+                    if int((len(self.tournament_matchid_in_instance) / 4)) == 0:
+                        sorted(self.tournament_players,
+                               key=lambda x: x.Player_rating,
+                               reverse=True)
+                        # création des deux listes
+                        list1 = self.tournament_players[:nbr_joueurs_by_list]
+                        list2 = self.tournament_players[-nbr_joueurs_by_list:]
+
+                    else:
+                        # Remplir les Scores des joueurs de self.tournament_players avec les rouds précédents
+                        for index in self.id.Tournament_players_id:
+                            for Player in lst_players_obj_sorted_by_id:
+                                # print(Player)
+                                if index == Player.Player_index:
+                                    self.player_in_instance.append(Player)
+                        # Réinitialisation des score des joueurs
+                        for Player in self.player_in_instance:
+                            Player.Player_score = 0
+                        # Ajout des scores des matchs précédents
+                        for Player in self.player_in_instance:
+                            for Match in self.model.lst_matchsObj:
+                                # print(Player)
+                                # print(Player.Player_score)
+                                # print(Match.MatchP1)
+                                # print(Match.MatchS1)
+                                if str(Player) == str(Match.MatchP1):
+                                    Player.Player_score = (int(Player.Player_score) + int(Match.MatchS1))
+                            for Match in self.model.lst_matchsObj:
+                                if str(Player) == str(Match.MatchP2):
+                                    Player.Player_score = (int(Player.Player_score) + int(Match.MatchS2))
+                        for Player in self.player_in_instance:
+                            print(Player)
+                            print(Player.Player_score)
+                        # triage
+                        sorted(self.player_in_instance, key=lambda x: x.Player_score, reverse=True)
+                        # sorted(self.player_in_instance, key=attrgetter('Player_score','Player_rating'), reverse=True)
+                        # creation des deux listes
+                        list1 = self.player_in_instance[:nbr_joueurs_by_list]
+                        list2 = self.player_in_instance[-nbr_joueurs_by_list:]
+                    # début des matchs
+                    # Création des Tuples = parties :
+                    for i in range(nbr_joueurs_by_list):
+                        print(str(list1[i]) + ' VS ' + str(list2[i]))
+                        m = Matchcls(MatchID=self.model.MatchID(),
+                                     MatchP1=str(list1[i]),
+                                     MatchS1=input('Score ' + str(list1[i]) + ': '),
+                                     MatchP2=str(list2[i]),
+                                     MatchS2=input('Score: ' + str(list2[i]) + ': '))
+                        # création du tuple Matchs avec le construct
+                        # append des id dans la liste de match du Tournois
+                        self.tournament_matchid_in_instance.append(self.model.MatchID())
+                        self.model.lst_matchsObj.append(m)
+                        # Mise a jour du Rating dans les listes de joueurs
+                        for Player in lst_players_obj_sorted_by_id:
+                            # print(Player)
+                            # print(str(list1[i]))
+                            if str(Player) == str(list1[i]):
+                                Player.Player_rating = (int(Player.Player_rating) + int(m.MatchS1))
+                            if str(Player) == str(list2[i]):
+                                Player.Player_rating = (int(Player.Player_rating) + int(m.MatchS2))
+                        print(m.__dict__)
+                    print(self.model.lst_matchsObj)
+                    # Mise a jour de la liste de matchs dans l'objet tournois selectionné de la liste des tournois
+                    self.id.TournamentMatchID = self.tournament_matchid_in_instance
+                    self.main_menu()
 
         elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
