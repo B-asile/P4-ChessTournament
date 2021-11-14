@@ -171,18 +171,18 @@ class Controller:
                 self.main_menu()
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
-                print('Déroulement du tournois')
+                print('Déroulement du tournois ' + self.id.Tournament_name)
                 print('Nombre de round : ' + str(self.id.Tournament_nbr_round))
                 lst_round = self.id.TournamentMatchID
 
-                list_rnd_to_display = lst_round[:4]
-                print('matchs de ce round')
-                for x in list_rnd_to_display :
-                    print(x)
-                del lst_round[4:]
-
-
-
+                for round in range (int(self.id.Tournament_nbr_round)) :
+                    list_rnd_to_display = lst_round[:4]
+                    print('Matchs du round '+str(round + 1))
+                    for match_id in list_rnd_to_display :
+                        for match in self.model.lst_matchsObj :
+                            if match_id == match.MatchID :
+                                print(match)
+                    del lst_round[:4]
 
                 self.main_menu()
             elif info_tournament == '5':
