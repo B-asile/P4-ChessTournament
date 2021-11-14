@@ -43,7 +43,7 @@ class View:
     def display_range_rating(self, list_of_player):
         print('Classement des Joueurs\n')
         for player in list_of_player:
-            print(player)
+            print(str(player) + '  ' + str(player.Player_rating))
 
     # print('Création des Joueurs\n')
     @staticmethod

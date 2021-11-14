@@ -16,6 +16,7 @@ class Controller:
         self.tournament_players = []
         self.tournament_matchid_in_instance = []
         self.player_in_instance = []
+        self.player_in_instance_sorted = []
 
     # Pour selectionner un Tournois (dans la section tournament menu)
     def select_tounament(self):
@@ -155,7 +156,7 @@ class Controller:
                 self.tournament_players_by_name = sorted(self.tournament_players,
                                                          key=lambda x: x.Player_first_name.lower(),
                                                          reverse=False)
-                print(self.tournament_players_by_name)
+                # print(self.tournament_players_by_name)
                 self.view.display_tournament_player_by_name()
                 self.main_menu()
             elif info_tournament == '3':
@@ -170,7 +171,19 @@ class Controller:
                 self.main_menu()
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
-                print('blablablabla')
+                print('Déroulement du tournois')
+                print('Nombre de round : ' + str(self.id.Tournament_nbr_round))
+                lst_round = self.id.TournamentMatchID
+
+                list_rnd_to_display = lst_round[:4]
+                print('matchs de ce round')
+                for x in list_rnd_to_display :
+                    print(x)
+                del lst_round[4:]
+
+
+
+
                 self.main_menu()
             elif info_tournament == '5':
                 self.view.display_start_new_tournament()
@@ -194,12 +207,16 @@ class Controller:
                     #     return self.tournament_players.get('Player_score', 'Player_rating')
                     # self.tournament_players.sort(key=itemgetter('Player_score', 'Player_rating'), reverse=True)
                     if int((len(self.tournament_matchid_in_instance) / 4)) == 0:
-                        sorted(self.tournament_players,
-                               key=lambda x: x.Player_rating,
-                               reverse=True)
+                        self.player_in_instance = self.tournament_players
+                        self.player_in_instance_sorted = sorted(self.player_in_instance,
+                                                           key=lambda x: x.Player_rating,
+                                                           reverse=True)
+                        print('tri 1 : par Classement')
+                        for player in self.player_in_instance_sorted:
+                            print(str(player) + '  ' + str(player.Player_rating))
                         # création des deux listes
-                        list1 = self.tournament_players[:nbr_joueurs_by_list]
-                        list2 = self.tournament_players[-nbr_joueurs_by_list:]
+                        list1 = self.player_in_instance_sorted[:nbr_joueurs_by_list]
+                        list2 = self.player_in_instance_sorted[-nbr_joueurs_by_list:]
 
                     else:
                         # Remplir les Scores des joueurs de self.tournament_players avec les rouds précédents
@@ -227,11 +244,13 @@ class Controller:
                             print(Player)
                             print(Player.Player_score)
                         # triage
-                        sorted(self.player_in_instance, key=lambda x: x.Player_score, reverse=True)
-                        # sorted(self.player_in_instance, key=attrgetter('Player_score','Player_rating'), reverse=True)
+                        self.player_in_instance_sorted = sorted(self.player_in_instance,key=attrgetter('Player_score', 'Player_rating'),reverse=True)
+                        print('tri 2 : par Score puis Classement')
+                        for player in self.player_in_instance_sorted :
+                            print(str(player) + '  ' + str(player.Player_score) + '  ' + str(player.Player_rating))
                         # creation des deux listes
-                        list1 = self.player_in_instance[:nbr_joueurs_by_list]
-                        list2 = self.player_in_instance[-nbr_joueurs_by_list:]
+                        list1 = self.player_in_instance_sorted[:nbr_joueurs_by_list]
+                        list2 = self.player_in_instance_sorted[-nbr_joueurs_by_list:]
                     # début des matchs
                     # Création des Tuples = parties :
                     for i in range(nbr_joueurs_by_list):
