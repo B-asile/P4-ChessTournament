@@ -1,5 +1,6 @@
 from operator import attrgetter
 from Matchcls import Matchcls
+import datetime
 
 
 class Controller:
@@ -259,7 +260,9 @@ class Controller:
                                      MatchP1=str(list1[i]),
                                      MatchS1=input('Score ' + str(list1[i]) + ': '),
                                      MatchP2=str(list2[i]),
-                                     MatchS2=input('Score: ' + str(list2[i]) + ': '))
+                                     MatchS2=input('Score: ' + str(list2[i]) + ': '),
+                                     Datetime=str(datetime.datetime.now())
+                                     )
                         # création du tuple Matchs avec le construct
                         # append des id dans la liste de match du Tournois
                         self.tournament_matchid_in_instance.append(self.model.MatchID())
