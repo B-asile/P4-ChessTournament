@@ -20,7 +20,7 @@ class View:
 
     @staticmethod
     def input_main_menu():
-        return input('*** MENU PRINCIPAL *** \n'
+        return input('\n*** MENU PRINCIPAL *** \n'
                      '1 - Pour accéder à la Section Joueurs \n'
                      '2 - Pour accéder à la Section Tournois \n'
                      '0 - Pour quitter le Programme \n')
@@ -102,8 +102,18 @@ class View:
     def input_find_id():
         return input('ID du Tournois à selectionner\n')
 
-    def display_selected_tournament(self):
-        print("Vous avez selectionné le Tournois: " + self.controller.id.Tournament_name)
+    def display_selected_tournament(self, id):
+        print("Vous avez selectionné le Tournois: " + id.Tournament_name + '\n')
+
+    def display_happen_in_tournament(self, id):
+        print('Déroulement du tournois ' + id.Tournament_name)
+        print('Nombre de round : ' + str(id.Tournament_nbr_round))
+
+    def display_round_for_match(self, round):
+        print('Matchs du round ' + str(round + 1))
+
+    def display_match_in_round(self, match):
+        print(match)
 
     @staticmethod
     def input_information_tournament():
@@ -125,19 +135,18 @@ class View:
     def display_players_in_tournament_name(self):
         print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.Tournament_name)
 
-    def display_tournament_player_by_name(self):
-        for Player in self.controller.tournament_players_by_name:
-            print('Nom: ' + Player.Player_first_name + ' Prenom: ' + Player.Player_last_name)
+    def display_tournament_player_by_name(self, list_of_player):
+        print('PARTICIPANTS (Classement par Noms)')
+        for player in list_of_player:
+            print('Nom: ' + player.Player_first_name + ' Prenom: ' + player.Player_last_name)
         print('\n')
 
-    def display_tournament_player_by_rate1(self):
-        print('PARTICIPANTS (Classement par Score Global) pour le Tournois: ' + self.controller.id.Tournament_name)
-
-    def display_tournament_player_by_rate2(self):
-        for Player in self.controller.tournament_players_by_rate:
-            print('Score Global: ' + str(Player.Player_rating)
-                  + ' Nom: ' + Player.Player_first_name
-                  + ' Prenom: ' + Player.Player_last_name)
+    def display_tournament_player_by_rate(self, list_of_player):
+        print('PARTICIPANTS (Classement par Score Global)')
+        for player in list_of_player:
+            print('Score Global: ' + str(player.Player_rating)
+                  + ' Nom: ' + player.Player_first_name
+                  + ' Prenom: ' + player.Player_last_name)
         print('\n')
 
     @staticmethod

@@ -10,6 +10,10 @@ class Model:
         self.lst_playersObj = []
         self.lst_tournamentsObj = []
         self.lst_matchsObj = []
+        self.find_id = 0
+        self.id = 0
+        self.tournament_players = []
+        self.lst_players_obj_sorted_by_id = []
 
     # 1. Fonction Import données Saved BDD vers Mémoire Programme
     # Fonction Import Tournois
@@ -108,9 +112,50 @@ class Model:
         self.lst_playersObj.append(x)
 
     # 2. Section Tournois :
+    def select_tounament(self):
+        # Déclaration des variables pour la selection de tournois
+        for selection in self.lst_tournamentsObj:
+            if selection.Tournament_index == int(self.find_id):
+                self.id = selection
+                return selection
+
+    def search_tournament_player(self):
+        self.lst_players_obj_sorted_by_id = sorted(self.lst_playersObj, key=lambda x: x.Player_index,
+                                              reverse=False)
+        # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
+        selected_tournament_players_id = self.id.Tournament_players_id
+        # Itération dans la liste des ID du Tournois
+        for id in selected_tournament_players_id:
+            # Itération dans la liste des Joueurs
+            for Player in self.lst_players_obj_sorted_by_id:
+                # Si l'ID de la liste correspond à l'ID d'un joueur de la Liste des objets joueurs
+                if id == Player.Player_index:
+                    # ajout à la liste des Joueurs du Tournois
+                    self.tournament_players.append(Player)
+
     # Pour afficher les anciens Tournois et accéder aux options
     def tournaments_history(self):
         return sorted(self.lst_tournamentsObj, key=lambda x: str(x.Tournament_date), reverse=False)
+
+    # Classement de la liste des joueurs du Tournois par nom :
+    def tournament_players_by_name(self):
+        return sorted(self.tournament_players, key=lambda x: x.Player_first_name.lower(), reverse=False)
+
+    # Classement de la liste des joueurs du Tournois par rating :
+    def tournament_players_by_rate(self):
+        return sorted(self.tournament_players, key=lambda x: x.Player_rating, reverse=True)
+
+    def match_by_round(self):
+        lst_round = self.id.TournamentMatchID
+        for round in range(int(self.id.Tournament_nbr_round)):
+            list_rnd_to_display = lst_round[:4]
+            print('Matchs du round ' + str(round + 1))
+            for match_id in list_rnd_to_display:
+                for match in self.lst_matchsObj:
+                    if match_id == match.MatchID:
+                        print(match)
+            del lst_round[:4]
+
 
     # Pour créer un nouveau Tournois
     @staticmethod

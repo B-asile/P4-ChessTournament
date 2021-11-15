@@ -10,21 +10,14 @@ class Controller:
         self.model = model
         # Listes & variables du Controller
         self.lst_tournamentsObj_by_date = []
-        self.id = 0
-        self.find_id = 0
-        self.tournament_players_by_name = []
         self.tournament_players_by_rate = []
-        self.tournament_players = []
+
         self.tournament_matchid_in_instance = []
         self.player_in_instance = []
         self.player_in_instance_sorted = []
 
     # Pour selectionner un Tournois : à déclarer en amont de la partie tournois
-    def select_tounament(self):
-        # Déclaration des variables pour la selection de tournois
-        for selection in self.model.lst_tournamentsObj:
-            if selection.Tournament_index == int(self.find_id):
-                return selection
+
 
     # Début du code : Création d'une instance à partir du JSON de la bdd
     def run(self):
@@ -121,30 +114,16 @@ class Controller:
     def tournament_menu(self):
         section_tournaments = self.view.input_tournament_menu()
         if section_tournaments == '1':
-            # Classer liste des Tournois par date
+            # Classer liste des Tournois par date pour permettre la selection des ID
             self.lst_tournamentsObj_by_date = self.model.tournaments_history()
             self.view.display_tournaments_history()
-            # choix du tournois
-            self.find_id = self.view.input_find_id()
-            self.id = self.select_tounament()
-            self.view.display_selected_tournament()
-            # print(self.id.Tournament_players_id)
-
-            # Préparation des joueurs de chaque tournois pour les 2 choix suivants:
+            # choix du tournois dans la liste affiché ci-dessus
+            self.model.find_id = self.view.input_find_id()
+            # initialisation de la variable id qui va servir dans le menu tournois
+            self.view.display_selected_tournament(self.model.select_tounament())
+            # Préparation des joueurs de chaque tournois pour les 2 de tri suivants:
             # Classement de la liste des Joueurs par ID
-            lst_players_obj_sorted_by_id = sorted(self.model.lst_playersObj, key=lambda x: x.Player_index,
-                                                  reverse=False)
-            # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
-            selected_tournament_players_id = self.id.Tournament_players_id
-            # Itération dans la liste des ID du Tournois
-            for id in selected_tournament_players_id:
-                # Itération dans la liste des Joueurs
-                for Player in lst_players_obj_sorted_by_id:
-                    # Si l'ID de la liste correspond à l'ID d'un joueur de la Liste des objets joueurs
-                    if id == Player.Player_index:
-                        # ajout à la liste des Joueurs du Tournois
-                        self.tournament_players.append(Player)
-
+            self.tournament_players = self.model.search_tournament_player()
             # Choix de l'affichage en fonction de l'ID :
             info_tournament = self.view.input_information_tournament()
 
@@ -154,35 +133,23 @@ class Controller:
                 self.main_menu()
             elif info_tournament == '2':
                 # Classement de la liste des joueurs du Tournois par nom :
-                self.tournament_players_by_name = sorted(self.tournament_players,
-                                                         key=lambda x: x.Player_first_name.lower(),
-                                                         reverse=False)
-                # print(self.tournament_players_by_name)
-                self.view.display_tournament_player_by_name()
+                self.view.display_tournament_player_by_name(self.model.tournament_players_by_name())
                 self.main_menu()
             elif info_tournament == '3':
-                # Pour afficher la Liste des joueurs ayants participés (Classement Général)'
-                self.view.display_tournament_player_by_rate1()
                 # Classement de la liste des joueurs du Tournois par rating :
-                self.tournament_players_by_rate = sorted(self.tournament_players,
-                                                         key=lambda x: x.Player_rating,
-                                                         reverse=True)
-                # print(self.tournament_players_by_rate)
-                self.view.display_tournament_player_by_rate2()
+                self.view.display_tournament_player_by_rate(self.model.tournament_players_by_rate())
                 self.main_menu()
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
-                print('Déroulement du tournois ' + self.id.Tournament_name)
-                print('Nombre de round : ' + str(self.id.Tournament_nbr_round))
-                lst_round = self.id.TournamentMatchID
-
-                for round in range(int(self.id.Tournament_nbr_round)):
+                self.view.display_happen_in_tournament(self.model.id)
+                lst_round = self.model.id.TournamentMatchID
+                for round in range(int(self.model.id.Tournament_nbr_round)):
                     list_rnd_to_display = lst_round[:4]
-                    print('Matchs du round ' + str(round + 1))
+                    self.view.display_round_for_match(round)
                     for match_id in list_rnd_to_display:
                         for match in self.model.lst_matchsObj:
                             if match_id == match.MatchID:
-                                print(match)
+                                self.view.display_match_in_round(match)
                     del lst_round[:4]
 
                 self.main_menu()
@@ -201,14 +168,14 @@ class Controller:
                     print('ID des participants: ' + str(self.id.Tournament_players_id))
                     # print(str(self.tournament_players))
                     # Nombre de joueur /2
-                    nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
+                    nbr_joueurs_by_list = int(len(self.model.tournament_players) / 2)
                     print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
                     # Tri de la liste
                     # def get_Player_score(self.tournament_players):
                     #     return self.tournament_players.get('Player_score', 'Player_rating')
                     # self.tournament_players.sort(key=itemgetter('Player_score', 'Player_rating'), reverse=True)
                     if int((len(self.tournament_matchid_in_instance) / 4)) == 0:
-                        self.player_in_instance = self.tournament_players
+                        self.player_in_instance = self.model.tournament_players
                         self.player_in_instance_sorted = sorted(self.player_in_instance,
                                                                 key=lambda x: x.Player_rating,
                                                                 reverse=True)
@@ -222,7 +189,7 @@ class Controller:
                     else:
                         # Remplir les Scores des joueurs de self.tournament_players avec les rouds précédents
                         for index in self.id.Tournament_players_id:
-                            for Player in lst_players_obj_sorted_by_id:
+                            for Player in self.model.lst_players_obj_sorted_by_id:
                                 # print(Player)
                                 if index == Player.Player_index:
                                     self.player_in_instance.append(Player)
@@ -270,7 +237,7 @@ class Controller:
                         self.tournament_matchid_in_instance.append(self.model.MatchID())
                         self.model.lst_matchsObj.append(m)
                         # Mise a jour du Rating dans les listes de joueurs
-                        for Player in lst_players_obj_sorted_by_id:
+                        for Player in self.model.lst_players_obj_sorted_by_id:
                             # print(Player)
                             # print(str(list1[i]))
                             if str(Player) == str(list1[i]):
