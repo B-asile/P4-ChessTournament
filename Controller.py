@@ -30,11 +30,9 @@ class Controller:
     def run(self):
         self.view.display_start()
         self.view.display_load_db()
-        # Fonction import des Tournois du Json dans la liste du model
+        # Fonction import des Tournois, players & match du Json dans la liste du model
         self.model.load_tournaments()
-        # Fonction Import Joueurs du Json dans la liste du model
         self.model.load_players()
-        # Fonction import matchs du Json dans la liste du model
         self.model.load_matchs()
         # 2- Début du Programme : Accès au Menu Principal
         self.main_menu()
@@ -61,12 +59,11 @@ class Controller:
         # Fonction pour Supprimer puis Sauvegarder les nouvelles BDD
         self.model.erase_tables()
         self.view.display_save_DB()
-        # Fonction Sauvegarde Tournois
+        # Fonction Sauvegarde Tournois, Tounois, matchs
         self.model.save_tournaments()
-        # Fonction Sauvegarde Joueurs
         self.model.save_players()
-        # fonction sauvegarde des matchs
         self.model.save_matchs()
+        # Fonction permettant de voir que le programme est terminé
         self.view.display_end()
         exit()
 
@@ -121,7 +118,6 @@ class Controller:
     # 1. afficher la liste des anciens Tournois et accéder aux options
     # 2. Créer un nouveau Tournois
     # 0. Retour au Menu Principal
-
     def tournament_menu(self):
         section_tournaments = self.view.input_tournament_menu()
         if section_tournaments == '1':
