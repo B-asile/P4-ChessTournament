@@ -93,7 +93,7 @@ class Model:
         return list_rating
 
     # Pour Créer de nouveaux Joueurs
-    def Player_index(self):
+    def player_index(self):
         return int(len(self.lst_playersObj)) + 1
 
     def add_player_in_class(self, player):
@@ -134,10 +134,10 @@ class Model:
         if x == '2': return 'BLITZ'
         if x == '3': return 'COUP RAPIDE'
 
-    def TournamentIndex(self):
+    def tournament_index(self):
         return int(len(self.lst_tournamentsObj)) + 1
 
-    def AddTournamentInClass(self, tournament):
+    def add_tournament_in_class(self, tournament):
         x = Tournamentcls(tournament['Tournament_index'],
                           tournament['Tournament_name'],
                           tournament['Tournament_location'],
@@ -148,5 +148,5 @@ class Model:
                           tournament['Tournament_description'])
         self.lst_tournamentsObj.append(x)
 
-    def MatchID(self):
+    def match_id(self):
         return int(len(self.lst_matchsObj)) + 1

@@ -25,6 +25,7 @@ class Controller:
         for selection in self.model.lst_tournamentsObj:
             if selection.Tournament_index == int(self.find_id):
                 return selection
+
     # Début du code : Création d'une instance à partir du JSON de la bdd
     def run(self):
         self.view.display_start()
@@ -89,7 +90,7 @@ class Controller:
             # Pour Créer de nouveaux Joueurs
             # Création des attributs de l'objet joueur
             player = {
-                'Player_index': self.model.Player_index(),
+                'Player_index': self.model.player_index(),
                 'Player_first_name': self.view.input_Player_first_name(),
                 'Player_last_name': self.view.input_Player_last_name(),
                 'Player_age': self.view.input_Player_age(),
@@ -140,11 +141,11 @@ class Controller:
             # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
             selected_tournament_players_id = self.id.Tournament_players_id
             # Itération dans la liste des ID du Tournois
-            for x in selected_tournament_players_id:
+            for id in selected_tournament_players_id:
                 # Itération dans la liste des Joueurs
                 for Player in lst_players_obj_sorted_by_id:
                     # Si l'ID de la liste correspond à l'ID d'un joueur de la Liste des objets joueurs
-                    if x == Player.Player_index:
+                    if id == Player.Player_index:
                         # ajout à la liste des Joueurs du Tournois
                         self.tournament_players.append(Player)
 
@@ -179,12 +180,12 @@ class Controller:
                 print('Nombre de round : ' + str(self.id.Tournament_nbr_round))
                 lst_round = self.id.TournamentMatchID
 
-                for round in range (int(self.id.Tournament_nbr_round)) :
+                for round in range(int(self.id.Tournament_nbr_round)):
                     list_rnd_to_display = lst_round[:4]
-                    print('Matchs du round '+str(round + 1))
-                    for match_id in list_rnd_to_display :
-                        for match in self.model.lst_matchsObj :
-                            if match_id == match.MatchID :
+                    print('Matchs du round ' + str(round + 1))
+                    for match_id in list_rnd_to_display:
+                        for match in self.model.lst_matchsObj:
+                            if match_id == match.MatchID:
                                 print(match)
                     del lst_round[:4]
 
@@ -213,8 +214,8 @@ class Controller:
                     if int((len(self.tournament_matchid_in_instance) / 4)) == 0:
                         self.player_in_instance = self.tournament_players
                         self.player_in_instance_sorted = sorted(self.player_in_instance,
-                                                           key=lambda x: x.Player_rating,
-                                                           reverse=True)
+                                                                key=lambda x: x.Player_rating,
+                                                                reverse=True)
                         print('tri 1 : par Classement')
                         for player in self.player_in_instance_sorted:
                             print(str(player) + '  ' + str(player.Player_rating))
@@ -248,9 +249,11 @@ class Controller:
                             print(Player)
                             print(Player.Player_score)
                         # triage
-                        self.player_in_instance_sorted = sorted(self.player_in_instance,key=attrgetter('Player_score', 'Player_rating'),reverse=True)
+                        self.player_in_instance_sorted = sorted(self.player_in_instance,
+                                                                key=attrgetter('Player_score', 'Player_rating'),
+                                                                reverse=True)
                         print('tri 2 : par Score puis Classement')
-                        for player in self.player_in_instance_sorted :
+                        for player in self.player_in_instance_sorted:
                             print(str(player) + '  ' + str(player.Player_score) + '  ' + str(player.Player_rating))
                         # creation des deux listes
                         list1 = self.player_in_instance_sorted[:nbr_joueurs_by_list]
@@ -259,7 +262,7 @@ class Controller:
                     # Création des Tuples = parties :
                     for i in range(nbr_joueurs_by_list):
                         print(str(list1[i]) + ' VS ' + str(list2[i]))
-                        m = Matchcls(MatchID=self.model.MatchID(),
+                        m = Matchcls(MatchID=self.model.match_id(),
                                      MatchP1=str(list1[i]),
                                      MatchS1=input('Score ' + str(list1[i]) + ': '),
                                      MatchP2=str(list2[i]),
@@ -287,7 +290,7 @@ class Controller:
         elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
             tournament = {
-                'Tournament_index': self.model.TournamentIndex(),
+                'Tournament_index': self.model.tournament_index(),
                 'Tournament_name': self.view.input_tournament_name(),
                 'Tournament_location': self.view.input_tournament_location(),
                 'Tournament_date': self.view.input_tournament_date(),
@@ -296,7 +299,7 @@ class Controller:
                 'Tournament_ctl_time': self.model.tournament_ctl_time(),
                 'Tournament_description': self.view.input_tournament_description()
             }
-            self.model.AddTournamentInClass(tournament)
+            self.model.add_tournament_in_class(tournament)
 
             self.main_menu()
         elif section_tournaments == '0':

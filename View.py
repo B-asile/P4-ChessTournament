@@ -140,38 +140,48 @@ class View:
                   + ' Prenom: ' + Player.Player_last_name)
         print('\n')
 
-    def display_start_new_tournament(self):
+    @staticmethod
+    def display_start_new_tournament():
         print('START A NEW TOURNAMENT')
 
-    def input_tournament_name(self):
+    @staticmethod
+    def input_tournament_name():
         return input("saisir le nom du tournoi")
 
-    def input_tournament_location(self):
+    @staticmethod
+    def input_tournament_location():
         return input("saisir la localité du tournoi")
 
-    def input_tournament_date(self):
+    @staticmethod
+    def input_tournament_date():
         return input("saisir la date du tournois")
 
-    def input_tournament_nbr_round(self):
+    @staticmethod
+    def input_tournament_nbr_round():
         return int(input("saisir le nombre de round"))
 
-    def input_tournament_description(self):
+    @staticmethod
+    def input_tournament_description():
         return input("ajoutez une description du tournoi")
 
-    def input_tournament_players(self):
+    @staticmethod
+    def input_tournament_players():
         return int(input("saisir les joueurs participants au tournois"))
 
-    def input_tournament_ctl_time(self):
+    @staticmethod
+    def input_tournament_ctl_time():
         return input('CHOISIR UN CONTROLEUR TEMPS \n'
                      'tapez 1, 2 ou 3 \n'
                      '1- bullet_timer \n'
                      '2- blitz_timer \n'
                      '3- speed_chess_timer \n')
 
-    def input_selected_tournament(self):
+    @staticmethod
+    def input_selected_tournament():
         return input("saisir id tournoi \n")
 
-    def input_infos_tournament(self):
+    @staticmethod
+    def input_infos_tournament():
         return input(' INFORMATIONS TOURNOI :\n'
                      ' 1 - Informations du Tournois : date, description, etc...\n'
                      ' 2 - Liste des joueurs ayants participés par ordre alphabétique\n'
@@ -180,5 +190,6 @@ class View:
                      ' 5 - Liste des Rounds du Tournois\n'
                      ' 6 - Liste des Matchs du Tournois\n')
 
-    def display_end(self):
+    @staticmethod
+    def display_end():
         print('Fin du Programme, à bientôt\n')
