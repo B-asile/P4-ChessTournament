@@ -11,7 +11,6 @@ class Controller:
         # Listes & variables du Controller
         self.lst_tournamentsObj_by_date = []
         self.tournament_players_by_rate = []
-
         self.tournament_matchid_in_instance = []
         self.player_in_instance = []
         self.player_in_instance_sorted = []
@@ -23,7 +22,7 @@ class Controller:
     def run(self):
         self.view.display_start()
         self.view.display_load_db()
-        # Fonction import des Tournois, players & match du Json dans la liste du model
+        # Fonction import des tournois, players & match du Json dans la liste du model
         self.model.load_tournaments()
         self.model.load_players()
         self.model.load_matchs()
@@ -75,7 +74,6 @@ class Controller:
             # Classer par Rating et Afficher la liste des Joueurs de la BDD
             self.view.display_player_sort_by_rating(self.model.player_sort_by_rating())
             self.return_players()
-            # self.view.input_player_menu()
         elif section_players == '3':
             # Pour Créer de nouveaux Joueurs
             # Création des attributs de l'objet joueur
@@ -122,14 +120,14 @@ class Controller:
             # initialisation de la variable id qui va servir dans le menu tournois
             self.view.display_selected_tournament(self.model.select_tounament())
             # Préparation des joueurs de chaque tournois pour les 2 de tri suivants:
-            # Classement de la liste des Joueurs par ID
+            # transformation liste ID en List d'objet
             self.tournament_players = self.model.search_tournament_player()
             # Choix de l'affichage en fonction de l'ID :
             info_tournament = self.view.input_information_tournament()
 
             if info_tournament == '1':
                 # Afficher Informations du Tournois selectionné : date, description, etc...
-                self.view.display_information_tournament_selected()
+                self.view.display_information_tournament_selected(self.model.id)
                 self.main_menu()
             elif info_tournament == '2':
                 # Classement de la liste des joueurs du Tournois par nom :
@@ -142,34 +140,38 @@ class Controller:
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
                 self.view.display_happen_in_tournament(self.model.id)
-                lst_round = self.model.id.TournamentMatchID
+                lst_match = self.model.id.TournamentMatchID
                 for round in range(int(self.model.id.Tournament_nbr_round)):
-                    list_rnd_to_display = lst_round[:4]
+                    list_rnd_to_display = lst_match[:4]
                     self.view.display_round_for_match(round)
                     for match_id in list_rnd_to_display:
                         for match in self.model.lst_matchsObj:
                             if match_id == match.MatchID:
                                 self.view.display_match_in_round(match)
-                    del lst_round[:4]
+                    del lst_match[:4]
 
                 self.main_menu()
+
+# *** REPRENDRE MVC A PARTIR D'ICI ***
+
             elif info_tournament == '5':
+                # print demarrage d'un nouveau tournois
                 self.view.display_start_new_tournament()
-                # vérifier si le tournois possède deja 4ID match X Round et redemarrer a l'endroit ou ca c'est arreté
-                self.tournament_matchid_in_instance = self.id.TournamentMatchID
+                # vérifier si le tournois possède deja 4ID match X Round et redemarrer à l'endroit ou ca c'est arreté
+                self.tournament_matchid_in_instance = self.model.id.TournamentMatchID
                 print('Nombre de Rounds executés précédement : '
                       + str(int((len(self.tournament_matchid_in_instance)) / 4)))
-                if str(int((len(self.tournament_matchid_in_instance)) / 4)) == str(self.id.Tournament_nbr_round):
+                if str(int((len(self.tournament_matchid_in_instance)) / 4)) == str(self.model.id.Tournament_nbr_round):
                     print("Nombre de Round Max atteint, retour au menu principal")
                     self.main_menu()
                 else:
-                    print(self.id)
-                    print('Nombre de Rounds du Tournois : ' + str(self.id.Tournament_nbr_round))
-                    print('ID des participants: ' + str(self.id.Tournament_players_id))
+                    print(self.model.id)
+                    print('Nombre de Rounds du Tournois : ' + str(self.model.id.Tournament_nbr_round))
+                    print('ID des participants: ' + str(self.model.id.Tournament_players_id))
                     # print(str(self.tournament_players))
                     # Nombre de joueur /2
                     nbr_joueurs_by_list = int(len(self.model.tournament_players) / 2)
-                    print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
+                    # print("Nombre de joueur par liste: " + str(nbr_joueurs_by_list))
                     # Tri de la liste
                     # def get_Player_score(self.tournament_players):
                     #     return self.tournament_players.get('Player_score', 'Player_rating')
@@ -179,7 +181,6 @@ class Controller:
                         self.player_in_instance_sorted = sorted(self.player_in_instance,
                                                                 key=lambda x: x.Player_rating,
                                                                 reverse=True)
-                        print('tri 1 : par Classement')
                         for player in self.player_in_instance_sorted:
                             print(str(player) + '  ' + str(player.Player_rating))
                         # création des deux listes
@@ -188,7 +189,7 @@ class Controller:
 
                     else:
                         # Remplir les Scores des joueurs de self.tournament_players avec les rouds précédents
-                        for index in self.id.Tournament_players_id:
+                        for index in self.model.id.Tournament_players_id:
                             for Player in self.model.lst_players_obj_sorted_by_id:
                                 # print(Player)
                                 if index == Player.Player_index:
@@ -234,7 +235,7 @@ class Controller:
                                      )
                         # création du tuple Matchs avec le construct
                         # append des id dans la liste de match du Tournois
-                        self.tournament_matchid_in_instance.append(self.model.MatchID())
+                        self.tournament_matchid_in_instance.append(self.model.match_id())
                         self.model.lst_matchsObj.append(m)
                         # Mise a jour du Rating dans les listes de joueurs
                         for Player in self.model.lst_players_obj_sorted_by_id:
@@ -247,7 +248,7 @@ class Controller:
                         print(m.__dict__)
                     print(self.model.lst_matchsObj)
                     # Mise a jour de la liste de matchs dans l'objet tournois selectionné de la liste des tournois
-                    self.id.TournamentMatchID = self.tournament_matchid_in_instance
+                    self.model.id.TournamentMatchID = self.tournament_matchid_in_instance
                     self.main_menu()
 
         elif section_tournaments == '2':

@@ -87,7 +87,7 @@ class View:
     def input_tournament_menu():
         section_tournaments = input(
             'SECTION TOURNOIS \n '
-            '1 - Pour afficher les anciens Tournois et accéder aux options \n '
+            '1 - Pour accéder aux tournois (anciens & en cours) \n '
             '2 - Pour Créer un nouveau Tournois \n '
             '0 - Pour Retourner au Menu Principale\n')
         return section_tournaments
@@ -124,13 +124,13 @@ class View:
                      ' 4 - Liste des Rounds, Matchs et Classement du Tournois\n'
                      ' 5 - Démarrer/Reprendre : Mode Tournois\n')
 
-    def display_information_tournament_selected(self):
+    def display_information_tournament_selected(self, id):
         return print('INFORMATION DU TOURNOIS: '
-                     '\n- Nom du Tournois: ' + self.controller.id.Tournament_name +
-                     '\n- Date du Tournois: ' + self.controller.id.Tournament_date +
-                     '\n- Description du Tournois: ' + self.controller.id.Tournament_description +
-                     '\n- Localisation du Tournois: ' + self.controller.id.Tournament_location +
-                     '\n- Time Control: ' + self.controller.id.Tournament_ctl_time + '\n')
+                     '\n- Nom du Tournois: ' + id.Tournament_name +
+                     '\n- Date du Tournois: ' + id.Tournament_date +
+                     '\n- Description du Tournois: ' + id.Tournament_description +
+                     '\n- Localisation du Tournois: ' + id.Tournament_location +
+                     '\n- Time Control: ' + id.Tournament_ctl_time + '\n')
 
     def display_players_in_tournament_name(self):
         print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.Tournament_name)
