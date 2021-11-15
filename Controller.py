@@ -19,21 +19,21 @@ class Controller:
         self.player_in_instance = []
         self.player_in_instance_sorted = []
 
-    # Pour selectionner un Tournois (dans la section tournament menu)
+    # Pour selectionner un Tournois : à déclarer en amont de la partie tournois
     def select_tounament(self):
         # Déclaration des variables pour la selection de tournois
-        for x in self.model.lst_tournamentsObj:
-            if x.Tournament_index == int(self.find_id):
-                return x
-
+        for selection in self.model.lst_tournamentsObj:
+            if selection.Tournament_index == int(self.find_id):
+                return selection
+    # Début du code : Création d'une instance à partir du JSON de la bdd
     def run(self):
         self.view.display_start()
         self.view.display_load_db()
-        # Fonction import des Tournois du Json dans la liste
+        # Fonction import des Tournois du Json dans la liste du model
         self.model.load_tournaments()
-        # Fonction Import Joueurs
+        # Fonction Import Joueurs du Json dans la liste du model
         self.model.load_players()
-        # Fonction import matchs
+        # Fonction import matchs du Json dans la liste du model
         self.model.load_matchs()
         # 2- Début du Programme : Accès au Menu Principal
         self.main_menu()
@@ -55,6 +55,7 @@ class Controller:
         else:
             self.error()
 
+    # Fin du code : Sauvegarde de l'instance dans le JSON de la bdd
     def end_run(self):
         # Fonction pour Supprimer puis Sauvegarder les nouvelles BDD
         self.model.erase_tables()
@@ -77,15 +78,16 @@ class Controller:
         section_players = self.view.input_player_menu()
         if section_players == '1':
             # Classer par Nom et Afficher la liste Joueurs de la BDD
-            self.view.display_range_a_z(self.model.sort_by_name())
-            self.main_menu()
+            self.view.display_player_sort_by_name(self.model.player_sort_by_name())
+            self.return_players()
         elif section_players == '2':
             # Classer par Rating et Afficher la liste des Joueurs de la BDD
-            self.view.display_range_rating(self.model.sort_by_rating())
-            self.main_menu()
+            self.view.display_player_sort_by_rating(self.model.player_sort_by_rating())
+            self.return_players()
             # self.view.input_player_menu()
         elif section_players == '3':
             # Pour Créer de nouveaux Joueurs
+            # Création des attributs de l'objet joueur
             player = {
                 'Player_index': self.model.Player_index(),
                 'Player_first_name': self.view.input_Player_first_name(),
@@ -95,15 +97,16 @@ class Controller:
                 'Player_gender': self.view.input_Player_gender(),
                 'Player_rating': self.view.input_Player_rating(),
                 'Player_score': 0}
+            # Initialisation de l'objet dans la classe
             self.model.add_player_in_class(player)
-            self.main_menu()
+            self.return_players()
         elif section_players == '0':
-            print('Retour au menu princial\n')
+            self.view.display_return_menu()
             self.main_menu()
         else:
             self.error()
 
-    # Retour au Menu Player ou Menu principal à la fin de chaque choix sans la section Joueur
+    # Retour au Menu Player ou Menu principal à la fin de chaque choix
     def return_players(self):
         choice = self.view.input_return_players()
         if choice == '1':
@@ -128,7 +131,7 @@ class Controller:
             self.find_id = self.view.input_find_id()
             self.id = self.select_tounament()
             self.view.display_selected_tournament()
-            print(self.id.Tournament_players_id)
+            # print(self.id.Tournament_players_id)
 
             # Préparation des joueurs de chaque tournois pour les 2 choix suivants:
             # Classement de la liste des Joueurs par ID

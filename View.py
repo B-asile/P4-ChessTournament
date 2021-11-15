@@ -20,27 +20,27 @@ class View:
 
     @staticmethod
     def input_main_menu():
-        return input('MENU PRINCIPAL \n '
-                     '1 - Pour accéder à la Section Joueurs \n '
-                     '2 - Pour accéder à la Section Tournois \n '
+        return input('*** MENU PRINCIPAL *** \n'
+                     '1 - Pour accéder à la Section Joueurs \n'
+                     '2 - Pour accéder à la Section Tournois \n'
                      '0 - Pour quitter le Programme \n')
 
     @staticmethod
     def input_player_menu():
-        return input('SECTION JOUEURS \n '
-                     '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n '
-                     '2 - Pour afficher le Classement des Joueurs \n '
-                     '3 - Pour Créer de nouveaux Joueurs \n '
+        return input('*** SECTION JOUEURS *** \n'
+                     '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n'
+                     '2 - Pour afficher le Classement des Joueurs \n'
+                     '3 - Pour Créer de nouveaux Joueurs \n'
                      '0 - Pour Retourner au Menu Principale\n')
 
     # printer player az
-    def display_range_a_z(self, list_of_player):
+    def display_player_sort_by_name(self, list_of_player):
         print('Liste des Joueurs par ordre alphabétique\n')
         for player in list_of_player:
             print(player)
 
     # printer player rating
-    def display_range_rating(self, list_of_player):
+    def display_player_sort_by_rating(self, list_of_player):
         print('Classement des Joueurs\n')
         for player in list_of_player:
             print(str(player) + '  ' + str(player.Player_rating))
@@ -74,8 +74,12 @@ class View:
         print(self.controller.newplayer)
 
     @staticmethod
+    def display_return_menu():
+        print('Retour au menu princial\n')
+
+    @staticmethod
     def input_return_players():
-        choice = input('1 - Effectuer une autre action dans cette section \n '
+        choice = input('1 - Effectuer une autre action dans cette section \n'
                        '2 - Retourner au Menu Princial\n')
         return choice
 

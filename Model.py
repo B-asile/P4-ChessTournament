@@ -82,13 +82,13 @@ class Model:
     # 1. Section Player :
     # Pour afficher la liste des Joueurs par ordre alphabétique
     # Classer par Nom et Afficher la liste Joueurs de la BDD
-    def sort_by_name(self):
+    def player_sort_by_name(self):
         list_az = sorted(self.lst_playersObj, key=lambda x: x.Player_first_name.lower(), reverse=False)
         return list_az
 
     # Pour afficher le Classement des Joueurs
     # Classer par Rating et Afficher la liste des Joueurs de la BDD
-    def sort_by_rating(self):
+    def player_sort_by_rating(self):
         list_rating = sorted(self.lst_playersObj, key=lambda x: int(x.Player_rating), reverse=True)
         return list_rating
 
