@@ -17,7 +17,6 @@ class Controller:
 
     # Pour selectionner un Tournois : à déclarer en amont de la partie tournois
 
-
     # Début du code : Création d'une instance à partir du JSON de la bdd
     def run(self):
         self.view.display_start()
@@ -152,7 +151,7 @@ class Controller:
 
                 self.main_menu()
 
-# *** REPRENDRE MVC A PARTIR D'ICI ***
+            # *** REPRENDRE MVC A PARTIR D'ICI ***
 
             elif info_tournament == '5':
                 # print demarrage d'un nouveau tournois
@@ -220,8 +219,46 @@ class Controller:
                         for player in self.player_in_instance_sorted:
                             print(str(player) + '  ' + str(player.Player_score) + '  ' + str(player.Player_rating))
                         # creation des deux listes
-                        list1 = self.player_in_instance_sorted[:nbr_joueurs_by_list]
-                        list2 = self.player_in_instance_sorted[-nbr_joueurs_by_list:]
+                        # Elements de la liste self.player_in_instance_sorted commençant par 0 iteration 2
+                        list1 = self.player_in_instance_sorted[::2]
+                        # Elements de la liste self.player_in_instance_sorted commençant par 1 iteration 2
+                        list2 = self.player_in_instance_sorted[1::2]
+                        # Test si match deja existant dans les rounds précédents
+                        # pour chaque prochain round
+                        for i in range(nbr_joueurs_by_list):
+                            # pour chaque id de round deja fait dans ce tournois
+                            for m in self.model.id.TournamentMatchID:
+                                # pour chaque matchs deja fait dans l'absolue
+                                for p in self.model.lst_matchsObj:
+                                    if str(list1[i]) == p.MatchP1 and str(list2[i]) == p.MatchP2 and m == p.MatchID:
+                                        list1 = []
+                                        list1.append(self.player_in_instance_sorted[0])
+                                        list1.append(self.player_in_instance_sorted[1])
+                                        list1.append(self.player_in_instance_sorted[4])
+                                        list1.append(self.player_in_instance_sorted[5])
+                                        list2 = []
+                                        list2.append(self.player_in_instance_sorted[2])
+                                        list2.append(self.player_in_instance_sorted[3])
+                                        list2.append(self.player_in_instance_sorted[6])
+                                        list2.append(self.player_in_instance_sorted[7])
+                                        print('une partie a deja été jouée, le tri a été modifié')
+                                        pass
+                                    if str(list1[i]) == p.MatchP2 and str(list2[i]) == p.MatchP1 and m == p.MatchID:
+                                        list1 = []
+                                        list1.append(self.player_in_instance_sorted[0])
+                                        list1.append(self.player_in_instance_sorted[1])
+                                        list1.append(self.player_in_instance_sorted[4])
+                                        list1.append(self.player_in_instance_sorted[5])
+                                        list2 = []
+                                        list2.append(self.player_in_instance_sorted[2])
+                                        list2.append(self.player_in_instance_sorted[3])
+                                        list2.append(self.player_in_instance_sorted[6])
+                                        list2.append(self.player_in_instance_sorted[7])
+                                        print('une partie a deja été jouée, le tri a été modifié')
+                                        pass
+                                    else:
+                                        pass
+
                     # début des matchs
                     # Création des Tuples = parties :
                     for i in range(nbr_joueurs_by_list):

@@ -14,7 +14,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-# Gestion des matchs deja fait .....
+# finir de reprendre le model MVC
 # verifier si dans la reprise des matchs ils ajoute bien que ceux du bon tournois
 # modifier la création des listes 1 et 2 dans le 2eme choix de créations de match
