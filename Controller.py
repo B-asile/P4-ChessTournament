@@ -198,16 +198,17 @@ class Controller:
                             Player.Player_score = 0
                         # Ajout des scores des matchs précédents
                         for Player in self.player_in_instance:
-                            for Match in self.model.lst_matchsObj:
-                                # print(Player)
-                                # print(Player.Player_score)
-                                # print(Match.MatchP1)
-                                # print(Match.MatchS1)
-                                if str(Player) == str(Match.MatchP1):
-                                    Player.Player_score = (float(Player.Player_score) + float(Match.MatchS1))
-                            for Match in self.model.lst_matchsObj:
-                                if str(Player) == str(Match.MatchP2):
-                                    Player.Player_score = (float(Player.Player_score) + float(Match.MatchS2))
+                            for m in self.model.id.TournamentMatchID:
+                                for Match in self.model.lst_matchsObj:
+                                    # print(Player)
+                                    # print(Player.Player_score)
+                                    # print(Match.MatchP1)
+                                    # print(Match.MatchS1)
+                                    if str(Player) == str(Match.MatchP1) and m == Match.MatchID:
+                                        Player.Player_score = (float(Player.Player_score) + float(Match.MatchS1))
+                                for Match in self.model.lst_matchsObj:
+                                    if str(Player) == str(Match.MatchP2) and m == Match.MatchID:
+                                        Player.Player_score = (float(Player.Player_score) + float(Match.MatchS2))
                         for Player in self.player_in_instance:
                             print(Player)
                             print(Player.Player_score)
