@@ -43,7 +43,7 @@ class View:
     def display_player_sort_by_rating(self, list_of_player):
         print('Classement des Joueurs\n')
         for player in list_of_player:
-            print(str(player) + '  ' + str(player.Player_rating))
+            print(str(player) + '  ' + '(Score: ' + str(player.Player_rating) + ')')
 
     # print('Création des Joueurs\n')
     @staticmethod
@@ -68,7 +68,7 @@ class View:
 
     @staticmethod
     def input_Player_rating():
-        return int(input("saisir le rang du joueur \n"))
+        return float(input("saisir le rang du joueur \n"))
 
     def display_new_player(self):
         print(self.controller.newplayer)
@@ -155,27 +155,27 @@ class View:
 
     @staticmethod
     def input_tournament_name():
-        return input("saisir le nom du tournoi")
+        return input("saisir le nom du tournois\n")
 
     @staticmethod
     def input_tournament_location():
-        return input("saisir la localité du tournoi")
+        return input("saisir la localité du tournois\n")
 
     @staticmethod
     def input_tournament_date():
-        return input("saisir la date du tournois")
+        return input("saisir la date du tournois\n")
 
     @staticmethod
     def input_tournament_nbr_round():
-        return int(input("saisir le nombre de round"))
+        return int(input("saisir le nombre de round\n"))
 
     @staticmethod
     def input_tournament_description():
-        return input("ajoutez une description du tournoi")
+        return input("ajoutez une description du tournoi\n")
 
     @staticmethod
     def input_tournament_players():
-        return int(input("saisir les joueurs participants au tournois"))
+        return int(input("saisir les joueurs participants au tournois\n"))
 
     @staticmethod
     def input_tournament_ctl_time():

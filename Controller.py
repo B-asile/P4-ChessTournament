@@ -205,10 +205,10 @@ class Controller:
                                 # print(Match.MatchP1)
                                 # print(Match.MatchS1)
                                 if str(Player) == str(Match.MatchP1):
-                                    Player.Player_score = (int(Player.Player_score) + int(Match.MatchS1))
+                                    Player.Player_score = (float(Player.Player_score) + float(Match.MatchS1))
                             for Match in self.model.lst_matchsObj:
                                 if str(Player) == str(Match.MatchP2):
-                                    Player.Player_score = (int(Player.Player_score) + int(Match.MatchS2))
+                                    Player.Player_score = (float(Player.Player_score) + float(Match.MatchS2))
                         for Player in self.player_in_instance:
                             print(Player)
                             print(Player.Player_score)
@@ -242,9 +242,9 @@ class Controller:
                             # print(Player)
                             # print(str(list1[i]))
                             if str(Player) == str(list1[i]):
-                                Player.Player_rating = (int(Player.Player_rating) + int(m.MatchS1))
+                                Player.Player_rating = (float(Player.Player_rating) + float(m.MatchS1))
                             if str(Player) == str(list2[i]):
-                                Player.Player_rating = (int(Player.Player_rating) + int(m.MatchS2))
+                                Player.Player_rating = (float(Player.Player_rating) + float(m.MatchS2))
                         print(m.__dict__)
                     print(self.model.lst_matchsObj)
                     # Mise a jour de la liste de matchs dans l'objet tournois selectionné de la liste des tournois
