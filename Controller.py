@@ -200,10 +200,6 @@ class Controller:
                         for Player in self.player_in_instance:
                             for m in self.model.id.TournamentMatchID:
                                 for Match in self.model.lst_matchsObj:
-                                    # print(Player)
-                                    # print(Player.Player_score)
-                                    # print(Match.MatchP1)
-                                    # print(Match.MatchS1)
                                     if str(Player) == str(Match.MatchP1) and m == Match.MatchID:
                                         Player.Player_score = (float(Player.Player_score) + float(Match.MatchS1))
                                 for Match in self.model.lst_matchsObj:
