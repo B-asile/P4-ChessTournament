@@ -121,7 +121,7 @@ class Model:
 
     def search_tournament_player(self):
         self.lst_players_obj_sorted_by_id = sorted(self.lst_playersObj, key=lambda x: x.Player_index,
-                                              reverse=False)
+                                                   reverse=False)
         # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
         selected_tournament_players_id = self.id.Tournament_players_id
         # Itération dans la liste des ID du Tournois
@@ -155,7 +155,6 @@ class Model:
                     if match_id == match.MatchID:
                         print(match)
             del lst_round[:4]
-
 
     # Pour créer un nouveau Tournois
     @staticmethod
