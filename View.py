@@ -163,6 +163,9 @@ class View:
     def selected_tournament_name(self, id):
         print(id)
 
+    def display_current_match(self, player1, player2):
+        print(str(player1) + ' VS ' + str(player2))
+
     def selected_tournament_round(self, Tournament_nbr_round):
         print('Nombre de Rounds du Tournois : ' + str(Tournament_nbr_round))
 

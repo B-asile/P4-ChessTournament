@@ -162,7 +162,9 @@ class Controller:
                     # Création des Tuples = parties :
 
                     for i in range(self.model.nbr_joueurs_by_list):
-                        print(str(self.model.list1[i]) + ' VS ' + str(self.model.list2[i]))
+                        # Affichage du match en cours avec l'iteration 1 de la list 1 et 1 de la list 2
+                        self.view.display_current_match(self.model.list1[i],self.model.list2[i])
+
                         m = Matchcls(MatchID=self.model.match_id(),
                                      MatchP1=str(self.model.list1[i]),
                                      MatchS1=input('Score ' + str(self.model.list1[i]) + ': '),
