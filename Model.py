@@ -1,3 +1,4 @@
+from operator import attrgetter
 from Tournamentcls import Tournamentcls
 from Playercls import Playercls
 from Matchcls import Matchcls
@@ -14,6 +15,11 @@ class Model:
         self.id = 0
         self.tournament_players = []
         self.lst_players_obj_sorted_by_id = []
+        self.tournament_matchid_in_instance = []
+        self.list1 = []
+        self.list2 = []
+        self.player_in_instance = []
+        self.nbr_joueurs_by_list = 0
 
     # 1. Fonction Import données Saved BDD vers Mémoire Programme
     # Fonction Import Tournois
@@ -144,6 +150,97 @@ class Model:
     # Classement de la liste des joueurs du Tournois par rating :
     def tournament_players_by_rate(self):
         return sorted(self.tournament_players, key=lambda x: x.Player_rating, reverse=True)
+
+    def tournament_matchid_instanced(self):
+        self.tournament_matchid_in_instance = self.id.TournamentMatchID
+        return (self.tournament_matchid_in_instance)
+
+    def match2lists_creation(self):
+        self.nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
+        # si le match commence (round = 0) tri par classement
+        if int((len(self.tournament_matchid_in_instance) / 4)) == 0:
+            self.player_in_instance = self.tournament_players
+            self.player_in_instance_sorted = sorted(self.player_in_instance,
+                                                    key=lambda x: x.Player_rating,
+                                                    reverse=True)
+            # for player in self.player_in_instance_sorted:
+            #    print(str(player) + '  ' + str(player.Player_rating))
+            # création des deux listes
+            self.list1 = self.player_in_instance_sorted[:self.nbr_joueurs_by_list]
+            self.list2 = self.player_in_instance_sorted[-self.nbr_joueurs_by_list:]
+        # si le match est deja en cours, récupération des anciens scores
+        else:
+            # Remplir les Scores des joueurs de self.tournament_players avec les rouds précédents
+            for index in self.id.Tournament_players_id:
+                for Player in self.lst_players_obj_sorted_by_id:
+                    # print(Player)
+                    if index == Player.Player_index:
+                        self.player_in_instance.append(Player)
+            # Réinitialisation des score des joueurs
+            for Player in self.player_in_instance:
+                Player.Player_score = 0
+            # Ajout des scores des matchs précédents
+            for Player in self.player_in_instance:
+                for m in self.id.TournamentMatchID:
+                    for Match in self.lst_matchsObj:
+                        if str(Player) == str(Match.MatchP1) and m == Match.MatchID:
+                            Player.Player_score = (float(Player.Player_score) + float(Match.MatchS1))
+                    for Match in self.lst_matchsObj:
+                        if str(Player) == str(Match.MatchP2) and m == Match.MatchID:
+                            Player.Player_score = (float(Player.Player_score) + float(Match.MatchS2))
+            # for Player in self.player_in_instance:
+            #     print(Player)
+            #     print(Player.Player_score)
+            # triage par score puis par classement
+            self.player_in_instance_sorted = sorted(self.player_in_instance,
+                                                    key=attrgetter('Player_score', 'Player_rating'),
+                                                    reverse=True)
+            # print('tri 2 : par Score puis Classement')
+            # for player in self.player_in_instance_sorted:
+            #    print(str(player) + '  ' + str(player.Player_score) + '  ' + str(player.Player_rating))
+            # creation des deux listes
+            # Elements de la liste self.player_in_instance_sorted commençant par 0 iteration 2
+            self.list1 = self.player_in_instance_sorted[::2]
+            # Elements de la liste self.player_in_instance_sorted commençant par 1 iteration 2
+            self.list2 = self.player_in_instance_sorted[1::2]
+            # Test si match deja existant dans les rounds précédents
+            # pour chaque prochain round
+            for i in range(self.nbr_joueurs_by_list):
+                # pour chaque id de round deja fait dans ce tournois
+                for m in self.id.TournamentMatchID:
+                    # pour chaque matchs deja fait dans l'absolue
+                    for p in self.lst_matchsObj:
+                        if str(self.list1[i]) == p.MatchP1 and str(self.list2[i]) == p.MatchP2 and m == p.MatchID:
+                            self.list1 = []
+                            self.list1.append(self.player_in_instance_sorted[0])
+                            self.list1.append(self.player_in_instance_sorted[1])
+                            self.list1.append(self.player_in_instance_sorted[4])
+                            self.list1.append(self.player_in_instance_sorted[5])
+                            self.list2 = []
+                            self.list2.append(self.player_in_instance_sorted[2])
+                            self.list2.append(self.player_in_instance_sorted[3])
+                            self.list2.append(self.player_in_instance_sorted[6])
+                            self.list2.append(self.player_in_instance_sorted[7])
+                            # print('une partie a deja été jouée, le tri a été modifié')
+                            pass
+                        if str(self.list1[i]) == p.MatchP2 and str(self.list2[i]) == p.MatchP1 and m == p.MatchID:
+                            self.list1 = []
+                            self.list1.append(self.player_in_instance_sorted[0])
+                            self.list1.append(self.player_in_instance_sorted[1])
+                            self.list1.append(self.player_in_instance_sorted[4])
+                            self.list1.append(self.player_in_instance_sorted[5])
+                            self.list2 = []
+                            self.list2.append(self.player_in_instance_sorted[2])
+                            self.list2.append(self.player_in_instance_sorted[3])
+                            self.list2.append(self.player_in_instance_sorted[6])
+                            self.list2.append(self.player_in_instance_sorted[7])
+                            # print('une partie a deja été jouée, le tri a été modifié')
+                            pass
+                        else:
+                            pass
+
+
+
 
     def match_by_round(self):
         lst_round = self.id.TournamentMatchID

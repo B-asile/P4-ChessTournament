@@ -15,3 +15,4 @@ if __name__ == '__main__':
     main()
 
 # finir de reprendre le model MVC
+# certains codes dans le model a passer dans la view

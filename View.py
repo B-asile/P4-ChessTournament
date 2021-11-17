@@ -153,6 +153,24 @@ class View:
     def display_start_new_tournament():
         print('START A NEW TOURNAMENT')
 
+    def nbr_round_before(self, tournament_matchid_in_instance):
+        print('Nombre de Rounds executés précédement : ' + str(int((len(tournament_matchid_in_instance)) / 4)))
+
+    @staticmethod
+    def max_round():
+        print("Nombre de Round Max atteint, retour au menu principal")
+
+    def selected_tournament_name(self, id):
+        print(id)
+
+    def selected_tournament_round(self, Tournament_nbr_round):
+        print('Nombre de Rounds du Tournois : ' + str(Tournament_nbr_round))
+
+    def selected_players_ids(self, Tournament_players_id):
+        print('ID des participants: ' + str(Tournament_players_id))
+
+
+
     @staticmethod
     def input_tournament_name():
         return input("saisir le nom du tournois\n")
