@@ -9,8 +9,6 @@ class Controller:
         self.view = view
         self.model = model
         # Listes & variables du Controller
-        self.lst_tournamentsObj_by_date = []
-        self.tournament_players_by_rate = []
         self.tournament_matchid_in_instance = []
         self.player_in_instance = []
         self.player_in_instance_sorted = []
@@ -112,8 +110,7 @@ class Controller:
         section_tournaments = self.view.input_tournament_menu()
         if section_tournaments == '1':
             # Classer liste des Tournois par date pour permettre la selection des ID
-            self.lst_tournamentsObj_by_date = self.model.tournaments_history()
-            self.view.display_tournaments_history()
+            self.view.display_tournaments_history(self.model.tournaments_history())
             # choix du tournois dans la liste affiché ci-dessus
             self.model.find_id = self.view.input_find_id()
             # initialisation de la variable id qui va servir dans le menu tournois
@@ -148,15 +145,13 @@ class Controller:
                             if match_id == match.MatchID:
                                 self.view.display_match_in_round(match)
                     del lst_match[:4]
-
                 self.main_menu()
-
-            # *** REPRENDRE MVC A PARTIR D'ICI ***
-
             elif info_tournament == '5':
                 # print demarrage d'un nouveau tournois
                 self.view.display_start_new_tournament()
                 # vérifier si le tournois possède deja 4ID match X Round et redemarrer à l'endroit ou ca c'est arreté
+                # Nombre de rounds executés précédement
+
                 self.tournament_matchid_in_instance = self.model.id.TournamentMatchID
                 print('Nombre de Rounds executés précédement : '
                       + str(int((len(self.tournament_matchid_in_instance)) / 4)))

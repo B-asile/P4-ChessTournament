@@ -92,9 +92,9 @@ class View:
             '0 - Pour Retourner au Menu Principale\n')
         return section_tournaments
 
-    def display_tournaments_history(self):
+    def display_tournaments_history(self, list_tournament_obj_by_date):
         print('Liste des Tournois par date:\n')
-        for x in self.controller.lst_tournamentsObj_by_date:
+        for x in list_tournament_obj_by_date:
             print('ID :' + str(x.Tournament_index) + ' ' + x.Tournament_name + ' ' + str(x.Tournament_date))
         print('\n')
 
