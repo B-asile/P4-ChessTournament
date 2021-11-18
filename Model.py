@@ -2,6 +2,7 @@ from operator import attrgetter
 from Tournamentcls import Tournamentcls
 from Playercls import Playercls
 from Matchcls import Matchcls
+import datetime
 from DB import DBcls
 
 
@@ -239,8 +240,33 @@ class Model:
                         else:
                             pass
 
+    def match_datetime(self):
+        return (str(datetime.datetime.now()))
 
+    def match_id(self):
+        return int(len(self.lst_matchsObj)) + 1
 
+    def add_tournament_in_match(self, match, i):
+        m = Matchcls(match['MatchID'],
+                     match['MatchP1'],
+                     match['MatchS1'],
+                     match['MatchP2'],
+                     match['MatchS2'],
+                     match['Datetime'],
+                     )
+        # création du tuple Matchs avec le construct
+        # append des id dans la liste de match du Tournois
+        self.tournament_matchid_in_instance.append(self.match_id())
+        self.lst_matchsObj.append(m)
+        # Mise a jour du Rating dans les listes de joueurs
+        for Player in self.lst_players_obj_sorted_by_id:
+            # print(Player)
+            # print(str(self.model.list1[i]))
+            if str(Player) == str(self.list1[i]):
+                Player.Player_rating = (float(Player.Player_rating) + float(m.MatchS1))
+            if str(Player) == str(self.list2[i]):
+                Player.Player_rating = (float(Player.Player_rating) + float(m.MatchS2))
+        # print(m.__dict__)
 
     def match_by_round(self):
         lst_round = self.id.TournamentMatchID
@@ -252,28 +278,6 @@ class Model:
                     if match_id == match.MatchID:
                         print(match)
             del lst_round[:4]
-
-    # Pour créer un nouveau Tournois
-    @staticmethod
-    def tournament_player_ids():
-        # todo:print a passer dans le view
-        print('Selection des Joueurs du Tournois')
-        lst = []
-        for x in range(1, 9):
-            y = input("Entrer l'id du Player " + str(x) + " :  ")
-            lst.append(int(y))
-        return lst
-
-    @staticmethod
-    def tournament_ctl_time():
-        # todo:print a passer dans le view
-        print('*** TimeControl ***')
-        x = input("1 - Pour selectionner un bullet\n"
-                  "2 - Pour selectionner un blitz\n"
-                  "3 - Pour selectionner un coup rapide\n")
-        if x == '1': return 'BULLET'
-        if x == '2': return 'BLITZ'
-        if x == '3': return 'COUP RAPIDE'
 
     def tournament_index(self):
         return int(len(self.lst_tournamentsObj)) + 1
@@ -288,6 +292,3 @@ class Model:
                           tournament['Tournament_ctl_time'],
                           tournament['Tournament_description'])
         self.lst_tournamentsObj.append(x)
-
-    def match_id(self):
-        return int(len(self.lst_matchsObj)) + 1

@@ -194,17 +194,25 @@ class View:
     def input_tournament_description():
         return input("ajoutez une description du tournoi\n")
 
+    # Pour créer un nouveau Tournois
     @staticmethod
-    def input_tournament_players():
-        return int(input("saisir les joueurs participants au tournois\n"))
+    def input_tournament_player_ids():
+        print('Selection des Joueurs du Tournois')
+        lst = []
+        for x in range(1, 9):
+            y = input("Entrer l'id du Player " + str(x) + " :  ")
+            lst.append(int(y))
+        return lst
 
     @staticmethod
     def input_tournament_ctl_time():
-        return input('CHOISIR UN CONTROLEUR TEMPS \n'
-                     'tapez 1, 2 ou 3 \n'
-                     '1- bullet_timer \n'
-                     '2- blitz_timer \n'
-                     '3- speed_chess_timer \n')
+        print('*** TimeControl ***')
+        x = input("1 - Pour selectionner un bullet\n"
+                  "2 - Pour selectionner un blitz\n"
+                  "3 - Pour selectionner un coup rapide\n")
+        if x == '1': return 'BULLET'
+        if x == '2': return 'BLITZ'
+        if x == '3': return 'COUP RAPIDE'
 
     @staticmethod
     def input_selected_tournament():

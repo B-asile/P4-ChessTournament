@@ -14,5 +14,8 @@ def main():
 if __name__ == '__main__':
     main()
 
-# finir de reprendre le model MVC
-# certains codes dans le model a passer dans la view
+
+# Nettoyer les fonctions du view qui ne sont pas utilisées dans le controller
+# et revoir la nommenclature des fonction Display & Input
+# et séparer les display en premier les input en second pour préparer la division du module View
+# Test général de toutes les fonctionnalitées

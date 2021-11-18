@@ -7,6 +7,13 @@ class Matchcls:
         self.MatchS2 = MatchS2
         self.Datetime = Datetime
 
+    def __int__(self, match):
+        self.MatchID = match['MatchID']
+        self.MatchP1 = match['MatchP1']
+        self.MatchS1 = match['MatchS1']
+        self.MatchS2 = match['MatchS2']
+        self.Datetime = match['Datetime']
+
     def __str__(self):
         return f"Match: {self.MatchP1} VS {self.MatchP2}"
 
