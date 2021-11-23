@@ -1,7 +1,7 @@
 from operator import attrgetter
-from Tournamentcls import Tournamentcls
-from Playercls import Playercls
-from Matchcls import Matchcls
+from tournament import Tournamentcls
+from player import Playercls
+from match import Matchcls
 import datetime
 from DB import DBcls
 
@@ -26,7 +26,7 @@ class Model:
     # Fonction Import Tournois
     def load_tournaments(self):
         for tournament in DBcls.table_tournaments:
-            t = Tournamentcls(tournament['Tournament_index'],
+            t = Tournamentcls(tournament['tournament_index'],
                               tournament['Tournament_name'],
                               tournament['Tournament_location'],
                               tournament['Tournament_date'],
@@ -57,9 +57,9 @@ class Model:
     # fonction import des matchs
     def load_matchs(self):
         for match in DBcls.table_matchs:
-            m = Matchcls(match['MatchID'],
-                         match['MatchP1'],
-                         match['MatchS1'],
+            m = Matchcls(match['match_id'],
+                         match['match_p1'],
+                         match['match_s1'],
                          match['MatchP2'],
                          match['MatchS2'])
             self.lst_matchsObj.append(m)
@@ -122,7 +122,7 @@ class Model:
     def select_tounament(self):
         # Déclaration des variables pour la selection de tournois
         for selection in self.lst_tournamentsObj:
-            if selection.Tournament_index == int(self.find_id):
+            if selection.tournament_index == int(self.find_id):
                 self.id = selection
                 return selection
 
@@ -184,10 +184,10 @@ class Model:
             for Player in self.player_in_instance:
                 for m in self.id.TournamentMatchID:
                     for Match in self.lst_matchsObj:
-                        if str(Player) == str(Match.MatchP1) and m == Match.MatchID:
-                            Player.Player_score = (float(Player.Player_score) + float(Match.MatchS1))
+                        if str(Player) == str(Match.match_p1) and m == Match.match_id:
+                            Player.Player_score = (float(Player.Player_score) + float(Match.match_s1))
                     for Match in self.lst_matchsObj:
-                        if str(Player) == str(Match.MatchP2) and m == Match.MatchID:
+                        if str(Player) == str(Match.MatchP2) and m == Match.match_id:
                             Player.Player_score = (float(Player.Player_score) + float(Match.MatchS2))
             # for Player in self.player_in_instance:
             #     print(Player)
@@ -211,7 +211,7 @@ class Model:
                 for m in self.id.TournamentMatchID:
                     # pour chaque matchs deja fait dans l'absolue
                     for p in self.lst_matchsObj:
-                        if str(self.list1[i]) == p.MatchP1 and str(self.list2[i]) == p.MatchP2 and m == p.MatchID:
+                        if str(self.list1[i]) == p.match_p1 and str(self.list2[i]) == p.MatchP2 and m == p.match_id:
                             self.list1 = []
                             self.list1.append(self.player_in_instance_sorted[0])
                             self.list1.append(self.player_in_instance_sorted[1])
@@ -224,7 +224,7 @@ class Model:
                             self.list2.append(self.player_in_instance_sorted[7])
                             # print('une partie a deja été jouée, le tri a été modifié')
                             pass
-                        if str(self.list1[i]) == p.MatchP2 and str(self.list2[i]) == p.MatchP1 and m == p.MatchID:
+                        if str(self.list1[i]) == p.MatchP2 and str(self.list2[i]) == p.match_p1 and m == p.match_id:
                             self.list1 = []
                             self.list1.append(self.player_in_instance_sorted[0])
                             self.list1.append(self.player_in_instance_sorted[1])
@@ -247,9 +247,9 @@ class Model:
         return int(len(self.lst_matchsObj)) + 1
 
     def add_tournament_in_match(self, match, i):
-        m = Matchcls(match['MatchID'],
-                     match['MatchP1'],
-                     match['MatchS1'],
+        m = Matchcls(match['match_id'],
+                     match['match_p1'],
+                     match['match_s1'],
                      match['MatchP2'],
                      match['MatchS2'],
                      match['Datetime'],
@@ -263,7 +263,7 @@ class Model:
             # print(Player)
             # print(str(self.model.list1[i]))
             if str(Player) == str(self.list1[i]):
-                Player.Player_rating = (float(Player.Player_rating) + float(m.MatchS1))
+                Player.Player_rating = (float(Player.Player_rating) + float(m.match_s1))
             if str(Player) == str(self.list2[i]):
                 Player.Player_rating = (float(Player.Player_rating) + float(m.MatchS2))
         # print(m.__dict__)
@@ -275,7 +275,7 @@ class Model:
             print('Matchs du round ' + str(round + 1))
             for match_id in list_rnd_to_display:
                 for match in self.lst_matchsObj:
-                    if match_id == match.MatchID:
+                    if match_id == match.match_id:
                         print(match)
             del lst_round[:4]
 
@@ -283,7 +283,7 @@ class Model:
         return int(len(self.lst_tournamentsObj)) + 1
 
     def add_tournament_in_class(self, tournament):
-        x = Tournamentcls(tournament['Tournament_index'],
+        x = Tournamentcls(tournament['tournament_index'],
                           tournament['Tournament_name'],
                           tournament['Tournament_location'],
                           tournament['Tournament_date'],

@@ -95,7 +95,7 @@ class View:
     def display_tournaments_history(self, list_tournament_obj_by_date):
         print('Liste des Tournois par date:\n')
         for x in list_tournament_obj_by_date:
-            print('ID :' + str(x.Tournament_index) + ' ' + x.Tournament_name + ' ' + str(x.Tournament_date))
+            print('ID :' + str(x.tournament_index) + ' ' + x.Tournament_name + ' ' + str(x.Tournament_date))
         print('\n')
 
     @staticmethod

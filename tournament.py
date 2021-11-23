@@ -1,9 +1,9 @@
 class Tournamentcls:
 
-    def __init__(self, Tournament_index=0, Tournament_name='unknown', Tournament_location='unknown',
+    def __init__(self, tournament_index=0, Tournament_name='unknown', Tournament_location='unknown',
                  Tournament_date='00/00/0000', Tournament_nbr_round=4, Tournament_players_id=[],
                  Tournament_ctl_time='BLITZ', Tournament_description='unknown', TournamentMatchID=[]):
-        self.Tournament_index = Tournament_index
+        self.tournament_index = tournament_index
         self.Tournament_name = Tournament_name
         self.Tournament_location = Tournament_location
         self.Tournament_date = Tournament_date
@@ -14,7 +14,7 @@ class Tournamentcls:
         self.TournamentMatchID = TournamentMatchID
 
     def __int__(self, tournament):
-        self.Tournament_index = tournament['Tournament_index']
+        self.tournament_index = tournament['tournament_index']
         self.Tournament_name = tournament['Tournament_name']
         self.Tournament_location = tournament['Tournament_location']
         self.Tournament_date = tournament['Tournament_date']
