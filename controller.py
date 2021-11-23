@@ -131,9 +131,9 @@ class Controller:
                 self.view.display_happen_in_tournament(self.model.id)
                 lst_match = self.model.id.TournamentMatchID
                 for round in range(int(self.model.id.Tournament_nbr_round)):
-                    list_rnd_to_display = lst_match[:4]
+                    list_match_to_display = lst_match[:4]
                     self.view.display_round_for_match(round)
-                    for match_id in list_rnd_to_display:
+                    for match_id in list_match_to_display:
                         for match in self.model.lst_matchsObj:
                             if match_id == match.match_id:
                                 self.view.display_match_in_round(match)
