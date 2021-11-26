@@ -68,14 +68,14 @@ class Controller:
             # Pour Créer de nouveaux Joueurs
             # Création des attributs de l'objet joueur
             player = {
-                'Player_index': self.model.player_index(),
-                'Player_first_name': self.view.input_Player_first_name(),
-                'Player_last_name': self.view.input_Player_last_name(),
-                'Player_age': self.view.input_Player_age(),
-                'Player_date_of_birth': self.view.input_Player_date_of_birth(),
-                'Player_gender': self.view.input_Player_gender(),
-                'Player_rating': self.view.input_Player_rating(),
-                'Player_score': 0}
+                'player_index': self.model.player_index(),
+                'player_first_name': self.view.input_player_first_name(),
+                'player_last_name': self.view.input_player_last_name(),
+                'player_age': self.view.input_player_age(),
+                'player_date_of_birth': self.view.input_player_date_of_birth(),
+                'player_gender': self.view.input_player_gender(),
+                'player_rating': self.view.input_player_rating(),
+                'player_score': 0}
             # Initialisation de l'objet dans la classe
             self.model.add_player_in_class(player)
             self.return_players()
@@ -129,15 +129,7 @@ class Controller:
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
                 self.view.display_happen_in_tournament(self.model.id)
-                lst_match = self.model.id.TournamentMatchID
-                for round in range(int(self.model.id.Tournament_nbr_round)):
-                    list_match_to_display = lst_match[:4]
-                    self.view.display_round_for_match(round)
-                    for match_id in list_match_to_display:
-                        for match in self.model.lst_matchsObj:
-                            if match_id == match.match_id:
-                                self.view.display_match_in_round(match)
-                    del lst_match[:4]
+
                 self.main_menu()
             elif info_tournament == '5':
                 # print demarrage d'un nouveau tournois
@@ -146,13 +138,13 @@ class Controller:
                 # Nombre de rounds executés précédement
                 self.view.nbr_round_before(self.model.tournament_matchid_instanced())
                 if str(int((len(self.model.tournament_matchid_in_instance)) / 4)) == str(
-                        self.model.id.Tournament_nbr_round):
+                        self.model.id.tournament_nbr_round):
                     self.view.max_round()
                     self.main_menu()
                 else:
                     self.view.selected_tournament_name(self.model.id)
-                    self.view.selected_tournament_round(self.model.id.Tournament_nbr_round)
-                    self.view.selected_players_ids(self.model.id.Tournament_players_id)
+                    self.view.selected_tournament_round(self.model.id.tournament_nbr_round)
+                    self.view.selected_players_ids(self.model.id.tournament_players_id)
                     self.model.match2lists_creation()
                     # début des matchs
                     # Création des Tuples = parties :
@@ -164,27 +156,27 @@ class Controller:
                             'match_id': self.model.match_id(),
                             'match_p1': str(self.model.list1[i]),
                             'match_s1': input('Score ' + str(self.model.list1[i]) + ': '),
-                            'MatchP2': str(self.model.list2[i]),
-                            'MatchS2': input('Score: ' + str(self.model.list2[i]) + ': '),
+                            'match_p2': str(self.model.list2[i]),
+                            'match_s2': input('Score: ' + str(self.model.list2[i]) + ': '),
                             'Datetime': self.model.match_datetime()
                         }
                         self.model.add_tournament_in_match(m, i)
-                    print(self.model.lst_matchsObj)
+                    print(self.model.lst_matchsobj)
                     # Mise a jour de la liste de matchs dans l'objet tournois selectionné de la liste des tournois
-                    self.model.id.TournamentMatchID = self.model.tournament_matchid_in_instance
+                    self.model.id.tournament_match_id = self.model.tournament_matchid_in_instance
                     self.main_menu()
 
         elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
             tournament = {
                 'tournament_index': self.model.tournament_index(),
-                'Tournament_name': self.view.input_tournament_name(),
-                'Tournament_location': self.view.input_tournament_location(),
-                'Tournament_date': self.view.input_tournament_date(),
-                'Tournament_nbr_round': self.view.input_tournament_nbr_round(),
-                'Tournament_players_id': self.view.input_tournament_player_ids(),
-                'Tournament_ctl_time': self.view.input_tournament_ctl_time(),
-                'Tournament_description': self.view.input_tournament_description()
+                'tournament_name': self.view.input_tournament_name(),
+                'tournament_location': self.view.input_tournament_location(),
+                'tournament_date': self.view.input_tournament_date(),
+                'tournament_nbr_round': self.view.input_tournament_nbr_round(),
+                'tournament_players_id': self.view.input_tournament_player_ids(),
+                'tournament_ctl_time': self.view.input_tournament_ctl_time(),
+                'tournament_description': self.view.input_tournament_description()
             }
             self.model.add_tournament_in_class(tournament)
 

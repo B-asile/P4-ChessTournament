@@ -3,7 +3,7 @@ class View:
     def __init__(self):
         self.controller = None
 
-    def setController(self, controller):
+    def set_controller(self, controller):
         self.controller = controller
 
     @staticmethod
@@ -43,31 +43,31 @@ class View:
     def display_player_sort_by_rating(self, list_of_player):
         print('Classement des Joueurs\n')
         for player in list_of_player:
-            print(str(player) + '  ' + '(Score: ' + str(player.Player_rating) + ')')
+            print(str(player) + '  ' + '(Score: ' + str(player.player_rating) + ')')
 
     # print('Création des Joueurs\n')
     @staticmethod
-    def input_Player_first_name():
+    def input_player_first_name():
         return input("saisir le nom du joueur \n")
 
     @staticmethod
-    def input_Player_last_name():
+    def input_player_last_name():
         return input("saisir le prénom du joueur \n")
 
     @staticmethod
-    def input_Player_age():
+    def input_player_age():
         return int(input("saisir l'age du joueur\n"))
 
     @staticmethod
-    def input_Player_date_of_birth():
+    def input_player_date_of_birth():
         return input("saisir la date de naissance du joueur \n")
 
     @staticmethod
-    def input_Player_gender():
+    def input_player_gender():
         return input("saisir le genre du joueur \n")
 
     @staticmethod
-    def input_Player_rating():
+    def input_player_rating():
         return float(input("saisir le rang du joueur \n"))
 
     def display_new_player(self):
@@ -95,7 +95,7 @@ class View:
     def display_tournaments_history(self, list_tournament_obj_by_date):
         print('Liste des Tournois par date:\n')
         for x in list_tournament_obj_by_date:
-            print('ID :' + str(x.tournament_index) + ' ' + x.Tournament_name + ' ' + str(x.Tournament_date))
+            print('ID :' + str(x.tournament_index) + ' ' + x.tournament_name + ' ' + str(x.tournament_date))
         print('\n')
 
     @staticmethod
@@ -103,11 +103,11 @@ class View:
         return input('ID du Tournois à selectionner\n')
 
     def display_selected_tournament(self, id):
-        print("Vous avez selectionné le Tournois: " + id.Tournament_name + '\n')
+        print("Vous avez selectionné le Tournois: " + id.tournament_name + '\n')
 
     def display_happen_in_tournament(self, id):
-        print('Déroulement du tournois ' + id.Tournament_name)
-        print('Nombre de round : ' + str(id.Tournament_nbr_round))
+        print('Déroulement du tournois ' + id.tournament_name)
+        print('Nombre de round : ' + str(id.tournament_nbr_round))
 
     def display_round_for_match(self, round):
         print('Matchs du round ' + str(round + 1))
@@ -126,27 +126,27 @@ class View:
 
     def display_information_tournament_selected(self, id):
         return print('INFORMATION DU TOURNOIS: '
-                     '\n- Nom du Tournois: ' + id.Tournament_name +
-                     '\n- Date du Tournois: ' + id.Tournament_date +
-                     '\n- Description du Tournois: ' + id.Tournament_description +
-                     '\n- Localisation du Tournois: ' + id.Tournament_location +
-                     '\n- Time Control: ' + id.Tournament_ctl_time + '\n')
+                     '\n- Nom du Tournois: ' + id.tournament_name +
+                     '\n- Date du Tournois: ' + id.tournament_date +
+                     '\n- Description du Tournois: ' + id.tournament_description +
+                     '\n- Localisation du Tournois: ' + id.tournament_location +
+                     '\n- Time Control: ' + id.tournament_ctl_time + '\n')
 
     def display_players_in_tournament_name(self):
-        print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.Tournament_name)
+        print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.tournament_name)
 
     def display_tournament_player_by_name(self, list_of_player):
         print('PARTICIPANTS (Classement par Noms)')
         for player in list_of_player:
-            print('Nom: ' + player.Player_first_name + ' Prenom: ' + player.Player_last_name)
+            print('Nom: ' + player.player_first_name + ' Prenom: ' + player.player_last_name)
         print('\n')
 
     def display_tournament_player_by_rate(self, list_of_player):
         print('PARTICIPANTS (Classement par Score Global)')
         for player in list_of_player:
-            print('Score Global: ' + str(player.Player_rating)
-                  + ' Nom: ' + player.Player_first_name
-                  + ' Prenom: ' + player.Player_last_name)
+            print('Score Global: ' + str(player.player_rating)
+                  + ' Nom: ' + player.player_first_name
+                  + ' Prenom: ' + player.player_last_name)
         print('\n')
 
     @staticmethod
@@ -166,11 +166,11 @@ class View:
     def display_current_match(self, player1, player2):
         print(str(player1) + ' VS ' + str(player2))
 
-    def selected_tournament_round(self, Tournament_nbr_round):
-        print('Nombre de Rounds du Tournois : ' + str(Tournament_nbr_round))
+    def selected_tournament_round(self, tournament_nbr_round):
+        print('Nombre de Rounds du Tournois : ' + str(tournament_nbr_round))
 
-    def selected_players_ids(self, Tournament_players_id):
-        print('ID des participants: ' + str(Tournament_players_id))
+    def selected_players_ids(self, tournament_players_id):
+        print('ID des participants: ' + str(tournament_players_id))
 
 
 

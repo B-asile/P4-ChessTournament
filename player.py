@@ -1,28 +1,28 @@
 
-class Playercls:
-    def __init__(self, Player_index=0, Player_first_name='unknown', Player_last_name='unknown', Player_age=0,
-                 Player_date_of_birth='00/00/0000', Player_gender='unknown', Player_rating=0.0, Player_score=0.0):
-        self.Player_index = Player_index
-        self.Player_first_name = Player_first_name
-        self.Player_last_name = Player_last_name
-        self.Player_age = Player_age
-        self.Player_date_of_birth = Player_date_of_birth
-        self.Player_gender = Player_gender
-        self.Player_rating = Player_rating
-        self.Player_score = Player_score
+class Player:
+    def __init__(self, player_index=0, player_first_name='unknown', player_last_name='unknown', player_age=0,
+                 player_date_of_birth='00/00/0000', player_gender='unknown', player_rating=0.0, player_score=0.0):
+        self.player_index = player_index
+        self.player_first_name = player_first_name
+        self.player_last_name = player_last_name
+        self.player_age = player_age
+        self.player_date_of_birth = player_date_of_birth
+        self.player_gender = player_gender
+        self.player_rating = player_rating
+        self.player_score = player_score
 
     def _int__(self, player):
-        self.Player_index = player['Player_index']
-        self.Player_first_name = player['Player_first_name']
-        self.Player_last_name = player['Player_last_name']
-        self.Player_age = player['Player_age']
-        self.Player_date_of_birth = player['Player_date_of_birth']
-        self.Player_gender = player['Player_gender']
-        self.Player_rating = player['Player_rating']
-        self.Player_score = player['Player_score']
+        self.player_index = player['player_index']
+        self.player_first_name = player['player_first_name']
+        self.player_last_name = player['player_last_name']
+        self.player_age = player['player_age']
+        self.player_date_of_birth = player['player_date_of_birth']
+        self.player_gender = player['player_gender']
+        self.player_rating = player['player_rating']
+        self.player_score = player['player_score']
 
     def __str__(self):
-        return f" {self.Player_first_name} {self.Player_last_name}"
+        return f" {self.player_first_name} {self.player_last_name}"
 
     # def __repr__(self):
-        # return f"Playercls: {self.Player_first_name} {self.Player_last_name} [{self.Player_rating}]"
+        # return f"Player: {self.player_first_name} {self.player_last_name} [{self.player_rating}]"

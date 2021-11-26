@@ -7,7 +7,7 @@ def main():
     my_view = View()
     my_model = Model()
     game = Controller(my_view, my_model)
-    my_view.setController(game)
+    my_view.set_controller(game)
     game.run()
 
 

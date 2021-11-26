@@ -1,31 +1,31 @@
-class Tournamentcls:
+class Tournament:
 
-    def __init__(self, tournament_index=0, Tournament_name='unknown', Tournament_location='unknown',
-                 Tournament_date='00/00/0000', Tournament_nbr_round=4, Tournament_players_id=[],
-                 Tournament_ctl_time='BLITZ', Tournament_description='unknown', TournamentMatchID=[]):
+    def __init__(self, tournament_index=0, tournament_name='unknown', tournament_location='unknown',
+                 tournament_date='00/00/0000', tournament_nbr_round=4, tournament_players_id=[],
+                 tournament_ctl_time='BLITZ', tournament_description='unknown', tournament_match_id=[]):
         self.tournament_index = tournament_index
-        self.Tournament_name = Tournament_name
-        self.Tournament_location = Tournament_location
-        self.Tournament_date = Tournament_date
-        self.Tournament_nbr_round = Tournament_nbr_round
-        self.Tournament_players_id = Tournament_players_id
-        self.Tournament_ctl_time = Tournament_ctl_time
-        self.Tournament_description = Tournament_description
-        self.TournamentMatchID = TournamentMatchID
+        self.tournament_name = tournament_name
+        self.tournament_location = tournament_location
+        self.tournament_date = tournament_date
+        self.tournament_nbr_round = tournament_nbr_round
+        self.tournament_players_id = tournament_players_id
+        self.tournament_ctl_time = tournament_ctl_time
+        self.tournament_description = tournament_description
+        self.tournament_match_id = tournament_match_id
 
     def __int__(self, tournament):
         self.tournament_index = tournament['tournament_index']
-        self.Tournament_name = tournament['Tournament_name']
-        self.Tournament_location = tournament['Tournament_location']
-        self.Tournament_date = tournament['Tournament_date']
-        self.Tournament_nbr_round = tournament['Tournament_nbr_round']
-        self.Tournament_players_id = tournament['Tournament_players_id']
-        self.Tournament_ctl_time = tournament['Tournament_ctl_time']
-        self.Tournament_description = tournament['Tournament_description']
-        self.TournamentMatchID = tournament['TournamentMatchID']
+        self.tournament_name = tournament['tournament_name']
+        self.tournament_location = tournament['tournament_location']
+        self.tournament_date = tournament['tournament_date']
+        self.tournament_nbr_round = tournament['tournament_nbr_round']
+        self.tournament_players_id = tournament['tournament_players_id']
+        self.tournament_ctl_time = tournament['tournament_ctl_time']
+        self.tournament_description = tournament['tournament_description']
+        self.tournament_match_id = tournament['tournament_match_id']
 
     def __str__(self):
-        return f"Tournamentcls: {self.Tournament_name} {self.Tournament_location} {self.Tournament_date}"
+        return f"Tournament: {self.tournament_name} {self.tournament_location} {self.tournament_date}"
 
     # def __repr__(self):
-    # return f"Tournamentcls: {self.Tournament_name} {self.Tournament_location} {self.Tournament_date}"
+    # return f"Tournament: {self.tournament_name} {self.tournament_location} {self.tournament_date}"
