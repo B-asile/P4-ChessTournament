@@ -129,7 +129,6 @@ class Controller:
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
                 self.view.display_happen_in_tournament(self.model.id)
-
                 self.main_menu()
             elif info_tournament == '5':
                 # print demarrage d'un nouveau tournois
@@ -154,10 +153,10 @@ class Controller:
                         self.view.display_current_match(self.model.list1[i], self.model.list2[i])
                         m = {
                             'match_id': self.model.match_id(),
-                            'match_p1': str(self.model.list1[i]),
-                            'match_s1': input('Score ' + str(self.model.list1[i]) + ': '),
-                            'match_p2': str(self.model.list2[i]),
-                            'match_s2': input('Score: ' + str(self.model.list2[i]) + ': '),
+                            'match_player1': str(self.model.list1[i]),
+                            'match_score1': input('Score ' + str(self.model.list1[i]) + ': '),
+                            'match_player2': str(self.model.list2[i]),
+                            'match_score2': input('Score: ' + str(self.model.list2[i]) + ': '),
                             'Datetime': self.model.match_datetime()
                         }
                         self.model.add_tournament_in_match(m, i)
@@ -174,7 +173,7 @@ class Controller:
                 'tournament_location': self.view.input_tournament_location(),
                 'tournament_date': self.view.input_tournament_date(),
                 'tournament_nbr_round': self.view.input_tournament_nbr_round(),
-                'tournament_players_id': self.view.input_tournament_player_ids(),
+                'tournament_players_id': self.view.input_tournament_player_ids(self.model.player_sort_by_name()),
                 'tournament_ctl_time': self.view.input_tournament_ctl_time(),
                 'tournament_description': self.view.input_tournament_description()
             }

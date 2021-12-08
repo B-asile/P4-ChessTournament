@@ -195,9 +195,11 @@ class View:
         return input("ajoutez une description du tournoi\n")
 
     # Pour créer un nouveau Tournois
-    @staticmethod
-    def input_tournament_player_ids():
-        print('Selection des Joueurs du Tournois')
+    def input_tournament_player_ids(self, list_of_player):
+        print('Selection des Joueurs du Tournois \n')
+        for player in list_of_player:
+            print('Nom: ' + player.player_first_name + ' Prenom: ' + player.player_last_name + ' id: ' + str(player.player_index))
+
         lst = []
         for x in range(1, 9):
             y = input("Entrer l'id du Player " + str(x) + " :  ")

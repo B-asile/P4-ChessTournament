@@ -11,7 +11,7 @@ class Player:
         self.player_rating = player_rating
         self.player_score = player_score
 
-    def _int__(self, player):
+    def __int__(self, player):
         self.player_index = player['player_index']
         self.player_first_name = player['player_first_name']
         self.player_last_name = player['player_last_name']
