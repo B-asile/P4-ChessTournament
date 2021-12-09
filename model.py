@@ -182,13 +182,13 @@ class Model:
                 Player.player_score = 0
             # Ajout des scores des matchs précédents
             for Player in self.player_in_instance:
-                for m in self.id.tournament_match_id:
+                for new_match in self.id.tournament_match_id:
+                    for old_match in self.lst_matchsobj:
+                        if str(Player) == str(old_match.match_player1) and new_match == old_match.match_id:
+                            Player.player_score = (float(Player.player_score) + float(old_match.match_score1))
                     for match in self.lst_matchsobj:
-                        if str(Player) == str(match.match_player1) and m == match.match_id:
-                            Player.player_score = (float(Player.player_score) + float(match.match_score1))
-                    for match in self.lst_matchsobj:
-                        if str(Player) == str(match.match_player2) and m == match.match_id:
-                            Player.player_score = (float(Player.player_score) + float(match.match_score2))
+                        if str(Player) == str(old_match.match_player2) and new_match == old_match.match_id:
+                            Player.player_score = (float(Player.player_score) + float(old_match.match_score2))
             # for Player in self.player_in_instance:
             #     print(Player)
             #     print(Player.player_score)
@@ -265,9 +265,9 @@ class Model:
             # print(Player)
             # print(str(self.model.list1[i]))
             if str(Player) == str(self.list1[i]):
-                Player.player_rating = (float(Player.player_rating) + float(m.match_score1))
+                Player.player_rating = (float(Player.player_rating) + float(new_match.match_score1))
             if str(Player) == str(self.list2[i]):
-                Player.player_rating = (float(Player.player_rating) + float(m.match_score2))
+                Player.player_rating = (float(Player.player_rating) + float(new_match.match_score2))
         # print(m.__dict__)
 
     def match_by_round(self):
@@ -285,12 +285,12 @@ class Model:
         return int(len(self.lst_tournamentsobj)) + 1
 
     def add_tournament_in_class(self, tournament):
-        x = Tournament(tournament['tournament_index'],
-                       tournament['tournament_name'],
-                       tournament['tournament_location'],
-                       tournament['tournament_date'],
-                       tournament['tournament_nbr_round'],
-                       tournament['tournament_players_id'],
-                       tournament['tournament_ctl_time'],
-                       tournament['tournament_description'])
-        self.lst_tournamentsobj.append(x)
+        new_tournament = Tournament(tournament['tournament_index'],
+                                    tournament['tournament_name'],
+                                    tournament['tournament_location'],
+                                    tournament['tournament_date'],
+                                    tournament['tournament_nbr_round'],
+                                    tournament['tournament_players_id'],
+                                    tournament['tournament_ctl_time'],
+                                    tournament['tournament_description'])
+        self.lst_tournamentsobj.append(new_tournament)
