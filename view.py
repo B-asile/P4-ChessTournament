@@ -192,18 +192,33 @@ class View:
 
     @staticmethod
     def input_tournament_description():
-        return input("ajoutez une description du tournoi\n")
+        return input("ajoutez une description du tournoi \n")
 
     # Pour créer un nouveau Tournois
     def input_tournament_player_ids(self, list_of_player):
         print('Selection des Joueurs du Tournois \n')
         for player in list_of_player:
             print('Nom: ' + player.player_first_name + ' Prenom: ' + player.player_last_name + ' id: ' + str(player.player_index))
-
+        players_list_id=[player.player_index for player in list_of_player]
         lst = []
-        for x in range(1, 9):
-            y = input("Entrer l'id du Player " + str(x) + " :  ")
-            lst.append(int(y))
+        for number in range(1, 9):
+            playerid=None
+            while not playerid:
+                playerid = input("Entrer l'id du Player " + str(number) + " :  ")
+                try:
+                    playerid=int(playerid)
+                    if playerid not in players_list_id:
+                       raise ValueError()
+                except:
+                    playerid=None
+                    print("error: id incorecte ou déja existant \n recommencer la saisie des id \n")
+            # for player.player_index in list_of_player:
+            #     if playerid==player.player_index:
+            #         for id in lst:
+            #             if id != playerid:
+            #                 lst.append(int(playerid))
+            #     else:
+            #
         return lst
 
     @staticmethod

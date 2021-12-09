@@ -11,7 +11,7 @@ from datetime import datetime
 #         return datetime.fromisoformat(s)
 
 class DB:
-    db = TinyDB('DB.json')
+    db = TinyDB('db.json')
     table_tournaments = db.table('Tournament')
     table_players = db.table('Player')
     table_matchs = db.table('Matchs')
