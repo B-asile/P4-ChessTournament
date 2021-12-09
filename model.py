@@ -26,44 +26,44 @@ class Model:
     # Fonction Import Tournois
     def load_tournaments(self):
         for tournament in DB.table_tournaments:
-            t = Tournament(tournament['tournament_index'],
-                              tournament['tournament_name'],
-                              tournament['tournament_location'],
-                              tournament['tournament_date'],
-                              tournament['tournament_nbr_round'],
-                              tournament['tournament_players_id'],
-                              tournament['tournament_ctl_time'],
-                              tournament['tournament_description'],
-                              tournament['tournament_match_id'])
-            self.lst_tournamentsobj.append(t)
-            # print(t)
+            new_tournament = Tournament(tournament['tournament_index'],
+                                        tournament['tournament_name'],
+                                        tournament['tournament_location'],
+                                        tournament['tournament_date'],
+                                        tournament['tournament_nbr_round'],
+                                        tournament['tournament_players_id'],
+                                        tournament['tournament_ctl_time'],
+                                        tournament['tournament_description'],
+                                        tournament['tournament_match_id'])
+            self.lst_tournamentsobj.append(new_tournament)
+            # print(new_tournament)
         print(self.lst_tournamentsobj)
 
     # Fonction Import Joueurs
     def load_players(self):
         for player in DB.table_players:
-            p = Player(player['player_index'],
-                          player['player_first_name'],
-                          player['player_last_name'],
-                          player['player_age'],
-                          player['player_date_of_birth'],
-                          player['player_gender'],
-                          player['player_rating'],
-                          player['player_score'])
-            self.lst_playersobj.append(p)
-            # print(p)
+            new_player = Player(player['player_index'],
+                                player['player_first_name'],
+                                player['player_last_name'],
+                                player['player_age'],
+                                player['player_date_of_birth'],
+                                player['player_gender'],
+                                player['player_rating'],
+                                player['player_score'])
+            self.lst_playersobj.append(new_player)
+            # print(new_player)
         print(self.lst_playersobj)
 
     # fonction import des matchs
     def load_matchs(self):
         for match in DB.table_matchs:
-            m = Match(match['match_id'],
-                         match['match_player1'],
-                         match['match_score1'],
-                         match['match_player2'],
-                         match['match_score2'])
-            self.lst_matchsobj.append(m)
-            # print(m)
+            new_match = Match(match['match_id'],
+                              match['match_player1'],
+                              match['match_score1'],
+                              match['match_player2'],
+                              match['match_score2'])
+            self.lst_matchsobj.append(new_match)
+            # print(new_match)
         print(self.lst_matchsobj)
 
     # 2. Fonction Sauvegarde des données vers BDD (écraser tout)
@@ -109,13 +109,13 @@ class Model:
 
     def add_player_in_class(self, player):
         new_player = Player(player['player_index'],
-                      player['player_first_name'],
-                      player['player_last_name'],
-                      player['player_age'],
-                      player['player_date_of_birth'],
-                      player['player_gender'],
-                      player['player_rating'],
-                      player['player_score'])
+                            player['player_first_name'],
+                            player['player_last_name'],
+                            player['player_age'],
+                            player['player_date_of_birth'],
+                            player['player_gender'],
+                            player['player_rating'],
+                            player['player_score'])
         self.lst_playersobj.append(new_player)
 
     # 2. Section Tournois :
@@ -211,7 +211,8 @@ class Model:
                 for m in self.id.tournament_match_id:
                     # pour chaque matchs deja fait dans l'absolue
                     for p in self.lst_matchsobj:
-                        if str(self.list1[i]) == p.match_player1 and str(self.list2[i]) == p.match_player2 and m == p.match_id:
+                        if str(self.list1[i]) == p.match_player1 and str(
+                                self.list2[i]) == p.match_player2 and m == p.match_id:
                             self.list1 = []
                             self.list1.append(self.player_in_instance_sorted[0])
                             self.list1.append(self.player_in_instance_sorted[1])
@@ -224,7 +225,8 @@ class Model:
                             self.list2.append(self.player_in_instance_sorted[7])
                             # print('une partie a deja été jouée, le tri a été modifié')
                             pass
-                        if str(self.list1[i]) == p.match_player2 and str(self.list2[i]) == p.match_player1 and m == p.match_id:
+                        if str(self.list1[i]) == p.match_player2 and str(
+                                self.list2[i]) == p.match_player1 and m == p.match_id:
                             self.list1 = []
                             self.list1.append(self.player_in_instance_sorted[0])
                             self.list1.append(self.player_in_instance_sorted[1])
@@ -248,12 +250,12 @@ class Model:
 
     def add_tournament_in_match(self, match, i):
         new_match = Match(match['match_id'],
-                     match['match_player1'],
-                     match['match_score1'],
-                     match['match_player2'],
-                     match['match_score2'],
-                     match['Datetime'],
-                     )
+                          match['match_player1'],
+                          match['match_score1'],
+                          match['match_player2'],
+                          match['match_score2'],
+                          match['Datetime'],
+                          )
         # création du tuple Matchs avec le construct
         # append des id dans la liste de match du Tournois
         self.tournament_matchid_in_instance.append(self.match_id())
@@ -284,11 +286,11 @@ class Model:
 
     def add_tournament_in_class(self, tournament):
         x = Tournament(tournament['tournament_index'],
-                          tournament['tournament_name'],
-                          tournament['tournament_location'],
-                          tournament['tournament_date'],
-                          tournament['tournament_nbr_round'],
-                          tournament['tournament_players_id'],
-                          tournament['tournament_ctl_time'],
-                          tournament['tournament_description'])
+                       tournament['tournament_name'],
+                       tournament['tournament_location'],
+                       tournament['tournament_date'],
+                       tournament['tournament_nbr_round'],
+                       tournament['tournament_players_id'],
+                       tournament['tournament_ctl_time'],
+                       tournament['tournament_description'])
         self.lst_tournamentsobj.append(x)
