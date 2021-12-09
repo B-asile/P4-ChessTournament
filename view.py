@@ -211,14 +211,7 @@ class View:
                        raise ValueError()
                 except:
                     playerid=None
-                    print("error: id incorecte ou déja existant \n recommencer la saisie des id \n")
-            # for player.player_index in list_of_player:
-            #     if playerid==player.player_index:
-            #         for id in lst:
-            #             if id != playerid:
-            #                 lst.append(int(playerid))
-            #     else:
-            #
+                    print("id inéxistant ou déjà en utilisé \n veuillez recommencer la saisie de l'id \n")
         return lst
 
     @staticmethod
