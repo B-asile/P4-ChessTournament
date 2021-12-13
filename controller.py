@@ -145,7 +145,7 @@ class Controller:
                     self.view.selected_tournament_round(self.model.id.tournament_nbr_round)
                     self.view.selected_players_ids(self.model.id.tournament_players_id)
                     self.model.match2lists_creation()
-                    # todo début des matchs
+                    # début des matchs
                     # Création des Tuples = parties :
 
                     for i in range(self.model.nbr_joueurs_by_list):

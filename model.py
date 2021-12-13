@@ -126,6 +126,21 @@ class Model:
                 self.id = selection
                 return selection
 
+        # def id_checker(self):
+        # """"contrôle des entrées utilisateur ds selection des ids joueurs pour lancer tournoi"""
+        # players_list_id = [player.player_index for player in self.player_sort_by_name()]
+        # for number in range(1, 9):
+        #     player_id = None
+        #     while not player_id:
+        #         player_id = input("Entrer l'id du Player " + str(number) + " :  ")
+        #         try:
+        #             player_id = int(player_id)
+        #             if player_id not in players_list_id:
+        #                 raise ValueError()
+        #         except:
+        #             player_id = None
+        #             print("Oops! id inéxistant ou déjà utilisé \n veuillez recommencer la saisie de l'id \n")
+
     def search_tournament_player(self):
         self.lst_players_obj_sorted_by_id = sorted(self.lst_playersobj, key=lambda x: x.player_index,
                                                    reverse=False)

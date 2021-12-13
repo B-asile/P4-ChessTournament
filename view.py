@@ -211,7 +211,7 @@ class View:
                        raise ValueError()
                 except:
                     playerid=None
-                    print("id inéxistant ou déjà en utilisé \n veuillez recommencer la saisie de l'id \n")
+                    print("Oops! id inéxistant ou déjà utilisé \n veuillez recommencer la saisie \n")
         return lst
 
     @staticmethod
