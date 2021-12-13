@@ -122,7 +122,8 @@ class View:
                      ' 2 - Liste des joueurs ayants participés par ordre alphabétique\n'
                      ' 3 - Liste des joueurs ayants participés (Classement Général)\n'
                      ' 4 - Liste des Rounds, Matchs et Classement du Tournois\n'
-                     ' 5 - Démarrer/Reprendre : Mode Tournois\n')
+                     ' 5 - Démarrer/Reprendre : Mode Tournois\n'
+                     ' 0 - retourner au menu principal\n')
 
     def display_information_tournament_selected(self, id):
         return print('INFORMATION DU TOURNOIS: '

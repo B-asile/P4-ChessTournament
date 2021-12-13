@@ -117,19 +117,19 @@ class Controller:
             if info_tournament == '1':
                 # Afficher Informations du Tournois selectionné : date, description, etc...
                 self.view.display_information_tournament_selected(self.model.id)
-                self.main_menu()
+                self.tournament_menu()
             elif info_tournament == '2':
                 # Classement de la liste des joueurs du Tournois par nom :
                 self.view.display_tournament_player_by_name(self.model.tournament_players_by_name())
-                self.main_menu()
+                self.tournament_menu()
             elif info_tournament == '3':
                 # Classement de la liste des joueurs du Tournois par rating :
                 self.view.display_tournament_player_by_rate(self.model.tournament_players_by_rate())
-                self.main_menu()
+                self.tournament_menu()
             elif info_tournament == '4':
                 # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
                 self.view.display_happen_in_tournament(self.model.id)
-                self.main_menu()
+                self.tournament_menu()
             elif info_tournament == '5':
                 # print demarrage d'un nouveau tournois
                 self.view.display_start_new_tournament()
@@ -139,7 +139,7 @@ class Controller:
                 if str(int((len(self.model.tournament_matchid_in_instance)) / 4)) == str(
                         self.model.id.tournament_nbr_round):
                     self.view.max_round()
-                    self.main_menu()
+                    self.tournament_menu()
                 else:
                     self.view.selected_tournament_name(self.model.id)
                     self.view.selected_tournament_round(self.model.id.tournament_nbr_round)
@@ -163,8 +163,10 @@ class Controller:
                     print(self.model.lst_matchsobj)
                     # Mise a jour de la liste de matchs dans l'objet tournois selectionné de la liste des tournois
                     self.model.id.tournament_match_id = self.model.tournament_matchid_in_instance
-                    self.main_menu()
+                    self.tournament_menu()
 
+            elif info_tournament == '0':
+                self.main_menu()
         elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
             tournament = {
@@ -179,7 +181,7 @@ class Controller:
             }
             self.model.add_tournament_in_class(tournament)
 
-            self.main_menu()
+            self.tournament_menu()
         elif section_tournaments == '0':
             self.main_menu()
         else:
@@ -189,4 +191,4 @@ class Controller:
 
     def error(self):
         print('Erreur de Saisie, Retour au Menu principal\n')
-        return self.main_menu()
+        return self.tournament_menu()
