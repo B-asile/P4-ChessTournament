@@ -56,7 +56,8 @@ class View:
 
     @staticmethod
     def input_player_age():
-        return int(input("saisir l'age du joueur\n"))
+        return int(input("saisir l'age du joueur\n"
+                         "veuillez saisir des chiffres\n"))
 
     @staticmethod
     def input_player_date_of_birth():
