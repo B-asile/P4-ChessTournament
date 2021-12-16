@@ -68,7 +68,7 @@ class Controller:
             # Pour Créer de nouveaux Joueurs
             # Création des attributs de l'objet joueur
             player = {
-                'player_index': self.model.player_index(),
+                'player_index': self.model.create_player_index(),
                 'player_first_name': self.view.input_player_first_name(),
                 'player_last_name': self.view.input_player_last_name(),
                 'player_age': self.view.input_player_age(),
@@ -152,7 +152,7 @@ class Controller:
                         # Affichage du match en cours avec l'iteration 1 de la list 1 et 1 de la list 2
                         self.view.display_current_match(self.model.list1[i], self.model.list2[i])
                         m = {
-                            'match_id': self.model.match_id(),
+                            'match_id': self.model.create_match_id(),
                             'match_player1': str(self.model.list1[i]),
                             'match_score1': input('Score ' + str(self.model.list1[i]) + ': '),
                             'match_player2': str(self.model.list2[i]),
@@ -170,14 +170,15 @@ class Controller:
         elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
             tournament = {
-                'tournament_index': self.model.tournament_index(),
+                'tournament_index': self.model.create_tournament_index(),
                 'tournament_name': self.view.input_tournament_name(),
                 'tournament_location': self.view.input_tournament_location(),
                 'tournament_date': self.view.input_tournament_date(),
                 'tournament_nbr_round': self.view.input_tournament_nbr_round(),
                 'tournament_players_id': self.view.input_tournament_player_ids(self.model.player_sort_by_name()),
                 'tournament_ctl_time': self.view.input_tournament_ctl_time(),
-                'tournament_description': self.view.input_tournament_description()
+                'tournament_description': self.view.input_tournament_description(),
+                'tournament_match_id': []
             }
             self.model.add_tournament_in_class(tournament)
 

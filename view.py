@@ -57,11 +57,12 @@ class View:
     @staticmethod
     def input_player_age():
         return int(input("saisir l'age du joueur\n"
-                         "veuillez saisir des chiffres\n"))
+                         "veuillez saisir un nombre\n"))
 
     @staticmethod
     def input_player_date_of_birth():
-        return input("saisir la date de naissance du joueur \n")
+        return input("saisir la date de naissance du joueur\n"
+                     "au format jj/mm/aaaa\n")
 
     @staticmethod
     def input_player_gender():

@@ -25,45 +25,76 @@ class Model:
     # 1. Fonction Import données Saved BDD vers Mémoire Programme
     # Fonction Import Tournois
     def load_tournaments(self):
-        for tournament in DB.table_tournaments:
-            new_tournament = Tournament(tournament['tournament_index'],
-                                        tournament['tournament_name'],
-                                        tournament['tournament_location'],
-                                        tournament['tournament_date'],
-                                        tournament['tournament_nbr_round'],
-                                        tournament['tournament_players_id'],
-                                        tournament['tournament_ctl_time'],
-                                        tournament['tournament_description'],
-                                        tournament['tournament_match_id'])
-            self.lst_tournamentsobj.append(new_tournament)
-            # print(new_tournament)
+        for kwargs_tournament in DB.table_tournaments:
+            for key, value in kwargs_tournament.items():
+                setattr(self, key, value)
+            data_tournament = Tournament(tournament_index = kwargs_tournament['tournament_index'],
+                                         tournament_name = kwargs_tournament['tournament_name'],
+                                         tournament_location = kwargs_tournament['tournament_location'],
+                                         tournament_date = kwargs_tournament['tournament_date'],
+                                         tournament_nbr_round = kwargs_tournament['tournament_nbr_round'],
+                                         tournament_players_id = kwargs_tournament['tournament_players_id'],
+                                         tournament_ctl_time = kwargs_tournament['tournament_ctl_time'],
+                                         tournament_description = kwargs_tournament['tournament_description'],
+                                         tournament_match_id = kwargs_tournament['tournament_match_id'])
+        # for tournament in DB.table_tournaments:
+        #     new_tournament = Tournament(tournament['tournament_index'],
+        #                                 tournament['tournament_name'],
+        #                                 tournament['tournament_location'],
+        #                                 tournament['tournament_date'],
+        #                                 tournament['tournament_nbr_round'],
+        #                                 tournament['tournament_players_id'],
+        #                                 tournament['tournament_ctl_time'],
+        #                                 tournament['tournament_description'],
+        #                                 tournament['tournament_match_id'])
+            self.lst_tournamentsobj.append(data_tournament)
         print(self.lst_tournamentsobj)
 
     # Fonction Import Joueurs
     def load_players(self):
-        for player in DB.table_players:
-            new_player = Player(player['player_index'],
-                                player['player_first_name'],
-                                player['player_last_name'],
-                                player['player_age'],
-                                player['player_date_of_birth'],
-                                player['player_gender'],
-                                player['player_rating'],
-                                player['player_score'])
-            self.lst_playersobj.append(new_player)
+        for kwargs_player in DB.table_players:
+            for key, value in kwargs_player.items():
+                setattr(self, key, value)
+            data_player = Player(player_index = kwargs_player['player_index'],
+                                 player_first_name = kwargs_player['player_first_name'],
+                                 player_last_name = kwargs_player['player_last_name'],
+                                 player_age = kwargs_player['player_age'],
+                                 player_date_of_birth = kwargs_player['player_date_of_birth'],
+                                 player_gender = kwargs_player['player_gender'],
+                                 player_rating = kwargs_player['player_rating'],
+                                 player_score = kwargs_player['player_score'])
+
+        # for player in DB.table_players:
+        #     new_player = Player(player['player_index'],
+        #                         player['player_first_name'],
+        #                         player['player_last_name'],
+        #                         player['player_age'],
+        #                         player['player_date_of_birth'],
+        #                         player['player_gender'],
+        #                         player['player_rating'],
+        #                         player['player_score'])
+
+            self.lst_playersobj.append(data_player)
             # print(new_player)
         print(self.lst_playersobj)
 
     # fonction import des matchs
     def load_matchs(self):
-        for match in DB.table_matchs:
-            new_match = Match(match['match_id'],
-                              match['match_player1'],
-                              match['match_score1'],
-                              match['match_player2'],
-                              match['match_score2'])
-            self.lst_matchsobj.append(new_match)
-            # print(new_match)
+        for kwargs_match in DB.table_matchs:
+            for key, value in kwargs_match.items():
+                setattr(self, key, value)
+            data_match = Match(match_id = kwargs_match['match_id'],
+                               match_player1 = kwargs_match['match_player1'],
+                               match_score1 = kwargs_match['match_score1'],
+                               match_player2 = kwargs_match['match_player2'],
+                               match_score2 = kwargs_match['match_score2'],)
+        # for match in DB.table_matchs:
+        #     new_match = Match(match['match_id'],
+        #                       match['match_player1'],
+        #                       match['match_score1'],
+        #                       match['match_player2'],
+        #                       match['match_score2'])
+            self.lst_matchsobj.append(data_match)
         print(self.lst_matchsobj)
 
     # 2. Fonction Sauvegarde des données vers BDD (écraser tout)
@@ -104,19 +135,31 @@ class Model:
         return list_rating
 
     # Pour Créer de nouveaux Joueurs
-    def player_index(self):
+    def create_player_index(self):
         return int(len(self.lst_playersobj)) + 1
 
-    def add_player_in_class(self, player):
-        new_player = Player(player['player_index'],
-                            player['player_first_name'],
-                            player['player_last_name'],
-                            player['player_age'],
-                            player['player_date_of_birth'],
-                            player['player_gender'],
-                            player['player_rating'],
-                            player['player_score'])
+    def add_player_in_class(self, kwargs_player):
+        for key, value in kwargs_player.items():
+            setattr(self, key, value)
+        new_player = Player(player_index = kwargs_player['player_index'],
+                            player_first_name = kwargs_player['player_first_name'],
+                            player_last_name = kwargs_player['player_last_name'],
+                            player_age = kwargs_player['player_age'],
+                            player_date_of_birth = kwargs_player['player_date_of_birth'],
+                            player_gender = kwargs_player['player_gender'],
+                            player_rating = kwargs_player['player_rating'],
+                            player_score = kwargs_player['player_score'])
         self.lst_playersobj.append(new_player)
+
+        # new_player = Player(player['player_index'],
+        #                     player['player_first_name'],
+        #                     player['player_last_name'],
+        #                     player['player_age'],
+        #                     player['player_date_of_birth'],
+        #                     player['player_gender'],
+        #                     player['player_rating'],
+        #                     player['player_score'])
+        # self.lst_playersobj.append(new_player)
 
     # 2. Section Tournois :
     def select_tounament(self):
@@ -139,7 +182,6 @@ class Model:
         #                 raise ValueError()
         #         except:
         #             player_id = None
-        #             print("Oops! id inéxistant ou déjà utilisé \n veuillez recommencer la saisie de l'id \n")
 
     def search_tournament_player(self):
         self.lst_players_obj_sorted_by_id = sorted(self.lst_playersobj, key=lambda x: x.player_index,
@@ -260,17 +302,25 @@ class Model:
     def match_datetime(self):
         return (str(datetime.datetime.now()))
 
-    def match_id(self):
+    def create_match_id(self):
         return int(len(self.lst_matchsobj)) + 1
 
-    def add_tournament_in_match(self, match, i):
-        new_match = Match(match['match_id'],
-                          match['match_player1'],
-                          match['match_score1'],
-                          match['match_player2'],
-                          match['match_score2'],
-                          match['Datetime'],
-                          )
+    def add_tournament_in_match(self, kwargs_match, i):
+        for key, value in kwargs_match.items():
+            setattr(self, key, value)
+        new_match = Match(match_id = kwargs_match['match_id'],
+                          match_player1 = kwargs_match['match_player1'],
+                          match_score1 = kwargs_match['match_score1'],
+                          match_player2 = kwargs_match['match_player2'],
+                          match_score2 = kwargs_match['match_score2'],
+                          Datetime = kwargs_match['Datetime'])
+        # new_match = Match(match['match_id'],
+        #                   match['match_player1'],
+        #                   match['match_score1'],
+        #                   match['match_player2'],
+        #                   match['match_score2'],
+        #                   match['Datetime'],
+        #                   )
         # création du tuple Matchs avec le construct
         # append des id dans la liste de match du Tournois
         self.tournament_matchid_in_instance.append(self.match_id())
@@ -296,16 +346,29 @@ class Model:
                         print(match)
             del lst_round[:4]
 
-    def tournament_index(self):
+    def create_tournament_index(self):
         return int(len(self.lst_tournamentsobj)) + 1
 
-    def add_tournament_in_class(self, tournament):
-        new_tournament = Tournament(tournament['tournament_index'],
-                                    tournament['tournament_name'],
-                                    tournament['tournament_location'],
-                                    tournament['tournament_date'],
-                                    tournament['tournament_nbr_round'],
-                                    tournament['tournament_players_id'],
-                                    tournament['tournament_ctl_time'],
-                                    tournament['tournament_description'])
+    def add_tournament_in_class(self, kwargs_tournament):
+        for key, value in kwargs_tournament.items():
+            setattr(self, key, value)
+        new_tournament = Tournament(tournament_index = kwargs_tournament['tournament_index'],
+                                    tournament_name = kwargs_tournament['tournament_name'],
+                                    tournament_location = kwargs_tournament['tournament_location'],
+                                    tournament_date = kwargs_tournament['tournament_date'],
+                                    tournament_nbr_round = kwargs_tournament['tournament_nbr_round'],
+                                    tournament_players_id = kwargs_tournament['tournament_players_id'],
+                                    tournament_ctl_time = kwargs_tournament['tournament_ctl_time'],
+                                    tournament_description = ['tournament_description'],
+                                    tournament_match_id = kwargs_tournament['tournament_match_id'])
         self.lst_tournamentsobj.append(new_tournament)
+
+        # new_tournament = Tournament(tournament['tournament_index'],
+        #                             tournament['tournament_name'],
+        #                             tournament['tournament_location'],
+        #                             tournament['tournament_date'],
+        #                             tournament['tournament_nbr_round'],
+        #                             tournament['tournament_players_id'],
+        #                             tournament['tournament_ctl_time'],
+        #                             tournament['tournament_description'])
+        # self.lst_tournamentsobj.append(new_tournament)
