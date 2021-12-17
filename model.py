@@ -141,14 +141,7 @@ class Model:
     def add_player_in_class(self, kwargs_player):
         for key, value in kwargs_player.items():
             setattr(self, key, value)
-        new_player = Player(player_index = kwargs_player['player_index'],
-                            player_first_name = kwargs_player['player_first_name'],
-                            player_last_name = kwargs_player['player_last_name'],
-                            player_age = kwargs_player['player_age'],
-                            player_date_of_birth = kwargs_player['player_date_of_birth'],
-                            player_gender = kwargs_player['player_gender'],
-                            player_rating = kwargs_player['player_rating'],
-                            player_score = kwargs_player['player_score'])
+        new_player = Player(**kwargs_player)
         self.lst_playersobj.append(new_player)
 
         # new_player = Player(player['player_index'],
