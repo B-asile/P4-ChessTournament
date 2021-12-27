@@ -175,8 +175,6 @@ class View:
     def selected_players_ids(self, tournament_players_id):
         print('ID des participants: ' + str(tournament_players_id))
 
-
-
     @staticmethod
     def input_tournament_name():
         return input("saisir le nom du tournois\n")
@@ -201,20 +199,25 @@ class View:
     def input_tournament_player_ids(self, list_of_player):
         print('Selection des Joueurs du Tournois \n')
         for player in list_of_player:
-            print('Nom: ' + player.player_first_name + ' Prenom: ' + player.player_last_name + ' id: ' + str(player.player_index))
-        players_list_id=[player.player_index for player in list_of_player]
+            print('Nom: ' + player.player_first_name + ' Prenom: ' + player.player_last_name + ' id: ' + str(
+                player.player_index))
+        players_list_id = [player.player_index for player in list_of_player]
         lst = []
         for number in range(1, 9):
-            playerid=None
-            while not playerid:
-                playerid = input("Entrer l'id du Player " + str(number) + " :  ")
+            player_id = None
+            while not player_id:
+                player_id = input("Entrer l'id du Player " + str(number) + " :  ")
                 try:
-                    playerid=int(playerid)
-                    if playerid not in players_list_id:
-                       raise ValueError()
+                    player_id = int(player_id)
+                    if player_id not in players_list_id:
+                        raise ValueError()
+                    if player_id in lst:
+                        raise ValueError()
                 except:
-                    playerid=None
+                    player_id = None
                     print("Oops! id inéxistant ou déjà utilisé \n veuillez recommencer la saisie \n")
+                else:
+                    lst.append(player_id)
         return lst
 
     @staticmethod
