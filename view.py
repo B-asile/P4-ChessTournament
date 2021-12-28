@@ -1,3 +1,6 @@
+import datetime
+
+
 class View:
 
     def __init__(self):
@@ -56,21 +59,40 @@ class View:
 
     @staticmethod
     def input_player_age():
-        return int(input("saisir l'age du joueur\n"
-                         "veuillez saisir un nombre\n"))
+        '''gestion erreurs entrées utilisateur'''
+        player_age = None
+        while not player_age:
+            player_age = input("saisir l'age du joueur\n"
+                               "veuillez saisir un nombre\n")
+            try:
+                player_age = int(player_age)
+            except ValueError:
+                player_age = None
+                print("Oops, veuillez saisir un nombre")
+        return player_age
 
     @staticmethod
     def input_player_date_of_birth():
-        return input("saisir la date de naissance du joueur\n"
-                     "au format jj/mm/aaaa\n")
+        '''gestion entrées utilisateur formatage de date'''
+        while True:
+            try:
+                return datetime.datetime.strptime(input("saisir la date de naissance du joueur\n"
+                                                        "au format jj/mm/aaaa\n"), "%d/%m/%Y")
+            except(ValueError, TypeError):
+                print("Oops! le format 'date' est invalide \n veuillez recommencer la saisie \n")
 
     @staticmethod
     def input_player_gender():
-        return input("saisir le genre du joueur \n")
+        return input("saisir le sexe du joueur\n")
 
     @staticmethod
     def input_player_rating():
-        return float(input("saisir le rang du joueur \n"))
+        while True:
+            try:
+                return float(input("saisir le rang du joueur\n"
+                                   "veuillez saisir un nombre\n"))
+            except(ValueError, TypeError):
+                print("Oops, veuillez saisir un nombre\n")
 
     def display_new_player(self):
         print(self.controller.newplayer)
