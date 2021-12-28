@@ -83,7 +83,7 @@ class View:
 
     @staticmethod
     def input_player_gender():
-        return input("saisir le sexe du joueur\n")
+        return input("saisir le sexe du joueur\n feminin/masculin\n")
 
     @staticmethod
     def input_player_rating():
@@ -207,11 +207,21 @@ class View:
 
     @staticmethod
     def input_tournament_date():
-        return input("saisir la date du tournois\n")
+        while True:
+            try:
+                return str(datetime.datetime.strptime(input("saisir la date du tournois\n"
+                                                        "au format jj/mm/aaaa\n"), "%d/%m/%Y"))
+            except(ValueError, TypeError):
+                print("Oops! le format 'date' est invalide \n veuillez recommencer la saisie \n")
 
     @staticmethod
     def input_tournament_nbr_round():
-        return int(input("saisir le nombre de round\n"))
+        while True:
+            try:
+                return int(input("saisir le nombre de round\n"
+                                   "saisir un nombre\n"))
+            except(ValueError, TypeError):
+                print("Oops, veuillez saisir un nombre\n")
 
     @staticmethod
     def input_tournament_description():
