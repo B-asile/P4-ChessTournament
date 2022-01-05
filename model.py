@@ -16,15 +16,15 @@ class Model:
         self.id = 0
         self.tournament_players = []
         self.lst_players_obj_sorted_by_id = []
-        self.tournament_matchid_in_instance = []
+        self.tournament_match_id_in_instance = []
         self.list1 = []
         self.list2 = []
         self.player_in_instance = []
         self.nbr_joueurs_by_list = 0
-
+        self.tournament_id = 0
     # 1. Fonction Import données Saved BDD vers Mémoire Programme
-    # Fonction Import Tournois
     def load_tournaments(self):
+        """Fonction Import Tournois"""
         for kwargs_tournament in DB.table_tournaments:
             data_tournament = Tournament(tournament_index=kwargs_tournament['tournament_index'],
                                          tournament_name=kwargs_tournament['tournament_name'],
@@ -38,8 +38,8 @@ class Model:
             self.lst_tournamentsobj.append(data_tournament)
         print(self.lst_tournamentsobj)
 
-    # Fonction Import Joueurs
     def load_players(self):
+        """Fonction Import Joueurs"""
         for kwargs_player in DB.table_players:
             data_player = Player(player_index=kwargs_player['player_index'],
                                  player_first_name=kwargs_player['player_first_name'],
@@ -52,8 +52,8 @@ class Model:
             self.lst_playersobj.append(data_player)
         print(self.lst_playersobj)
 
-    # fonction import des matchs
     def load_matchs(self):
+        """Fonction import des matchs"""
         for kwargs_match in DB.table_matchs:
             data_match = Match(match_id=kwargs_match['match_id'],
                                match_player1=kwargs_match['match_player1'],
@@ -64,44 +64,43 @@ class Model:
         print(self.lst_matchsobj)
 
     # 2. Fonction Sauvegarde des données vers BDD (écraser tout)
-    # Fonction Suppression anciennes Tables pour nouvelle sauvegarde
     @staticmethod
     def erase_tables():
+        """Fonction Suppression anciennes Tables pour nouvelle sauvegarde"""
         DB.TinyDBDropTables()
 
-    # Fonction Sauvegarde Joueurs
     def save_players(self):
+        """Fonction Sauvegarde Joueurs"""
         for player in self.lst_playersobj:
             DB.table_players.insert(player.__dict__)
 
-    # Fonction Sauvegarde Tournois
     def save_tournaments(self):
+        """Fonction sauvegarde des tournois"""
         for tournament in self.lst_tournamentsobj:
             DB.table_tournaments.insert(tournament.__dict__)
 
     def save_matchs(self):
+        """sauvegarde de matchs"""
         for match in self.lst_matchsobj:
             DB.table_matchs.insert(match.__dict__)
-
-    # """"""""""""""""""""""""""""""""""""""""""""""
 
     # FONCTIONS D'OPERATIONS :
 
     # 1. Section Player :
     # Pour afficher la liste des Joueurs par ordre alphabétique
-    # Classer par Nom et Afficher la liste Joueurs de la BDD
     def player_sort_by_name(self):
+        """Classer par Nom et Afficher la liste Joueurs de la BDD"""
         list_az = sorted(self.lst_playersobj, key=lambda x: x.player_first_name.lower(), reverse=False)
         return list_az
 
     # Pour afficher le Classement des Joueurs
-    # Classer par Rating et Afficher la liste des Joueurs de la BDD
     def player_sort_by_rating(self):
+        """Classer par Rating et Afficher la liste des Joueurs de la BDD"""
         list_rating = sorted(self.lst_playersobj, key=lambda x: int(x.player_rating), reverse=True)
         return list_rating
 
-    # Pour Créer de nouveaux Joueurs
     def create_player_index(self):
+        """Pour Créer de nouveaux Joueurs"""
         return int(len(self.lst_playersobj)) + 1
 
     def add_player_in_class(self, kwargs_player):
@@ -121,26 +120,12 @@ class Model:
         # self.lst_playersobj.append(new_player)
 
     # 2. Section Tournois :
-    def select_tounament(self):
-        # Déclaration des variables pour la selection de tournois
-        for selection in self.lst_tournamentsobj:
-            if selection.tournament_index == int(self.find_id):
-                self.id = selection
-                return selection
-
-        # def id_checker(self):
-        # """"contrôle des entrées utilisateur ds selection des ids joueurs pour lancer tournoi"""
-        # players_list_id = [player.player_index for player in self.player_sort_by_name()]
-        # for number in range(1, 9):
-        #     player_id = None
-        #     while not player_id:
-        #         player_id = input("Entrer l'id du Player " + str(number) + " :  ")
-        #         try:
-        #             player_id = int(player_id)
-        #             if player_id not in players_list_id:
-        #                 raise ValueError()
-        #         except:
-        #             player_id = None
+    # def select_tounament(self):
+    #     """Déclaration des variables pour la selection de tournois"""
+    #     for selection in self.lst_tournamentsobj:
+    #         if selection.tournament_index == int(self.find_id):
+    #             self.id = selection
+    #             return selection
 
     def search_tournament_player(self):
         self.lst_players_obj_sorted_by_id = sorted(self.lst_playersobj, key=lambda x: x.player_index,
@@ -155,27 +140,27 @@ class Model:
                 if id == Player.player_index:
                     # ajout à la liste des Joueurs du Tournois
                     self.tournament_players.append(Player)
-
-    # Pour afficher les anciens Tournois et accéder aux options
+ 
     def tournaments_history(self):
+        """Pour afficher les anciens Tournois et accéder aux options"""
         return sorted(self.lst_tournamentsobj, key=lambda x: str(x.tournament_date), reverse=False)
 
-    # Classement de la liste des joueurs du Tournois par nom :
     def tournament_players_by_name(self):
+        """Classement de la liste des joueurs du tournoi par nom"""
         return sorted(self.tournament_players, key=lambda x: x.player_first_name.lower(), reverse=False)
 
-    # Classement de la liste des joueurs du Tournois par rating :
     def tournament_players_by_rate(self):
+        """Classement de la liste des joueurs du Tournoi par rating"""
         return sorted(self.tournament_players, key=lambda x: x.player_rating, reverse=True)
 
-    def tournament_matchid_instanced(self):
-        self.tournament_matchid_in_instance = self.id.tournament_match_id
-        return (self.tournament_matchid_in_instance)
+    def tournament_match_id_instanced(self):
+        self.tournament_match_id_in_instance = self.id.tournament_match_id
+        return (self.tournament_match_id_in_instance)
 
     def match2lists_creation(self):
         self.nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
         # si le match commence (round = 0) tri par classement
-        if int((len(self.tournament_matchid_in_instance) / 4)) == 0:
+        if int((len(self.tournament_match_id_in_instance) / 4)) == 0:
             self.player_in_instance = self.tournament_players
             self.player_in_instance_sorted = sorted(self.player_in_instance,
                                                     key=lambda x: x.player_rating,
@@ -282,7 +267,7 @@ class Model:
         #                   )
         # création du tuple Matchs avec le construct
         # append des id dans la liste de match du Tournois
-        self.tournament_matchid_in_instance.append(self.match_id())
+        self.tournament_match_id_in_instance.append(self.match_id())
         self.lst_matchsobj.append(new_match)
         # Mise a jour du Rating dans les listes de joueurs
         for Player in self.lst_players_obj_sorted_by_id:

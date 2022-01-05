@@ -31,24 +31,23 @@ class View:
     @staticmethod
     def input_player_menu():
         return input('*** SECTION JOUEURS *** \n'
-                     '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n'
-                     '2 - Pour afficher le Classement des Joueurs \n'
-                     '3 - Pour Créer de nouveaux Joueurs \n'
-                     '0 - Pour Retourner au Menu Principale\n')
+                         '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n'
+                         '2 - Pour afficher le Classement des Joueurs \n'
+                         '3 - Pour Créer de nouveaux Joueurs \n'
+                         '0 - Pour Retourner au Menu Principale\n')
 
-    # printer player az
     def display_player_sort_by_name(self, list_of_player):
+        """Affichage de la liste des joueurs de A-Z"""
         print('Liste des Joueurs par ordre alphabétique\n')
         for player in list_of_player:
             print(player)
 
-    # printer player rating
     def display_player_sort_by_rating(self, list_of_player):
+        """Affichage des joueurs par classement-rang"""
         print('Classement des Joueurs\n')
         for player in list_of_player:
             print(str(player) + '  ' + '(Score: ' + str(player.player_rating) + ')')
 
-    # print('Création des Joueurs\n')
     @staticmethod
     def input_player_first_name():
         return input("saisir le nom du joueur \n")
@@ -77,13 +76,13 @@ class View:
         while True:
             try:
                 return str(datetime.datetime.strptime(input("saisir la date de naissance du joueur\n"
-                                                        "au format jj/mm/aaaa\n"), "%d/%m/%Y"))
+                                                            "au format jj/mm/aaaa\n"), "%d/%m/%Y").date())
             except(ValueError, TypeError):
                 print("Oops! le format 'date' est invalide \n veuillez recommencer la saisie \n")
 
     @staticmethod
     def input_player_gender():
-        return input("saisir le sexe du joueur\n feminin/masculin\n")
+        return input("saisir le sexe du joueur\n F(feminin)/M(masculin)\n")
 
     @staticmethod
     def input_player_rating():
@@ -122,9 +121,20 @@ class View:
             print('ID :' + str(x.tournament_index) + ' ' + x.tournament_name + ' ' + str(x.tournament_date))
         print('\n')
 
-    @staticmethod
-    def input_find_id():
-        return input('ID du Tournois à selectionner\n')
+    def input_find_id(self, lst_tournamentobj):
+            #return int(input("ID du Tournois à selectionner"))
+        tournament_lst_id = [tournament.tournament_index for tournament in lst_tournamentobj]
+        tournament_id = None
+        while not tournament_id:
+            tournament_id = input("Entrez l'id du Tournois à sélectionner" + str(tournament_id) + " : ")
+            try:
+                tournament_id = int(tournament_id)
+                if tournament_id not in tournament_lst_id:
+                    raise ValueError
+            except:
+                tournament_id = None
+                print("Oops!!! Tournoi inexistant recommencez la saisie\n")
+        return tournament_id
 
     def display_selected_tournament(self, id):
         print("Vous avez selectionné le Tournois: " + id.tournament_name + '\n')
@@ -178,8 +188,8 @@ class View:
     def display_start_new_tournament():
         print('START A NEW TOURNAMENT')
 
-    def nbr_round_before(self, tournament_matchid_in_instance):
-        print('Nombre de Rounds executés précédement : ' + str(int((len(tournament_matchid_in_instance)) / 4)))
+    def nbr_round_before(self, tournament_match_id_in_instance):
+        print('Nombre de Rounds exécutés précédemment : ' + str(int((len(tournament_match_id_in_instance)) / 4)))
 
     @staticmethod
     def max_round():
@@ -210,7 +220,7 @@ class View:
         while True:
             try:
                 return str(datetime.datetime.strptime(input("saisir la date du tournois\n"
-                                                        "au format jj/mm/aaaa\n"), "%d/%m/%Y"))
+                                                            "au format jj/mm/aaaa\n"), "%d/%m/%Y").date())
             except(ValueError, TypeError):
                 print("Oops! le format 'date' est invalide \n veuillez recommencer la saisie \n")
 
@@ -219,7 +229,7 @@ class View:
         while True:
             try:
                 return int(input("saisir le nombre de round\n"
-                                   "saisir un nombre\n"))
+                                 "veuillez saisir un nombre\n"))
             except(ValueError, TypeError):
                 print("Oops, veuillez saisir un nombre\n")
 
@@ -248,7 +258,7 @@ class View:
                         raise ValueError()
                 except:
                     player_id = None
-                    print("Oops! id inéxistant ou déjà utilisé \n veuillez recommencer la saisie \n")
+                    print("Oops! id inexistant ou déjà utilisé \n veuillez recommencer la saisie \n")
                 else:
                     lst.append(player_id)
         return lst
@@ -256,12 +266,14 @@ class View:
     @staticmethod
     def input_tournament_ctl_time():
         print('*** TimeControl ***')
-        x = input("1 - Pour selectionner un bullet\n"
-                  "2 - Pour selectionner un blitz\n"
-                  "3 - Pour selectionner un coup rapide\n")
-        if x == '1': return 'BULLET'
-        if x == '2': return 'BLITZ'
-        if x == '3': return 'COUP RAPIDE'
+        while True:
+            user_select = input("1 - Pour sélectionner un bullet\n"
+                                "2 - Pour sélectionner un blitz\n"
+                                "3 - Pour sélectionner un coup rapide\n")
+            if user_select == '1': return 'BULLET'
+            if user_select == '2': return 'BLITZ'
+            if user_select == '3': return 'COUP RAPIDE'
+            print("Saisie incorrecte, entrez 1,2 ou 3")
 
     @staticmethod
     def input_selected_tournament():
