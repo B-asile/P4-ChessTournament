@@ -107,7 +107,7 @@ class Controller:
             # choix du tournois dans la liste affiché ci-dessus
             self.model.find_id = self.view.input_find_id(self.model.lst_tournamentsobj)
             # initialisation de la variable id qui va servir dans le menu tournois
-            self.view.display_selected_tournament(self.view.input_find_id())
+            self.view.display_selected_tournament(self.model.select_tounament())
             # Préparation des joueurs de chaque tournois pour les 2 de tri suivants:
             # transformation liste ID en List d'objet
             self.tournament_players = self.model.search_tournament_player()
@@ -134,8 +134,10 @@ class Controller:
                 # print demarrage d'un nouveau tournois
                 self.view.display_start_new_tournament()
                 # vérifier si le tournois possède deja 4ID match X Round et redemarrer à l'endroit ou ca c'est arreté
+                #if self.model.tournament_match_id_in_instance() != None:
                 # Nombre de rounds executés précédement
-                self.view.nbr_round_before(self.model.tournament_matchid_instanced())
+                self.model.tournament_match_id_instanced()
+                self.view.nbr_round_before(self.model.tournament_match_id_in_instance)
                 if str(int((len(self.model.tournament_match_id_in_instance)) / 4)) == str(
                         self.model.id.tournament_nbr_round):
                     self.view.max_round()

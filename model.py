@@ -21,7 +21,6 @@ class Model:
         self.list2 = []
         self.player_in_instance = []
         self.nbr_joueurs_by_list = 0
-        self.tournament_id = 0
     # 1. Fonction Import données Saved BDD vers Mémoire Programme
     def load_tournaments(self):
         """Fonction Import Tournois"""
@@ -120,12 +119,12 @@ class Model:
         # self.lst_playersobj.append(new_player)
 
     # 2. Section Tournois :
-    # def select_tounament(self):
-    #     """Déclaration des variables pour la selection de tournois"""
-    #     for selection in self.lst_tournamentsobj:
-    #         if selection.tournament_index == int(self.find_id):
-    #             self.id = selection
-    #             return selection
+    def select_tounament(self):
+        """Déclaration des variables pour la selection de tournois"""
+        for selection in self.lst_tournamentsobj:
+            if selection.tournament_index == int(self.find_id):
+                self.id = selection
+                return selection
 
     def search_tournament_player(self):
         self.lst_players_obj_sorted_by_id = sorted(self.lst_playersobj, key=lambda x: x.player_index,
@@ -267,7 +266,7 @@ class Model:
         #                   )
         # création du tuple Matchs avec le construct
         # append des id dans la liste de match du Tournois
-        self.tournament_match_id_in_instance.append(self.match_id())
+        self.tournament_match_id_in_instance.append(self.match_id)
         self.lst_matchsobj.append(new_match)
         # Mise a jour du Rating dans les listes de joueurs
         for Player in self.lst_players_obj_sorted_by_id:
