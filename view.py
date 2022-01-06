@@ -151,21 +151,21 @@ class View:
 
     @staticmethod
     def input_information_tournament():
-        return input(' Informations à afficher :\n'
-                     ' 1 - Informations du Tournois : date, description, etc...\n'
-                     ' 2 - Liste des joueurs ayants participés par ordre alphabétique\n'
-                     ' 3 - Liste des joueurs ayants participés (Classement Général)\n'
-                     ' 4 - Liste des Rounds, Matchs et Classement du Tournois\n'
-                     ' 5 - Démarrer/Reprendre : Mode Tournois\n'
-                     ' 0 - retourner au menu principal\n')
+        return input(" Informations à afficher :\n"
+                     " 1 - Informations du Tournois : date, description, etc...\n"
+                     " 2 - Liste des joueurs ayants participés par ordre alphabétique\n"
+                     " 3 - Liste des joueurs ayants participés (Classement Général)\n"
+                     " 4 - Liste des Rounds, Matchs et Classement du Tournois\n"
+                     " 5 - Démarrer/Reprendre : Mode Tournois\n"
+                     " 0 - retourner au menu principal\n")
 
     def display_information_tournament_selected(self, id):
-        return print('INFORMATION DU TOURNOIS: '
-                     '\n- Nom du Tournois: ' + id.tournament_name +
-                     '\n- Date du Tournois: ' + id.tournament_date +
-                     '\n- Description du Tournois: ' + id.tournament_description +
-                     '\n- Localisation du Tournois: ' + id.tournament_location +
-                     '\n- Time Control: ' + id.tournament_ctl_time + '\n')
+        return print("INFORMATION DU TOURNOIS: "
+                     "\n- Nom du Tournois: " + str(id.tournament_name) +
+                     "\n- Date du Tournois: " + str(id.tournament_date) +
+                     "\n- Description du Tournois: " + str(id.tournament_description) +
+                     "\n- Localisation du Tournois: " + str(id.tournament_location) +
+                     "\n- Time Control: " + str(id.tournament_ctl_time) + "\n")
 
     def display_players_in_tournament_name(self):
         print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.tournament_name)
