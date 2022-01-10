@@ -156,14 +156,14 @@ class Controller:
                         m = {
                             'match_id': self.model.create_match_id(),
                             'match_player1': str(self.model.list1[i]),
-                            'match_score1': input('Score ' + str(self.model.list1[i]) + ': '),
+                            'match_score1': self.view.input_player_score(self.model.list1[i]),
                             'match_player2': str(self.model.list2[i]),
-                            'match_score2': input('Score: ' + str(self.model.list2[i]) + ': '),
+                            'match_score2': self.view.input_player_score(self.model.list2[i]),
                             'Datetime': self.model.match_datetime()
                         }
                         self.model.add_tournament_in_match(m, i)
                     print(self.model.lst_matchsobj)
-                    # Mise a jour de la liste de matchs dans l'objet tournois selectionné de la liste des tournois
+                    # Mise à jour de la liste de matchs dans l'objet tournois sélectionné de la liste des tournois
                     self.model.id.tournament_match_id = self.model.tournament_match_id_in_instance
                     self.tournament_menu()
 

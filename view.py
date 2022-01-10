@@ -31,10 +31,10 @@ class View:
     @staticmethod
     def input_player_menu():
         return input('*** SECTION JOUEURS *** \n'
-                         '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n'
-                         '2 - Pour afficher le Classement des Joueurs \n'
-                         '3 - Pour Créer de nouveaux Joueurs \n'
-                         '0 - Pour Retourner au Menu Principale\n')
+                     '1 - Pour afficher la liste des Joueurs par ordre alphabétique \n'
+                     '2 - Pour afficher le Classement des Joueurs \n'
+                     '3 - Pour Créer de nouveaux Joueurs \n'
+                     '0 - Pour Retourner au Menu Principale\n')
 
     def display_player_sort_by_name(self, list_of_player):
         """Affichage de la liste des joueurs de A-Z"""
@@ -122,7 +122,7 @@ class View:
         print('\n')
 
     def input_find_id(self, lst_tournamentobj):
-            #return int(input("ID du Tournois à selectionner"))
+        # return int(input("ID du Tournois à selectionner"))
         tournament_lst_id = [tournament.tournament_index for tournament in lst_tournamentobj]
         tournament_id = None
         while not tournament_id:
@@ -239,8 +239,8 @@ class View:
 
     # Pour créer un nouveau Tournois
     def input_tournament_player_ids(self, list_of_player):
-        ''' Entrées utilisateur et gestion des erreurs input pour selection des id joueur création de tournois'''
-        print('Selection des Joueurs du Tournois \n')
+        ''' Entrés utilisateur et gestion des erreurs input pour selection des id joueur création de tournois'''
+        print("Selection des Joueurs du Tournois \n")
         for player in list_of_player:
             print('Nom: ' + player.player_first_name + ' Prenom: ' + player.player_last_name + ' id: ' + str(
                 player.player_index))
@@ -281,13 +281,22 @@ class View:
 
     @staticmethod
     def input_infos_tournament():
-        return input(' INFORMATIONS TOURNOI :\n'
-                     ' 1 - Informations du Tournois : date, description, etc...\n'
-                     ' 2 - Liste des joueurs ayants participés par ordre alphabétique\n'
-                     ' 3 - Liste des joueurs ayants participés (Classement Général)\n'
-                     ' 4 - Classement interne du Tournois\n'
-                     ' 5 - Liste des Rounds du Tournois\n'
-                     ' 6 - Liste des Matchs du Tournois\n')
+        return input(" INFORMATIONS TOURNOI :\n"
+                     " 1 - Informations du Tournois : date, description, etc...\n"
+                     " 2 - Liste des joueurs ayants participés par ordre alphabétique\n"
+                     " 3 - Liste des joueurs ayants participés (Classement Général)\n"
+                     " 4 - Classement interne du Tournois\n"
+                     " 5 - Liste des Rounds du Tournois\n"
+                     " 6 - Liste des Matchs du Tournois\n")
+
+    @staticmethod
+    def input_player_score(player_name):
+        while True:
+            score = float(input("entrez le score du joueur " + str(player_name) + " :"))
+            if int(score) == 0: return score
+            if str(score) == "0.5": return score
+            if str(score) == "1.0": return score
+            print("mauvaise saisie, entrez: 0, 0.5, 1")
 
     @staticmethod
     def display_end():
