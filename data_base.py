@@ -1,17 +1,8 @@
 from tinydb import TinyDB, Query
 from datetime import datetime
-# from tinydb_serialization import Serializer
-
-
-# class DateTimeSerializer(Serializer):
-#     DateTimeSerializer = datetime  # The class this serializer handles
-#     return obj.isoformat()
-#
-#     def decode(self, s):
-#         return datetime.fromisoformat(s)
 
 class DB:
-    db = TinyDB('db.json')
+    db = TinyDB('stored_data.json')
     table_tournaments = db.table('Tournament')
     table_players = db.table('Player')
     table_matchs = db.table('Matchs')

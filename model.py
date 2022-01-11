@@ -3,8 +3,8 @@ from tournament import Tournament
 from player import Player
 from match import Match
 import datetime
-from db import DB
-
+from data_base import DB
+from collections import OrderedDict
 
 class Model:
     def __init__(self):
@@ -146,11 +146,15 @@ class Model:
 
     def tournament_players_by_name(self):
         """Classement de la liste des joueurs du tournoi par nom"""
-        return sorted(self.tournament_players, key=lambda x: x.player_first_name.lower(), reverse=False)
+        tournament_list_by_name = sorted(self.tournament_players, key=lambda x: x.player_first_name.lower(), reverse=False)
+        tournament_list_by_name = list(OrderedDict.fromkeys(tournament_list_by_name))
+        return tournament_list_by_name
 
     def tournament_players_by_rate(self):
         """Classement de la liste des joueurs du Tournoi par rating"""
-        return sorted(self.tournament_players, key=lambda x: x.player_rating, reverse=True)
+        tournament_list_by_rate = sorted(self.tournament_players, key=lambda x: x.player_rating, reverse=True)
+        tournament_list_by_rate = list(OrderedDict.fromkeys(tournament_list_by_rate))
+        return tournament_list_by_rate
 
     def tournament_match_id_instanced(self):
         self.tournament_match_id_in_instance = self.id.tournament_match_id
