@@ -16,3 +16,30 @@ class Player:
 
     # def __repr__(self):
         # return f"Player: {self.player_first_name} {self.player_last_name} [{self.player_rating}]"
+
+# FONCTIONS D'OPERATIONS :
+
+    # 1. Section Player :
+    # Pour afficher la liste des Joueurs par ordre alphabétique
+    @staticmethod
+    def player_sort_by_name(lst_playersobj):
+        """Classer par Nom et Afficher la liste Joueurs de la BDD"""
+        list_az = sorted(lst_playersobj, key=lambda x: x.player_first_name.lower(), reverse=False)
+        return list_az
+
+    @staticmethod
+    def player_sort_by_rating(lst_playersobj):
+        """Classer par Rating et Afficher la liste des Joueurs de la BDD"""
+        list_rating = sorted(lst_playersobj, key=lambda x: int(x.player_rating), reverse=True)
+        return list_rating
+
+    @staticmethod
+    def create_player_index(lst_playersobj):
+        """Pour Créer de nouveaux Joueurs"""
+        return int(len(lst_playersobj)) + 1
+
+    def add_player_in_class(self, kwargs_player, lst_playersobj):
+        for key, value in kwargs_player.items():
+            setattr(self, key, value)
+        new_player = Player(**kwargs_player)
+        lst_playersobj.append(new_player)
