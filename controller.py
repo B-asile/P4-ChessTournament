@@ -15,7 +15,7 @@ class Controller:
     def run(self):
         self.view.display_start()
         self.view.display_load_db()
-        # Fonction import des tournois, players & match du Json dans la liste du model
+        # Fonction import des tournois, players & match du Json dans la liste du models
         self.data_base.load_tournaments()
         self.data_base.load_players()
         self.data_base.load_matchs()
@@ -103,6 +103,10 @@ class Controller:
     # 2. Créer un nouveau Tournois
     # 0. Retour au Menu Principal
     def tournament_menu(self):
+        """balbaljirh
+
+        description détaillée
+        """
         section_tournaments = self.view.input_tournament_menu()
         if section_tournaments == '1':
             # Classer liste des Tournois par date pour permettre la selection des ID
@@ -117,77 +121,15 @@ class Controller:
             self.view.display_selected_tournament(self.data_base.id)
             # Préparation des joueurs de chaque tournois pour les 2 de tri suivants:
             # transformation liste ID en List d'objet
+            self.data_base.lst_players_obj_sorted_by_id = self.tournament.create_lst_players_obj_sorted_by_id(
+                self.data_base.lst_playersobj)
             self.data_base.tournament_players = self.tournament.search_tournament_player(
                 self.data_base.lst_players_obj_sorted_by_id,
-                self.data_base.lst_playersobj,
-                self.data_base.id,
-                self.data_base.tournament_players)
+                self.data_base.id)
             # Choix de l'affichage en fonction de l'ID :
             info_tournament = self.view.input_information_tournament()
 
-            if info_tournament == '1':
-                # Afficher Informations du Tournois selectionné : date, description, etc...
-                self.view.display_information_tournament_selected(self.data_base.id)
-                self.tournament_menu()
-            elif info_tournament == '2':
-                # Classement de la liste des joueurs du Tournois par nom :
-                self.view.display_tournament_player_by_name(
-                    self.tournament.tournament_players_by_name(self.data_base.tournament_players))
-                self.tournament_menu()
-            elif info_tournament == '3':
-                # Classement de la liste des joueurs du Tournois par rating :
-                self.view.display_tournament_player_by_rate(
-                    self.tournament.tournament_players_by_rate(self.data_base.tournament_players))
-                self.tournament_menu()
-            elif info_tournament == '4':
-                # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
-                self.view.display_happen_in_tournament(self.data_base.id)
-                self.tournament_menu()
-            elif info_tournament == '5':
-                # print demarrage d'un nouveau tournois
-                self.view.display_start_new_tournament()
-                # vérifier si le tournois possède deja 4ID match X Round et redemarrer à l'endroit ou ca c'est arreté
-                # if self.model.tournament_match_id_in_instance() != None:
-                # Nombre de rounds executés précédement
-                self.match.tournament_match_id_instanced(self.data_base.tournament_match_id_in_instance,
-                                                         self.data_base.id)
-                self.view.nbr_round_before(self.data_base.tournament_match_id_in_instance)
-                if str(int((len(self.data_base.tournament_match_id_in_instance)) / 4)) == str(
-                        self.data_base.id.tournament_nbr_round):
-                    self.view.max_round()
-                    self.tournament_menu()
-                else:
-                    self.view.selected_tournament_name(self.data_base.id)
-                    self.view.selected_tournament_round(self.data_base.id.tournament_nbr_round)
-                    self.view.selected_players_ids(self.data_base.id, self.tournament.tournament_players_id)
-                    self.match.match2lists_creation(self.data_base.nbr_joueurs_by_list,
-                                                    self.data_base.tournament_players,
-                                                    self.data_base.tournament_match_id_in_instance,
-                                                    self.data_base.lst_players_obj_sorted_by_id,
-                                                    self.data_base.id,
-                                                    self.data_base.lst_matchsobj)
-                    # début des matchs
-                    # Création des Tuples = parties :
-
-                    for i in range(self.data_base.nbr_joueurs_by_list):
-                        # Affichage du match en cours avec l'iteration 1 de la list 1 et 1 de la list 2
-                        self.view.display_current_match(self.match.list1[i], self.match.list2[i])
-                        m = {
-                            'match_id': self.match.create_match_id(self.data_base.lst_matchsobj),
-                            'match_player1': str(self.match.list1[i]),
-                            'match_score1': self.view.input_player_score(self.match.list1[i]),
-                            'match_player2': str(self.match.list2[i]),
-                            'match_score2': self.view.input_player_score(self.match.list2[i]),
-                            'Datetime': self.match.match_datetime()
-                        }
-                        self.match.add_tournament_in_match(m, i)
-                    print(self.data_base.lst_matchsobj)
-                    # Mise à jour de la liste de matchs dans l'objet tournois sélectionné de la liste des tournois
-                    self.match.id.tournament_match_id = self.data_base.tournament_match_id_in_instance
-                    self.tournament_menu()
-
-            elif info_tournament == '0':
-                self.main_menu()
+            self.selected_infos_tournament(info_tournament)
         elif section_tournaments == '2':
             # Pour créer un nouveau Tournois
             tournament = {
@@ -196,7 +138,7 @@ class Controller:
                 'tournament_location': self.view.input_tournament_location(),
                 'tournament_date': self.view.input_tournament_date(),
                 'tournament_nbr_round': self.view.input_tournament_nbr_round(),
-                'tournament_players_id': self.view.input_tournament_player_ids(self.player.player_sort_by_name()),
+                'tournament_players_id': self.view.input_tournament_player_ids(self.player.player_sort_by_name(self.data_base.lst_playersobj)),
                 'tournament_ctl_time': self.view.input_tournament_ctl_time(),
                 'tournament_description': self.view.input_tournament_description(),
                 'tournament_match_id': []
@@ -208,6 +150,84 @@ class Controller:
             self.main_menu()
         else:
             self.error()
+
+    def selected_infos_tournament(self, info_tournament):
+        if info_tournament == '1':
+            # Afficher Informations du Tournois selectionné : date, description, etc...
+            self.view.display_information_tournament_selected(self.data_base.id)
+            self.tournament_menu()
+        elif info_tournament == '2':
+            # Classement de la liste des joueurs du Tournois par nom :
+            self.view.display_tournament_player_by_name(
+                self.tournament.tournament_players_by_name(self.data_base.tournament_players))
+            self.tournament_menu()
+        elif info_tournament == '3':
+            # Classement de la liste des joueurs du Tournois par rating :
+            self.view.display_tournament_player_by_rate(
+                self.tournament.tournament_players_by_rate(self.data_base.tournament_players))
+            self.tournament_menu()
+        elif info_tournament == '4':
+            # Pour afficher Les Rounds, Matchs & le Classement des Joueurs pour le Tournois
+            self.view.display_happen_in_tournament(self.data_base.id)
+            self.tournament_menu()
+        elif info_tournament == '5':
+            # print demarrage d'un nouveau tournois
+            self.view.display_start_new_tournament()
+            # vérifier si le tournois possède deja 4ID match X Round et redemarrer à l'endroit ou ca c'est arreté
+            # if self.models.tournament_match_id_in_instance() != None:
+            # Nombre de rounds executés précédement
+            self.data_base.tournament_match_id_in_instance = self.match.tournament_match_id_instanced(self.data_base.id)
+            self.view.nbr_round_before(self.data_base.tournament_match_id_in_instance)
+            if str(int((len(self.data_base.tournament_match_id_in_instance)) / 4)) == str(
+                    self.data_base.id.tournament_nbr_round):
+                self.view.max_round()
+                self.tournament_menu()
+            else:
+                self.view.selected_tournament_name(self.data_base.id)
+                self.view.selected_tournament_round(self.data_base.id.tournament_nbr_round)
+                self.view.selected_players_ids(self.tournament.tournament_players_id)
+                self.data_base.nbr_players_by_list = 0
+                self.data_base.nbr_players_by_list = self.match.create_nbr_players_by_list(
+                    self.data_base.tournament_players)
+                # self.data_base.player_in_instance = self.match.create_player_in_instance(
+                # self.data_base.tournament_players)
+                self.data_base.list1, self.data_base.list2 = self.match.match2lists_creation(
+                                                self.data_base.nbr_players_by_list,
+                                                self.data_base.tournament_match_id_in_instance,
+                                                self.data_base.lst_players_obj_sorted_by_id,
+                                                self.data_base.id,
+                                                self.data_base.lst_matchsobj,
+                                                # self.data_base.player_in_instance
+                                                self.data_base.tournament_players)
+                # début des matchs
+                # Création des Tuples = parties :
+
+                for i in range(self.data_base.nbr_players_by_list):
+                    # Affichage du match en cours avec l'iteration 1 de la list 1 et 1 de la list 2
+                    self.view.display_current_match(self.data_base.list1[i], self.data_base.list2[i])
+                    m = {
+                        'match_id': self.match.create_match_id(self.data_base.lst_matchsobj),
+                        'match_player1': str(self.data_base.list1[i]),
+                        'match_score1': self.view.input_player_score(self.data_base.list1[i]),
+                        'match_player2': str(self.data_base.list2[i]),
+                        'match_score2': self.view.input_player_score(self.data_base.list2[i]),
+                        'Datetime': self.match.match_datetime()
+                    }
+                    match_id, self.data_base.new_match = self.match.add_tournament_in_match(m)
+                    self.data_base.tournament_match_id_in_instance.append(match_id)
+                    self.data_base.lst_matchsobj.append(self.data_base.new_match)
+                    self.match.update_rating_in_player(i,
+                                                       self.data_base.lst_players_obj_sorted_by_id,
+                                                       self.data_base.list1, self.data_base.list2,
+                                                       self.data_base.new_match)
+
+                print(self.data_base.lst_matchsobj)
+                # Mise à jour de la liste de matchs dans l'objet tournois sélectionné de la liste des tournois
+                self.data_base.id.tournament_match_id = self.data_base.tournament_match_id_in_instance
+                self.tournament_menu()
+
+        elif info_tournament == '0':
+            self.main_menu()
 
     # Message et Action suite mauvaise Saisie
 

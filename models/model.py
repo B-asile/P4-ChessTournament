@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 class Model:
     def __init__(self):
-        # variables de model
+        # variables de models
         self.lst_playersobj = []
         self.lst_tournamentsobj = []
         self.lst_matchsobj = []
@@ -20,7 +20,7 @@ class Model:
         self.list1 = []
         self.list2 = []
         self.player_in_instance = []
-        self.nbr_joueurs_by_list = 0
+        self.nbr_players_by_list = 0
     # # 1. Fonction Import données Saved BDD vers Mémoire Programme
     # def load_tournaments(self):
     #     """Fonction Import Tournois"""
@@ -161,7 +161,7 @@ class Model:
     #     return (self.tournament_match_id_in_instance)
 
     # def match2lists_creation(self):
-    #     self.nbr_joueurs_by_list = int(len(self.tournament_players) / 2)
+    #     self.nbr_players_by_list = int(len(self.tournament_players) / 2)
     #     # si le match commence (round = 0) tri par classement
     #     if int((len(self.tournament_match_id_in_instance) / 4)) == 0:
     #         self.player_in_instance = self.tournament_players
@@ -171,8 +171,8 @@ class Model:
     #         # for player in self.player_in_instance_sorted:
     #         #    print(str(player) + '  ' + str(player.player_rating))
     #         # création des deux listes
-    #         self.list1 = self.player_in_instance_sorted[:self.nbr_joueurs_by_list]
-    #         self.list2 = self.player_in_instance_sorted[-self.nbr_joueurs_by_list:]
+    #         self.list1 = self.player_in_instance_sorted[:self.nbr_players_by_list]
+    #         self.list2 = self.player_in_instance_sorted[-self.nbr_players_by_list:]
     #     # si le match est deja en cours, récupération des anciens scores
     #     else:
     #         # Remplir les Scores des joueurs de self.tournament_players avec les rouds précédents
@@ -210,7 +210,7 @@ class Model:
     #         self.list2 = self.player_in_instance_sorted[1::2]
     #         # Test si match deja existant dans les rounds précédents
     #         # pour chaque prochain round
-    #         for i in range(self.nbr_joueurs_by_list):
+    #         for i in range(self.nbr_players_by_list):
     #             # pour chaque id de round deja fait dans ce tournois
     #             for m in self.id.tournament_match_id:
     #                 # pour chaque matchs deja fait dans l'absolue
@@ -275,7 +275,7 @@ class Model:
         # # Mise a jour du Rating dans les listes de joueurs
         # for Player in self.lst_players_obj_sorted_by_id:
         #     # print(Player)
-        #     # print(str(self.model.list1[i]))
+        #     # print(str(self.models.list1[i]))
         #     if str(Player) == str(self.list1[i]):
         #         Player.player_rating = (float(Player.player_rating) + float(new_match.match_score1))
         #     if str(Player) == str(self.list2[i]):

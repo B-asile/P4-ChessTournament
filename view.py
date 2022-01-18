@@ -126,7 +126,7 @@ class View:
         tournament_lst_id = [tournament.tournament_index for tournament in lst_tournamentobj]
         tournament_id = None
         while not tournament_id:
-            tournament_id = input("Entrez l'id du Tournois à sélectionner" + str(tournament_id) + " : ")
+            tournament_id = input("Entrez l'id du Tournois à sélectionner: ")
             try:
                 tournament_id = int(tournament_id)
                 if tournament_id not in tournament_lst_id:

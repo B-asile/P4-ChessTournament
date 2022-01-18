@@ -4,10 +4,11 @@ from tournament import Tournament
 from player import Player
 from match import Match
 
+
 class DB:
     def __init__(self):
         self.db = TinyDB('stored_data.json')
-        self.table_players =self.db.table('Player')
+        self.table_players = self.db.table('Player')
         self.table_matchs = self.db.table('Matchs')
         self.table_tournaments = self.db.table('Tournament')
         self.lst_playersobj = []
@@ -21,8 +22,8 @@ class DB:
         self.list1 = []
         self.list2 = []
         self.player_in_instance = []
-        self.nbr_joueurs_by_list = 0
-
+        self.nbr_players_by_list = 0
+        self.new_match = None
 
     @staticmethod
     def TinyDBDropTables():

@@ -28,12 +28,15 @@ class Tournament:
     #     for selection in lst_tournamentsobj:
     #         if selection.tournament_index == int(find_id):
     #             id = selection
-    #             return selection
-
-    def search_tournament_player(self, lst_players_obj_sorted_by_id, lst_playersobj, id, tournament_players):
+    #            return selection
+    def create_lst_players_obj_sorted_by_id(self, lst_playersobj):
         lst_players_obj_sorted_by_id = sorted(lst_playersobj, key=lambda x: x.player_index,
                                               reverse=False)
+        return lst_players_obj_sorted_by_id
+
+    def search_tournament_player(self, lst_players_obj_sorted_by_id, id):
         # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
+        tournament_players = []
         selected_tournament_players_id = id.tournament_players_id
         # Itération dans la liste des ID du Tournois
         for id in selected_tournament_players_id:
@@ -43,6 +46,7 @@ class Tournament:
                 if id == Player.player_index:
                     # ajout à la liste des Joueurs du Tournois
                     tournament_players.append(Player)
+        return tournament_players
 
     def tournaments_history(self, lst_tournamentsobj):
         """Pour afficher les anciens Tournois et accéder aux options"""
@@ -73,6 +77,6 @@ class Tournament:
                                     tournament_nbr_round=kwargs_tournament['tournament_nbr_round'],
                                     tournament_players_id=kwargs_tournament['tournament_players_id'],
                                     tournament_ctl_time=kwargs_tournament['tournament_ctl_time'],
-                                    tournament_description=['tournament_description'],
+                                    tournament_description=kwargs_tournament['tournament_description'],
                                     tournament_match_id=kwargs_tournament['tournament_match_id'])
         lst_tournamentsobj.append(new_tournament)
