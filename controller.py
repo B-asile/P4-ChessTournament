@@ -80,7 +80,8 @@ class Controller:
                 'player_rating': self.view.input_player_rating(),
                 'player_score': 0}
             # Initialisation de l'objet dans la classe
-            self.player.add_player_in_class(player, self.data_base.lst_playersobj)
+            self.data_base.new_player = self.player.add_player_in_class(player)
+            self.data_base.lst_playersobj.append(self.data_base.new_player)
             self.return_players()
         elif section_players == '0':
             self.view.display_return_menu()
@@ -143,7 +144,8 @@ class Controller:
                 'tournament_description': self.view.input_tournament_description(),
                 'tournament_match_id': []
             }
-            self.tournament.add_tournament_in_class(tournament)
+            self.data_base.new_tournament = self.tournament.add_tournament_in_class(tournament)
+            self.data_base.lst_tournamentsobj.append(self.data_base.new_tournament)
 
             self.tournament_menu()
         elif section_tournaments == '0':

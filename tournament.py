@@ -67,7 +67,7 @@ class Tournament:
     def create_tournament_index(self, lst_tournamentsobj):
         return int(len(lst_tournamentsobj)) + 1
 
-    def add_tournament_in_class(self, kwargs_tournament, lst_tournamentsobj):
+    def add_tournament_in_class(self, kwargs_tournament):
         for key, value in kwargs_tournament.items():
             setattr(self, key, value)
         new_tournament = Tournament(tournament_index=kwargs_tournament['tournament_index'],
@@ -79,4 +79,5 @@ class Tournament:
                                     tournament_ctl_time=kwargs_tournament['tournament_ctl_time'],
                                     tournament_description=kwargs_tournament['tournament_description'],
                                     tournament_match_id=kwargs_tournament['tournament_match_id'])
-        lst_tournamentsobj.append(new_tournament)
+        # lst_tournamentsobj.append(new_tournament)
+        return new_tournament

@@ -24,6 +24,8 @@ class DB:
         self.player_in_instance = []
         self.nbr_players_by_list = 0
         self.new_match = None
+        self.new_tournament = None
+        self.new_player = None
 
     @staticmethod
     def TinyDBDropTables():
