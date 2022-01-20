@@ -22,29 +22,19 @@ class Tournament:
     # def __repr__(self):
     # return f"Tournament: {self.tournament_name} {self.tournament_location} {self.tournament_date}"
 
-    # 2. Section Tournois :
-    # def select_tournament(self, lst_tournamentsobj, find_id, id):
-    #     """Déclaration des variables pour la selection de tournois"""
-    #     for selection in lst_tournamentsobj:
-    #         if selection.tournament_index == int(find_id):
-    #             id = selection
-    #            return selection
     def create_lst_players_obj_sorted_by_id(self, lst_playersobj):
+        """Liste des joueurs classés par ID"""
         lst_players_obj_sorted_by_id = sorted(lst_playersobj, key=lambda x: x.player_index,
                                               reverse=False)
         return lst_players_obj_sorted_by_id
 
     def search_tournament_player(self, lst_players_obj_sorted_by_id, id):
-        # Création d'une variable avec la liste des ID et liste des joueurs du Tournois
+        """Recherche des joueurs par id pour ajout a "tournament_players" si joueur existant"""
         tournament_players = []
         selected_tournament_players_id = id.tournament_players_id
-        # Itération dans la liste des ID du Tournois
         for id in selected_tournament_players_id:
-            # Itération dans la liste des Joueurs
             for Player in lst_players_obj_sorted_by_id:
-                # Si l'ID de la liste correspond à l'ID d'un joueur de la Liste des objets joueurs
                 if id == Player.player_index:
-                    # ajout à la liste des Joueurs du Tournois
                     tournament_players.append(Player)
         return tournament_players
 

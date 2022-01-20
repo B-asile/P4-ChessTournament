@@ -1,2 +1,4 @@
 tinydb==4.5.2
-DateTime
+DateTime==4.3
+ordereddict==1.1
+setuptools==57.4.0

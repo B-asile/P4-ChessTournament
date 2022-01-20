@@ -1,9 +1,9 @@
 from controller import Controller
-from data_base import DB
+from models.data_base import DB
 from view import View
-from player import Player
-from tournament import Tournament
-from match import Match
+from models.player import Player
+from models.tournament import Tournament
+from models.match import Match
 
 
 def main():

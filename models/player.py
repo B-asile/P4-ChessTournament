@@ -17,10 +17,6 @@ class Player:
     # def __repr__(self):
         # return f"Player: {self.player_first_name} {self.player_last_name} [{self.player_rating}]"
 
-# FONCTIONS D'OPERATIONS :
-
-    # 1. Section Player :
-    # Pour afficher la liste des Joueurs par ordre alphabétique
     @staticmethod
     def player_sort_by_name(lst_playersobj):
         """Classer par Nom et Afficher la liste Joueurs de la BDD"""

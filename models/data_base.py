@@ -1,8 +1,7 @@
 from tinydb import TinyDB, Query
-from datetime import datetime
-from tournament import Tournament
-from player import Player
-from match import Match
+from models.tournament import Tournament
+from models.player import Player
+from models.match import Match
 
 
 class DB:
@@ -31,9 +30,11 @@ class DB:
     def TinyDBDropTables():
         DB.db.drop_tables()
 
-    # 1. Fonction Import données Saved BDD vers Mémoire Programme
     def load_tournaments(self):
-        """Fonction Import Tournois"""
+        """
+        1. Fonction Import données Saved BDD vers Mémoire Programme :
+        import des tournois.
+        """
         for kwargs_tournament in self.table_tournaments:
             data_tournament = Tournament(tournament_index=kwargs_tournament['tournament_index'],
                                          tournament_name=kwargs_tournament['tournament_name'],
@@ -72,18 +73,21 @@ class DB:
             self.lst_matchsobj.append(data_match)
         print(self.lst_matchsobj)
 
-    # 2. Fonction Sauvegarde des données vers BDD (écraser tout)
+    #
     def erase_tables(self):
-        """Fonction Suppression anciennes Tables pour nouvelle sauvegarde"""
+        """
+        2. Fonction Sauvegarde des données vers BDD :
+        Fonction Suppression anciennes Tables pour nouvelle sauvegarde
+        """
         self.db.drop_tables()
 
     def save_players(self):
-        """Fonction Sauvegarde Joueurs"""
+        """ Sauvegarde Joueurs"""
         for player in self.lst_playersobj:
             self.table_players.insert(player.__dict__)
 
     def save_tournaments(self):
-        """Fonction sauvegarde des tournois"""
+        """ sauvegarde des tournois"""
         for tournament in self.lst_tournamentsobj:
             self.table_tournaments.insert(tournament.__dict__)
 
