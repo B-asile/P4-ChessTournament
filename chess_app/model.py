@@ -1,9 +1,9 @@
 from operator import attrgetter
-from tournament import Tournament
-from player import Player
-from match import Match
+from chess_app.models.tournament import Tournament
+from chess_app.models.player import Player
+from chess_app.models.match import Match
 import datetime
-from data_base import DB
+from chess_app.models.data_base import DB
 from collections import OrderedDict
 
 class Model:
