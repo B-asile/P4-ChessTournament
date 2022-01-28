@@ -9,7 +9,7 @@ def main():
     game = Controller(my_view, my_model)
     my_view.set_controller(game)
     game.run()
-
+# test
 
 if __name__ == '__main__':
     main()
