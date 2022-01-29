@@ -41,7 +41,7 @@ class Controller:
         else:
             self.error()
 
-    #
+
     def end_run(self):
         """
         Fin du code : Sauvegarde de l'instance dans le JSON de la bdd
@@ -134,7 +134,8 @@ class Controller:
                 'tournament_location': self.view.input_tournament_location(),
                 'tournament_date': self.view.input_tournament_date(),
                 'tournament_nbr_round': self.view.input_tournament_nbr_round(),
-                'tournament_players_id': self.view.input_tournament_player_ids(self.player.player_sort_by_name(self.data_base.lst_playersobj)),
+                'tournament_players_id': self.view.input_tournament_player_ids(
+                    self.player.player_sort_by_name(self.data_base.lst_playersobj)),
                 'tournament_ctl_time': self.view.input_tournament_ctl_time(),
                 'tournament_description': self.view.input_tournament_description(),
                 'tournament_match_id': []
@@ -173,7 +174,8 @@ class Controller:
             self.tournament_menu()
         elif info_tournament == '5':
             self.view.display_start_new_tournament()
-            self.data_base.tournament_match_id_in_instance = self.match.tournament_match_id_instanced(self.data_base.id)
+            self.data_base.tournament_match_id_in_instance = self.match.tournament_match_id_instanced(
+                self.data_base.id)
             self.view.nbr_round_before(self.data_base.tournament_match_id_in_instance)
             if str(int((len(self.data_base.tournament_match_id_in_instance)) / 4)) == str(
                     self.data_base.id.tournament_nbr_round):
@@ -187,12 +189,12 @@ class Controller:
                 self.data_base.nbr_players_by_list = self.match.create_nbr_players_by_list(
                     self.data_base.tournament_players)
                 self.data_base.list1, self.data_base.list2 = self.match.match2lists_creation(
-                                                self.data_base.nbr_players_by_list,
-                                                self.data_base.tournament_match_id_in_instance,
-                                                self.data_base.lst_players_obj_sorted_by_id,
-                                                self.data_base.id,
-                                                self.data_base.lst_matchsobj,
-                                                self.data_base.tournament_players)
+                    self.data_base.nbr_players_by_list,
+                    self.data_base.tournament_match_id_in_instance,
+                    self.data_base.lst_players_obj_sorted_by_id,
+                    self.data_base.id,
+                    self.data_base.lst_matchsobj,
+                    self.data_base.tournament_players)
 
                 for i in range(self.data_base.nbr_players_by_list):
                     self.view.display_current_match(self.data_base.list1[i], self.data_base.list2[i])

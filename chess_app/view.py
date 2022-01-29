@@ -4,10 +4,10 @@ import datetime
 class View:
 
     def __init__(self):
-        self.controller = None
+        self.game_control = None
 
-    def set_controller(self, controller):
-        self.controller = controller
+    def set_controller(self, game_control):
+        self.game_control = game_control
 
     @staticmethod
     def display_start():
@@ -94,7 +94,7 @@ class View:
                 print("Oops, veuillez saisir un nombre\n")
 
     def display_new_player(self):
-        print(self.controller.newplayer)
+        print(self.game_control.newplayer)
 
     @staticmethod
     def display_return_menu():
@@ -131,7 +131,7 @@ class View:
                 tournament_id = int(tournament_id)
                 if tournament_id not in tournament_lst_id:
                     raise ValueError
-            except:
+            except ValueError:
                 tournament_id = None
                 print("Oops!!! Tournoi inexistant recommencez la saisie\n")
         return tournament_id
@@ -168,7 +168,7 @@ class View:
                      "\n- Time Control: " + str(id.tournament_ctl_time) + "\n")
 
     def display_players_in_tournament_name(self):
-        print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.controller.id.tournament_name)
+        print('PARTICIPANTS (Classement par nom) pour le Tournois: ' + self.game_control.id.tournament_name)
 
     def display_tournament_player_by_name(self, list_of_player):
         print('PARTICIPANTS (Classement par Noms)')
@@ -255,7 +255,7 @@ class View:
                         raise ValueError()
                     if player_id in lst:
                         raise ValueError()
-                except:
+                except ValueError:
                     player_id = None
                     print("Oops! id inexistant ou déjà utilisé \n veuillez recommencer la saisie \n")
                 else:
@@ -269,9 +269,12 @@ class View:
             user_select = input("1 - Pour sélectionner un bullet\n"
                                 "2 - Pour sélectionner un blitz\n"
                                 "3 - Pour sélectionner un coup rapide\n")
-            if user_select == '1': return 'BULLET'
-            if user_select == '2': return 'BLITZ'
-            if user_select == '3': return 'COUP RAPIDE'
+            if user_select == '1':
+                return 'BULLET'
+            if user_select == '2':
+                return 'BLITZ'
+            if user_select == '3':
+                return 'COUP RAPIDE'
             print("Saisie incorrecte, entrez 1,2 ou 3")
 
     @staticmethod
@@ -292,9 +295,12 @@ class View:
     def input_player_score(player_name):
         while True:
             score = float(input("entrez le score du joueur " + str(player_name) + " :"))
-            if int(score) == 0: return score
-            if str(score) == "0.5": return score
-            if str(score) == "1.0": return score
+            if int(score) == 0:
+                return score
+            if str(score) == "0.5":
+                return score
+            if str(score) == "1.0":
+                return score
             print("mauvaise saisie, entrez: 0, 0.5, 1")
 
     @staticmethod
