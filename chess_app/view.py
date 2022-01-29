@@ -58,7 +58,7 @@ class View:
 
     @staticmethod
     def input_player_age():
-        """gestion erreurs entrées utilisateur pour saisie age_player"""
+        """Gestion erreurs entrées utilisateur pour saisie age_player"""
         player_age = None
         while not player_age:
             player_age = input("saisir l'age du joueur\n"
@@ -72,7 +72,7 @@ class View:
 
     @staticmethod
     def input_player_date_of_birth():
-        """gestion entrées utilisateur formatage de date"""
+        """Gestion entré utilisateur formatage de date"""
         while True:
             try:
                 return str(datetime.datetime.strptime(input("saisir la date de naissance du joueur\n"
@@ -126,7 +126,7 @@ class View:
         tournament_lst_id = [tournament.tournament_index for tournament in lst_tournamentobj]
         tournament_id = None
         while not tournament_id:
-            tournament_id = input("Entrez l'id du Tournois à sélectionner" + str(tournament_id) + " : ")
+            tournament_id = input("Entrez l'id du Tournois à sélectionner: ")
             try:
                 tournament_id = int(tournament_id)
                 if tournament_id not in tournament_lst_id:
@@ -237,7 +237,6 @@ class View:
     def input_tournament_description():
         return input("ajoutez une description du tournoi \n")
 
-    # Pour créer un nouveau Tournois
     def input_tournament_player_ids(self, list_of_player):
         ''' Entrés utilisateur et gestion des erreurs input pour selection des id joueur création de tournois'''
         print("Selection des Joueurs du Tournois \n")
