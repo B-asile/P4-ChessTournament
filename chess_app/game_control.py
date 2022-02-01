@@ -214,13 +214,15 @@ class Controller:
                                                        self.data_base.list1, self.data_base.list2,
                                                        self.data_base.new_match)
 
-                print(self.data_base.lst_matchsobj)
+                # print(self.data_base.lst_matchsobj)
                 self.data_base.id.tournament_match_id = self.data_base.tournament_match_id_in_instance
                 self.tournament_menu()
 
         elif info_tournament == '0':
             self.main_menu()
 
+        else:
+            self.error()
 
     def error(self):
         """Message et Action suite mauvaise Saisie"""

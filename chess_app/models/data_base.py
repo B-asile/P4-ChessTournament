@@ -47,7 +47,6 @@ class DB:
                                          tournament_description=kwargs_tournament['tournament_description'],
                                          tournament_match_id=kwargs_tournament['tournament_match_id'])
             self.lst_tournamentsobj.append(data_tournament)
-        print(self.lst_tournamentsobj)
 
     def load_players(self):
         """Fonction Import Joueurs"""
@@ -61,7 +60,6 @@ class DB:
                                  player_rating=kwargs_player['player_rating'],
                                  player_score=kwargs_player['player_score'])
             self.lst_playersobj.append(data_player)
-        print(self.lst_playersobj)
 
     def load_matchs(self):
         """Fonction import des matchs"""
@@ -72,7 +70,6 @@ class DB:
                                match_player2=kwargs_match['match_player2'],
                                match_score2=kwargs_match['match_score2'], )
             self.lst_matchsobj.append(data_match)
-        print(self.lst_matchsobj)
 
 
     def erase_tables(self):

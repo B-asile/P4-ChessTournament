@@ -37,10 +37,6 @@ class Match:
           """
         player_in_instance = []
 
-        # new_match = None
-        # list1 = []
-        # list2 = []
-
         if int((len(tournament_match_id_in_instance) / 4)) == 0:
             player_in_instance = tournament_players
             self.player_in_instance_sorted = sorted(player_in_instance,
@@ -51,7 +47,6 @@ class Match:
         else:
             for index in id.tournament_players_id:
                 for Player in lst_players_obj_sorted_by_id:
-                    # print(Player)
                     if index == Player.player_index:
                         player_in_instance.append(Player)
             for Player in player_in_instance:
