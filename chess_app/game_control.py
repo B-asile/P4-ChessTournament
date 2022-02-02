@@ -8,7 +8,6 @@ class Controller:
         self.match = match
         self.player_in_instance_sorted = []
 
-
     def run(self):
         """
         Début du code : 1-création d'une instance à partir du JSON de la BDD
@@ -21,7 +20,6 @@ class Controller:
         self.data_base.load_players()
         self.data_base.load_matchs()
         self.main_menu()
-
 
     def main_menu(self):
         """
@@ -41,14 +39,12 @@ class Controller:
         else:
             self.error()
 
-
     def end_run(self):
         """
         Fin du code : Sauvegarde de l'instance dans le JSON de la bdd
         1. Supprimer puis Sauvegarder les nouvelles BDD
         2. Sauvegarde Tournois, joueurs, matchs.
         """
-
         self.data_base.erase_tables()
         self.view.display_save_DB()
         self.data_base.save_tournaments()
@@ -56,7 +52,6 @@ class Controller:
         self.data_base.save_matchs()
         self.view.display_end()
         exit()
-
 
     def player_menu(self):
         """
@@ -101,7 +96,6 @@ class Controller:
             self.main_menu()
         else:
             self.error()
-
 
     def tournament_menu(self):
         """ Choix dans la Section Tournois

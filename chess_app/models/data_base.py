@@ -71,7 +71,6 @@ class DB:
                                match_score2=kwargs_match['match_score2'], )
             self.lst_matchsobj.append(data_match)
 
-
     def erase_tables(self):
         """
         2. Fonction Sauvegarde des données vers BDD :

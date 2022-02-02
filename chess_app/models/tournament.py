@@ -19,7 +19,6 @@ class Tournament:
     def __str__(self):
         return f"Tournament: {self.tournament_name} {self.tournament_location} {self.tournament_date}"
 
-
     def create_lst_players_obj_sorted_by_id(self, lst_playersobj):
         """Liste des joueurs classés par ID"""
         lst_players_obj_sorted_by_id = sorted(lst_playersobj, key=lambda x: x.player_index,

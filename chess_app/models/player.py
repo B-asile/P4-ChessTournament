@@ -14,7 +14,6 @@ class Player:
     def __str__(self):
         return f" {self.player_first_name} {self.player_last_name}"
 
-
     @staticmethod
     def player_sort_by_name(lst_playersobj):
         """Classer par Nom et Afficher la liste Joueurs de la BDD"""
