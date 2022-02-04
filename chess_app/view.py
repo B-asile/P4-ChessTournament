@@ -122,7 +122,6 @@ class View:
         print('\n')
 
     def input_find_id(self, lst_tournamentobj):
-        # return int(input("ID du Tournois à selectionner"))
         tournament_lst_id = [tournament.tournament_index for tournament in lst_tournamentobj]
         tournament_id = None
         while not tournament_id:
@@ -142,6 +141,21 @@ class View:
     def display_happen_in_tournament(self, id):
         print("Déroulement du tournois " + id.tournament_name)
         print("Nombre de round : " + str(id.tournament_nbr_round))
+        print("résultats des match:")
+
+    def display_tournament_infos(self, id, lst_players_obj_sorted_by_id, lst_matchsobj):
+        players_in_tournament = []
+        for index in id.tournament_players_id:
+            for Player in lst_players_obj_sorted_by_id:
+                if index == Player.player_index:
+                    players_in_tournament.append(Player)
+        for Player in players_in_tournament:
+            for matchs_tournament in id.tournament_match_id:
+                for old_match in lst_matchsobj:
+                    if str(Player) == str(old_match.match_player1) and matchs_tournament == old_match.match_id:
+                        print("joueur 1: " + str(old_match.match_player1) + " -score: " + str(
+                            old_match.match_score1) + "/ joueur 2:" + str(
+                            old_match.match_player2) + " -score:" + str(old_match.match_score2))
 
     def display_round_for_match(self, round):
         print('Matchs du round ' + str(round + 1))

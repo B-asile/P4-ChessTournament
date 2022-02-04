@@ -165,6 +165,9 @@ class Controller:
             self.tournament_menu()
         elif info_tournament == '4':
             self.view.display_happen_in_tournament(self.data_base.id)
+            self.view.display_tournament_infos(self.data_base.id,
+                                               self.data_base.lst_players_obj_sorted_by_id,
+                                               self.data_base.lst_matchsobj)
             self.tournament_menu()
         elif info_tournament == '5':
             self.view.display_start_new_tournament()
