@@ -20,6 +20,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-# plusieurs print présents dans match, database et game control
-# Au début de match indication a supprimer : ID des participants: []
-# Section de Tournois non fonctionnelle :  4 - Liste des Rounds, Matchs et Classement du Tournois

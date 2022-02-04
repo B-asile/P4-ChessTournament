@@ -140,8 +140,8 @@ class View:
         print("Vous avez selectionné le Tournois: " + id.tournament_name + '\n')
 
     def display_happen_in_tournament(self, id):
-        print('Déroulement du tournois ' + id.tournament_name)
-        print('Nombre de round : ' + str(id.tournament_nbr_round))
+        print("Déroulement du tournois " + id.tournament_name)
+        print("Nombre de round : " + str(id.tournament_nbr_round))
 
     def display_round_for_match(self, round):
         print('Matchs du round ' + str(round + 1))
